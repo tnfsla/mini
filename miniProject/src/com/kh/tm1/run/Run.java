@@ -1,3 +1,4 @@
+
 package com.kh.tm1.run;
 
 import com.kh.tm1.controller.asdasd11;
@@ -10,7 +11,7 @@ public class Run {
 		System.out.println("TEST!!!");
 		
 		asdasd11 a = new asdasd11();
-		System.out.println("¤¾¤·¤¾¤·");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
 	}
 
