@@ -9,6 +9,8 @@ public class Run {
 		System.out.println("TEST");
 		System.out.println("TEST!!!");
 
+		System.out.println("Astasdt");
+		
 	}
 
 }
