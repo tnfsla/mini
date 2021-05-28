@@ -8,10 +8,8 @@ public class Run {
 	public static void main(String[] args) {
 		// TODO Auto-g enerated method stub
 		System.out.println("TEST");
-		System.out.println("TEST!!!");
-		
-		asdasd11 a = new asdasd11();
-		System.out.println("��������");
+		System.out.println("modify");
+		System.out.println("2021-05-29");
 
 	}
 
