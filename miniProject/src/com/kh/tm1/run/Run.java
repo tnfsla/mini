@@ -3,7 +3,9 @@ package com.kh.tm1.run;
 public class Run {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		// TODO Auto-g enerated method stub
+		System.out.println("TEST");
+		System.out.println("TEST!!!");
 
 	}
 
