@@ -6,6 +6,7 @@ public class Run {
 		// TODO Auto-generated method stub
 		System.out.println("hello");
 		System.out.println("김태훈");
+		System.out.println("최용석");
 	}
 
 }
