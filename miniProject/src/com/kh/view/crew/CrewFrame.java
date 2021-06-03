@@ -1,4 +1,4 @@
-package com.kh.view;
+package com.kh.view.crew;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

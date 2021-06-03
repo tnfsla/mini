@@ -12,4 +12,17 @@ public class CrewDao {
 	public CrewDao() {
 		crewList = new ArrayList<Crew>();
 	}
+	
+	// 생성된 크루들 읽어오기
+	public void loadCrewList() {
+		
+	}
+	
+	// 크루 정보 저장하기
+	public void saveCrewList() {
+		
+	}
+	
+	// 특정 크루 선택하기 
+	public Crew selectCrew()
 }

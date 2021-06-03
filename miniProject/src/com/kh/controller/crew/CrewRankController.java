@@ -1,4 +1,4 @@
-package com.kh.controller;
+package com.kh.controller.crew;
 
 import com.kh.model.dao.CrewDao;
 

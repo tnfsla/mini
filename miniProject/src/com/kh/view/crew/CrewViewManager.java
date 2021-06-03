@@ -1,4 +1,4 @@
-package com.kh.view;
+package com.kh.view.crew;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
