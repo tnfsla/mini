@@ -28,13 +28,13 @@ public class Login {
 					int passId = line.indexOf(id);
 					int passPw = line.indexOf(pw);
 					if (passId != -1 && passPw != -1) {
-						System.out.println("로그인 성공");
+						System.out.println("濡쒓렇�씤 �꽦怨�");
 						pass = 1;
 					}
 					
 					}
 				if (pass == 0) {
-					System.out.println("로그인 실패");
+					System.out.println("濡쒓렇�씤 �떎�뙣");
 					bufReader.close();
 				}
 			} catch (IOException e) {
@@ -43,7 +43,7 @@ public class Login {
 			}
 		} catch (FileNotFoundException e) {
 
-			e.printStackTrace();
+			e.printStackTrace();//sdflksdj
 		}
 
 	}
