@@ -1,4 +1,4 @@
-package com.kh.view;
+package com.kh.view.crew;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.kh.controller.CrewControllerManager;
+import com.kh.controller.crew.CrewControllerManager;
 
 public class CrewViewManager {
 

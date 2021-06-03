@@ -1,4 +1,4 @@
-package com.kh.view;
+package com.kh.view.crew;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,20 +7,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.kh.controller.CrewController;
+import com.kh.controller.crew.CrewCreateController;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CrewFrame extends JFrame {
+public class CrewCreateFrame extends JFrame {
 
 	private CrewViewManager crewManager;
 	
-	private CrewController crewController;
+	private CrewCreateController createController;
 
 	private JPanel contentPane;
 
-	public CrewFrame() {
+	public CrewCreateFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 360, 600);
 		contentPane = new JPanel();
@@ -28,36 +28,36 @@ public class CrewFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnNewButton = new JButton("크루 랭킹");
+		JButton btnNewButton = new JButton("완료");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crewManager.convertFrame("rank"); // rank 페이지로
+				crewManager.convertFrame("main"); // main page로
 			}
 		});
-		btnNewButton.setBounds(55, 188, 234, 147);
+		btnNewButton.setBounds(235, 20, 97, 23);
 		contentPane.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("홈");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crewManager.convertFrame("main"); // main 페이지로
+				crewManager.convertFrame("main"); // main page로
 			}
 		});
-		btnNewButton_1.setBounds(118, 528, 97, 23);
+		btnNewButton_1.setBounds(131, 528, 97, 23);
 		contentPane.add(btnNewButton_1);
 	}
 
-	public CrewFrame(CrewViewManager crewManager, CrewController crewController) {
+	public CrewCreateFrame(CrewViewManager crewManager, CrewCreateController createController) {
 		this();
 		this.crewManager = crewManager;
-		this.crewController = crewController;
+		this.createController = createController;
 	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrewFrame frame = new CrewFrame();
+					CrewCreateFrame frame = new CrewCreateFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
