@@ -1,53 +1,44 @@
 package com.kh.view.crew;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import com.kh.controller.crew.CrewCreateController;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class CrewCreateFrame extends JFrame {
+public class CrewCreatePanel extends JPanel {
 
 	private CrewViewManager crewManager;
 	
 	private CrewCreateController createController;
 
-	private JPanel contentPane;
-
-	public CrewCreateFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 360, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	public CrewCreatePanel() {
+		setBounds(0, 0, 360, 600);
+		setLayout(null);
 
 		JButton btnNewButton = new JButton("완료");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crewManager.convertFrame("main"); // main page로
+				crewManager.convertPanel("main"); // main page로
 			}
 		});
 		btnNewButton.setBounds(235, 20, 97, 23);
-		contentPane.add(btnNewButton);
+		add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("홈");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crewManager.convertFrame("main"); // main page로
+				crewManager.convertPanel("main"); // main page로
 			}
 		});
 		btnNewButton_1.setBounds(131, 528, 97, 23);
-		contentPane.add(btnNewButton_1);
+		add(btnNewButton_1);
 	}
 
-	public CrewCreateFrame(CrewViewManager crewManager, CrewCreateController createController) {
+	public CrewCreatePanel(CrewViewManager crewManager, CrewCreateController createController) {
 		this();
 		this.crewManager = crewManager;
 		this.createController = createController;
@@ -57,8 +48,8 @@ public class CrewCreateFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CrewCreateFrame frame = new CrewCreateFrame();
-					frame.setVisible(true);
+					CrewCreatePanel panel = new CrewCreatePanel();
+					panel.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

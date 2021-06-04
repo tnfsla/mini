@@ -8,77 +8,105 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.kh.controller.crew.CrewControllerManager;
 
 public class CrewViewManager {
 
-	private JFrame mainFrame; // 메인 - 시작 page
-	private CrewCreateFrame createFrame; // 크루 만들기 page
-	private CrewFrame crewFrame; // 특정 크루 page
-	private CrewRankFrame rankFrame; // 특정 크루 랭킹 page
+	private JPanel mainPanel; // 메인 - 시작 page
+	private CrewCreatePanel createPanel; // 크루 만들기 page
+	private CrewPanel crewPanel; // 특정 크루 page
+	private CrewRankPanel rankPanel; // 특정 크루 랭킹 page
 
-	private Map<String, JFrame> frameMap; // 프레임 전환을 위하여 map 사용
-	
+	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+
 	private CrewControllerManager controllerManager; // 메인 controller
 
 	public CrewViewManager() {
 		initialize();
-		initFrame();
+		initPanel();
 	}
 
-	// 프레임 객체 생성 및 컨트롤러 이어주기
-	private void initFrame() {
+	// 패널 객체 생성 및 컨트롤러 이어주기
+	private void initPanel() {
 		controllerManager = new CrewControllerManager();
-		
-		createFrame = new CrewCreateFrame(this, controllerManager.getCrewCreateController());
-		crewFrame = new CrewFrame(this, controllerManager.getCrewController());
-		rankFrame = new CrewRankFrame(this, controllerManager.getCrewController().getCrewRankController());
-		
-		frameMap = new LinkedHashMap<String, JFrame>(); 
+
+		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
+		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
+		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
+
+		panelMap = new LinkedHashMap<String, JPanel>();
 		// frameMap에 crew에서 쓰이는 frame들 다 넣어둠
-		frameMap.put("main", mainFrame);
-		frameMap.put("create", createFrame);
-		frameMap.put("crew", crewFrame);
-		frameMap.put("rank", rankFrame);
+		panelMap.put("main", mainPanel);
+		panelMap.put("create", createPanel);
+		panelMap.put("crew", crewPanel);
+		panelMap.put("rank", rankPanel);
 	}
 
-	// 프레임 전환 메소드
-	// frameMap에서 해당 frame을 찾아 setVisible true 후 나머지는 다 false로 변경
-	public void convertFrame(String frameName) {
-		
+	// 패널 전환 메소드
+	// panelMap에서 해당 panel을 찾아 setVisible true 후 나머지는 다 false로 변경
+	public void convertPanel(String panelName) {
+
 		// 모든 frame setVisible false로 하기
-		for (String key : frameMap.keySet()) {
-			frameMap.get(key).setVisible(false);
+		for (String key : panelMap.keySet()) {
+			JPanel panel = panelMap.get(key);
+
+			panel.setVisible(false);
 		}
-		
-		frameMap.get(frameName).setVisible(true);
+
+		panelMap.get(panelName).setVisible(true);
+
+	}
+
+	// 특정 프레임에 패널들 다 넣어주는 메소드
+	public void addPanels(JFrame frame) {
+		for (String key : panelMap.keySet()) {
+			JPanel panel = panelMap.get(key);
+			panel.setVisible(false);
+
+			frame.add(panel);
+		}
 	}
 
 	private void initialize() {
 
-		mainFrame = new JFrame();
-		mainFrame.setBounds(100, 100, 360, 600);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.getContentPane().setLayout(null);
+		mainPanel = new JPanel();
+		mainPanel.setBounds(0, 0, 360, 600);
+		mainPanel.setLayout(null);
 
 		JButton btnNewButton = new JButton("크루 만들기");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertFrame("create"); // 크루 만들기 page로
+				convertPanel("create"); // 크루 만들기 page로
 			}
 		});
 		btnNewButton.setBounds(79, 31, 182, 87);
-		mainFrame.getContentPane().add(btnNewButton);
+		mainPanel.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("특정 크루");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertFrame("crew"); // 특정 크루 page로
+				convertPanel("crew"); // 특정 크루 page로
 			}
 		});
 		btnNewButton_1.setBounds(39, 272, 262, 100);
-		mainFrame.getContentPane().add(btnNewButton_1);
+		mainPanel.add(btnNewButton_1);
+	}
+
+	public void test() {
+		// 테스트 용
+		CrewViewManager crewViewManager = new CrewViewManager();
+
+		JFrame frame = new JFrame();
+
+		frame.setBounds(100, 100, 360, 600);
+		frame.setLayout(null);
+		crewViewManager.addPanels(frame);
+//				frame.pack(); // 이거 안먹힘
+		crewViewManager.convertPanel("main");
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public static void main(String[] args) {
@@ -86,11 +114,13 @@ public class CrewViewManager {
 			public void run() {
 				try {
 					CrewViewManager window = new CrewViewManager();
-					window.mainFrame.setVisible(true);
+					window.mainPanel.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
+//		test();
 	}
 }
