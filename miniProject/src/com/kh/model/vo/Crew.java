@@ -18,7 +18,7 @@ public class Crew implements Serializable {
 		userList = new ArrayList<User>();
 	}
 
-	public Crew(String crewName, User crewMaster, String crewContents) {
+	public Crew(String crewName, String crewContents, User crewMaster) {
 		this();
 		this.crewName = crewName;
 //		this.crewMasterName = crewMasterName;
