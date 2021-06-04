@@ -106,10 +106,10 @@ public class CrewDao {
 	public static void main(String[] args) {
 		CrewDao dao = new CrewDao();
 
-		dao.addCrew(new Crew("런데이1", "런데이장4"));
-		dao.addCrew(new Crew("런데이2", "런데이장3"));
-		dao.addCrew(new Crew("런데이3", "런데이장2"));
-		dao.addCrew(new Crew("런데이4", "런데이장1"));		
+		dao.addCrew(new Crew("런데이1", "런데이장4", "런데이 화이팅1"));
+		dao.addCrew(new Crew("런데이2", "런데이장3", "런데이 화이팅3"));
+		dao.addCrew(new Crew("런데이3", "런데이장2", "런데이 화이팅2"));
+		dao.addCrew(new Crew("런데이4", "런데이장1", "런데이 화이팅4"));		
 		dao.printCrewList();
 		System.out.println();
 		
