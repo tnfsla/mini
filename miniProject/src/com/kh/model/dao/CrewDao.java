@@ -105,13 +105,13 @@ public class CrewDao {
 
 	// 테스트용 실행 메소드
 	public static void main(String[] args) {
-		CrewDao dao = new CrewDao();
-		User user = new User("김태훈", 1231, 123, 123, '남', false, false);
 		
-		dao.addCrew(new Crew("런데이1", "런데이장4", user));
-		dao.addCrew(new Crew("런데이2", "런데이장3", user));
-		dao.addCrew(new Crew("런데이3", "런데이장2", user));
-		dao.addCrew(new Crew("런데이4", "런데이장1", user));		
+		CrewDao dao = new CrewDao();
+		
+		dao.addCrew(new Crew("런데이1", "런데이좋아요4", "런데이마스터1"));
+		dao.addCrew(new Crew("런데이2", "런데이좋아요3", "런데이마스터2"));
+		dao.addCrew(new Crew("런데이3", "런데이좋아요2", "런데이마스터3"));
+		dao.addCrew(new Crew("런데이4", "런데이좋아요1", "런데이마스터4"));		
 		dao.printCrewList();
 		System.out.println();
 		
