@@ -1,13 +1,13 @@
 package com.kh.run;
 
+import com.kh.view.result.ResultMainView;
+
 public class Run {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println("hello");
-
-
-		System.out.println("최용석");
+	
+		new ResultMainView().CalendarMain();
 	}
 
 }
