@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import com.kh.model.vo.Crew;
+import com.kh.model.vo.User;
 
 // 크루리스트를 가지고 있는 CrewDao
 public class CrewDao {
@@ -105,11 +106,12 @@ public class CrewDao {
 	// 테스트용 실행 메소드
 	public static void main(String[] args) {
 		CrewDao dao = new CrewDao();
-
-		dao.addCrew(new Crew("런데이1", "런데이장4", "런데이 화이팅1"));
-		dao.addCrew(new Crew("런데이2", "런데이장3", "런데이 화이팅3"));
-		dao.addCrew(new Crew("런데이3", "런데이장2", "런데이 화이팅2"));
-		dao.addCrew(new Crew("런데이4", "런데이장1", "런데이 화이팅4"));		
+		User user = new User("김태훈", 1231, 123, 123, '남', false, false);
+		
+		dao.addCrew(new Crew("런데이1", "런데이장4", user));
+		dao.addCrew(new Crew("런데이2", "런데이장3", user));
+		dao.addCrew(new Crew("런데이3", "런데이장2", user));
+		dao.addCrew(new Crew("런데이4", "런데이장1", user));		
 		dao.printCrewList();
 		System.out.println();
 		
