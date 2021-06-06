@@ -3,10 +3,12 @@ package com.kh.view.crew;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.kh.controller.crew.CrewControllerManager;
+import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 
 public class CrewViewManager {
@@ -34,16 +37,64 @@ public class CrewViewManager {
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
 	private CrewControllerManager controllerManager; // 메인 controller
+
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+
+	private JLabel lblCrewName1;
+
+	private JLabel lblCrewCount1;
+
+	private JLabel lblCrewName2;
+
+	private JLabel lblCrewCount2;
+
+	private JLabel lblCrewName3;
+
+	private JLabel lblCrewCount3;
+
+	private JButton btnCreatePage;
+
+	private JButton btnCrewPage1;
+
+	private JButton btnCrewPage2;
+
+	private JButton btnCrewPage3;
+
+	private JButton btnCrewCreateCancel;
 
 	public CrewViewManager(User user) {
 		this.user = user;
 		initialize();
 		initPanel();
+
+		controllerManager.loadCrewList(); // 저장된 크루 정보 읽어오기
+		setPanel();
+
+		updateCrewJoinState(); // 크루 가입 상태에 따라 처리하는 메소드
 	}
 
-	public User getUser() {
-		return user;
+	// 읽어온 크루 정보로 페널 세팅하기
+	private void setPanel() {
+		ArrayList<Crew> crewList = controllerManager.getCrewDao().getCrewList();
+
+		Crew crew = null;
+		if (crewList.size() >= 1) {
+			crew = crewList.get(0);
+			lblCrewName1.setText(crew.getCrewName());
+			lblCrewCount1.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+		}
+
+		if (crewList.size() >= 2) {
+			crew = crewList.get(1);
+			lblCrewName2.setText(crew.getCrewName());
+			lblCrewCount2.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+		}
+
+		if (crewList.size() >= 3) {
+			crew = crewList.get(2);
+			lblCrewName3.setText(crew.getCrewName());
+			lblCrewCount3.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+		}
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
@@ -87,17 +138,61 @@ public class CrewViewManager {
 		}
 	}
 
+	// 크루 가입 상태 세팅하기
+	public void updateCrewJoinState() {
+		// 크루 미가입 상태
+		if (user.getCrewName() == null) {
+			System.out.println("현재 유저 크루 미가입 상태");
+			
+			btnCrewCreateCancel.setVisible(false);
+
+			btnCreatePage.setText("크루 만들기");
+			btnCreatePage.setEnabled(true);
+
+			btnCrewPage1.setEnabled(true);
+			btnCrewPage2.setEnabled(true);
+			btnCrewPage3.setEnabled(true);
+
+			return;
+		}
+
+		// 크루 만들기 상태 (가입 상태)이나 크루 승인이 나지 않은 경우
+		if (controllerManager.selectCrew(user.getCrewName()).isAccept() == false) {
+			System.out.println("현재 유저 크루 만들기 상태 승인 안남");
+			
+			btnCrewCreateCancel.setVisible(true);
+
+			btnCreatePage.setText("크루 승인을 요청하고 있습니다.");
+			btnCreatePage.setEnabled(false);
+
+			btnCrewPage1.setEnabled(false);
+			btnCrewPage2.setEnabled(false);
+			btnCrewPage3.setEnabled(false);
+
+			return;
+		}
+
+		// 크루 가입 상태
+		// 해당 크루로 이동
+		System.out.println("현재 유저 크루 가입 상태");
+		crewPanel.setCrew(controllerManager.selectCrew(user.getCrewName()));
+		System.out.println("크루 이동");
+		convertPanel("crew");
+	}
+
 	private void initialize() {
 
 		mainPanel = new JPanel();
-		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
+		mainPanel.setBackground(Color.GRAY);
 		mainPanel.setBounds(0, 0, 360, 600);
 		mainPanel.setLayout(null);
 
-		JButton btnCreatePage = new JButton("크루 만들기");
+		btnCreatePage = new JButton("크루 만들기");
 		btnCreatePage.setContentAreaFilled(false);
 		btnCreatePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				createPanel.initPanel();
 				convertPanel("create"); // 크루 만들기 page로
 			}
 		});
@@ -123,23 +218,28 @@ public class CrewViewManager {
 		crewItemPanel1.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblCrewName = new JLabel("KH");
-		lblCrewName.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName.setBounds(60, 10, 80, 30);
-		panel.add(lblCrewName);
+		lblCrewName1 = new JLabel("크루명");
+		lblCrewName1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblCrewName1.setBounds(60, 10, 80, 30);
+		panel.add(lblCrewName1);
 
-		JLabel lblCrewCount1 = new JLabel("100 명");
+		lblCrewCount1 = new JLabel("0 명");
 		lblCrewCount1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount1.setBounds(180, 10, 70, 30);
 		panel.add(lblCrewCount1);
 
-		JButton btnCrewPage1 = new JButton("");
+		btnCrewPage1 = new JButton("");
 		btnCrewPage1.setContentAreaFilled(false);
 		btnCrewPage1.addMouseListener(new MouseAdapter() {
 		});
 		btnCrewPage1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("crew");
+				if (!lblCrewName1.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
+					crewPanel.setCrew(crew);
+					System.out.println("크루 이동 : " + crew);
+					convertPanel("crew");
+				}
 			}
 		});
 		btnCrewPage1.setBounds(0, 0, 280, 55);
@@ -155,20 +255,30 @@ public class CrewViewManager {
 		panel_1.setBounds(0, 0, 280, 55);
 		crewItemPanel2.add(panel_1);
 
-		JLabel lblCrewName2 = new JLabel("크루명");
+		lblCrewName2 = new JLabel("크루명");
 		lblCrewName2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCrewName2.setBounds(60, 10, 80, 30);
 		panel_1.add(lblCrewName2);
 
-		JLabel lblCrewCount2 = new JLabel("15 명");
+		lblCrewCount2 = new JLabel("0 명");
 		lblCrewCount2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount2.setBounds(180, 10, 70, 30);
 		panel_1.add(lblCrewCount2);
 
-		JButton btnCrewPage2 = new JButton("");
+		btnCrewPage2 = new JButton("");
 		btnCrewPage2.setContentAreaFilled(false);
 		btnCrewPage2.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCrewPage2.setBounds(0, 0, 280, 55);
+		btnCrewPage2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!lblCrewName2.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
+					crewPanel.setCrew(crew);
+					System.out.println("크루 이동 : " + crew);
+					convertPanel("crew");
+				}
+			}
+		});
 		panel_1.add(btnCrewPage2);
 
 		JPanel crewItemPanel3 = new JPanel();
@@ -180,20 +290,30 @@ public class CrewViewManager {
 		panel_2.setBounds(0, 0, 280, 55);
 		crewItemPanel3.add(panel_2);
 
-		JLabel lblCrewName3 = new JLabel("크루명");
+		lblCrewName3 = new JLabel("크루명");
 		lblCrewName3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCrewName3.setBounds(60, 10, 80, 30);
 		panel_2.add(lblCrewName3);
 
-		JLabel lblCrewCount3 = new JLabel("6021 명");
+		lblCrewCount3 = new JLabel("0 명");
 		lblCrewCount3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount3.setBounds(180, 10, 70, 30);
 		panel_2.add(lblCrewCount3);
 
-		JButton btnCrewPage3 = new JButton("");
+		btnCrewPage3 = new JButton("");
 		btnCrewPage3.setContentAreaFilled(false);
 		btnCrewPage3.setHorizontalAlignment(SwingConstants.LEFT);
 		btnCrewPage3.setBounds(0, 0, 280, 55);
+		btnCrewPage3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!lblCrewName3.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
+					crewPanel.setCrew(crew);
+					System.out.println("크루 이동 : " + crew);
+					convertPanel("crew");
+				}
+			}
+		});
 		panel_2.add(btnCrewPage3);
 
 		JPanel footerPanel = new JPanel();
@@ -205,7 +325,9 @@ public class CrewViewManager {
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
 				convertPanel("main");
+				updateCrewJoinState();
 			}
 		});
 		footerPanel.add(lblHome);
@@ -239,17 +361,41 @@ public class CrewViewManager {
 
 		rdbtnCrew3.setSelected(true);
 
+		btnCrewCreateCancel = new JButton("만들기 해제");
+		btnCrewCreateCancel.setVisible(false);
+		btnCrewCreateCancel.setContentAreaFilled(false);
+		btnCrewCreateCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controllerManager.removeCrew(user.getCrewName());
+				user.setCrewName(null); // 다시 미가입 상태로 변경
+
+				updateCrewJoinState();
+			}
+		});
+		btnCrewCreateCancel.setBounds(215, 37, 120, 23);
+		mainPanel.add(btnCrewCreateCancel);
+
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public CrewPanel getCrewPanel() {
+		return crewPanel;
 	}
 
 	public static void test() {
-		User user = new User("김태훈", 31, 170, 85, '남', false);
+		User user = new User("김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
+//		User user = new User("문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)
+//		User user = new User("최용석", 20, 100, 50, '남', false); // 크루 가입한 유저
 
 		// 테스트 용
 		CrewViewManager crewViewManager = new CrewViewManager(user);
 
 		JFrame frame = new JFrame();
 
-		frame.setBounds(100, 100, 360, 630);
+		frame.setBounds(0, 0, 376, 639);
 		frame.getContentPane().setLayout(null);
 		crewViewManager.addPanels(frame);
 //				frame.pack(); // 이거 안먹힘
@@ -259,17 +405,6 @@ public class CrewViewManager {
 	}
 
 	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CrewViewManager window = new CrewViewManager();
-//					window.mainPanel.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-
 		test();
 	}
 }

@@ -64,10 +64,15 @@ public class Crew implements Serializable {
 	public void setUserList(ArrayList<User> userList) {
 		this.userList = userList;
 	}
+	
+	// 크루 인원 수 반환
+	public int getCrewUserSize() {
+		return userList.size(); 
+	}
 
 	@Override
 	public String toString() {
-		return "Crew [crewName=" + crewName + ", crewMasterName=" + crewMasterName + ", userList=" + userList + ", isAccept="
+		return "Crew [crewName=" + crewName + ", crewMasterName=" + crewMasterName + ", userNum=" + userList.size() + ", isAccept="
 				+ isAccept + "]";
 	}
 
