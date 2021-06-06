@@ -19,8 +19,33 @@ public class CrewDao {
 
 	private static final String CREW_FILEPATH = "./resources/crewList.dat";
 
-	public CrewDao() {
+	public CrewDao(User user) {
 		crewList = new ArrayList<Crew>();
+
+		loadCrewList(); // 저장된 크루 리스트 읽어오기
+
+		updateUser(user);
+	}
+
+	// 로그인 또는 회원가입을 하여 객체 생성된 유저를 crew의 UserList에 해당 유저가 있다면
+	// 객체가 2개가 되므로 같은 객체로 유지할 수 있도록 바꿔주기
+	private void updateUser(User user) {
+		// 미가입 상태이면 업데이트 제외
+		if (user.getCrewName() == null) {
+			return;
+		}
+
+		for (Crew crew : crewList) {
+			ArrayList<User> userList = crew.getUserList();
+			for (int i = 0; i < userList.size(); i++) {
+				// 해당 유저를 크루에서 찾으면 읽어온 객체가 아닌 생성된 객체로 변경
+				if (userList.get(i).getName().equals(user.getName())) {
+					userList.remove(i); // 읽어온 객체는 지워버리고
+					userList.add(user); // 생성한 객체를 넣어줌
+					return;
+				}
+			}
+		}
 	}
 
 	// crewList 반환
@@ -105,20 +130,22 @@ public class CrewDao {
 
 	// 테스트용 실행 메소드
 	public static void main(String[] args) {
-		CrewDao dao = new CrewDao();
-		User user = new User("김태훈", 1231, 123, 123, '남', false, false);
-		
-		dao.addCrew(new Crew("런데이1", "런데이장4", user));
-		dao.addCrew(new Crew("런데이2", "런데이장3", user));
-		dao.addCrew(new Crew("런데이3", "런데이장2", user));
-		dao.addCrew(new Crew("런데이4", "런데이장1", user));		
+
+		User user = new User("김태훈", 31, 170, 85, '남', false);
+
+		CrewDao dao = new CrewDao(user);
+
+		dao.addCrew(new Crew("런데이1", "런데이좋아요4", "런데이마스터1"));
+		dao.addCrew(new Crew("런데이2", "런데이좋아요3", "런데이마스터2"));
+		dao.addCrew(new Crew("런데이3", "런데이좋아요2", "런데이마스터3"));
+		dao.addCrew(new Crew("런데이4", "런데이좋아요1", "런데이마스터4"));
 		dao.printCrewList();
 		System.out.println();
-		
+
 		dao.removeCrew("런데이3");
 		dao.printCrewList();
 		System.out.println();
-		
+
 		dao.saveCrewList();
 
 		dao.loadCrewList();

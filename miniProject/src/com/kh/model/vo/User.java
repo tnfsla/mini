@@ -16,11 +16,11 @@ public class User implements Serializable {
 	private double weight;
 	private char gender;
 	private boolean hasBedge; // 미션 달성 여부
-	private boolean hasCrew; // 크루 가입 여부
+	private String crewName; // 크루 가입 여부 가입시 가입한 크루이름, 미가입시 null
 
 	
 
-	public User(String name, int age, double height, double weight, char gender, boolean hasBedge, boolean hasCrew) {
+	public User(String name, int age, double height, double weight, char gender, boolean hasBedge) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -28,7 +28,7 @@ public class User implements Serializable {
 		this.weight = weight;
 		this.gender = gender;
 		this.hasBedge = hasBedge;
-		this.hasCrew = hasCrew;
+		this.crewName = null;
 	}
 
 	public String getName() {
@@ -79,12 +79,12 @@ public class User implements Serializable {
 		this.hasBedge = hasBedge;
 	}
 
-	public boolean isHasCrew() {
-		return hasCrew;
+	public String getCrewName() {
+		return crewName;
 	}
 
-	public void setHasCrew(boolean hasCrew) {
-		this.hasCrew = hasCrew;
+	public void setCrewName(String crewName) {
+		this.crewName = crewName;
 	}
 	
 
