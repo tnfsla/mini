@@ -1,8 +1,12 @@
 package com.kh.model.vo;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Formatter;
 
-public class Exercise {
+public class Exercise implements Serializable {
 
 	private Calendar dates; // 기록했던 날짜
 	private int runHour; // GUI 작업을 위한 시 변수
@@ -103,4 +107,14 @@ public class Exercise {
 		this.star = star;
 	}
 
+	// test용
+	@Override
+	public String toString() {
+		SimpleDateFormat dtf = new SimpleDateFormat("yyyy.MM.dd");
+		
+		
+		return "dates : " + dtf.format(dates.getTime()) + ", runTime : " + String.format("%4d", runTime) 
+				+ ", distance : " + String.format("%.1f", distance) + ", calorie : " + String.format("%.1f", calorie)
+				+ ", pace : " + String.format("%.1f", pace) + ", star : " + star;
+	}
 }
