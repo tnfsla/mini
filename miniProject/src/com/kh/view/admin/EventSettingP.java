@@ -60,7 +60,7 @@ public class EventSettingP extends JPanel {
 		JButton btnNewButton = new JButton("이전");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				avm.convertPanel("main"); // 크루 만들기 page로
+				avm.convertPanel("main"); // 크루 만들기 page로 
 			}
 		});
 		btnNewButton.setBounds(29, 478, 113, 39);

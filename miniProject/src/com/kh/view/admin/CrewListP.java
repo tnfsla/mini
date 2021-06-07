@@ -36,7 +36,7 @@ public class CrewListP extends JPanel {
 		JButton btnNewButton = new JButton("조회");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {//
 			}
 		});
 		btnNewButton.setBounds(168, 459, 113, 39);

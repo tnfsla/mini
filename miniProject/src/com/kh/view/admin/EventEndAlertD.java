@@ -48,7 +48,7 @@ public class EventEndAlertD extends JDialog {
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
-			JPanel buttonPane = new JPanel();
+			JPanel buttonPane = new JPanel();//
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{

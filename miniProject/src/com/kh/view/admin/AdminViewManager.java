@@ -109,7 +109,7 @@ public class AdminViewManager {
 				convertPanel("pendingApproval"); // 크루 만들기 page로
 			}
 		});
-		mainPanel.add(btnNewButton_1_1);
+		mainPanel.add(btnNewButton_1_1);//
 		
 		JButton btnNewButton_1_1_1 = new JButton("전체 크루 명단");
 		btnNewButton_1_1_1.addActionListener(new ActionListener() {
