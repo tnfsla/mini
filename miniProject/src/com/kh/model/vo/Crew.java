@@ -66,7 +66,7 @@ public class Crew implements Serializable {
 	}
 	
 	// 크루 인원 수 반환
-	public int getCrewUserSize() {
+	public int getCrewUserCount() {
 		return userList.size(); 
 	}
 
