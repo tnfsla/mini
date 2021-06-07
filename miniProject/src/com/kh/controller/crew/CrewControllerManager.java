@@ -1,6 +1,7 @@
 package com.kh.controller.crew;
 
 import com.kh.model.dao.CrewDao;
+import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 
 // Crew part MainController
@@ -32,4 +33,15 @@ public class CrewControllerManager {
 		return crewController;
 	}
 
+	public Crew selectCrew(String crewName) {
+		return crewDao.selectCrew(crewName);
+	}
+
+	public void loadCrewList() {
+		crewDao.loadCrewList();
+	}
+
+	public void removeCrew(String crewName) {
+		crewDao.removeCrew(crewName);
+	}
 }
