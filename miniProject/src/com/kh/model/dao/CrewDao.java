@@ -49,6 +49,7 @@ public class CrewDao {
 				if (userList.get(i).getName().equals(user.getName())) {
 					userList.remove(i); // 읽어온 객체는 지워버리고
 					userList.add(user); // 생성한 객체를 넣어줌
+					System.out.println("update user");
 					return;
 				}
 			}
@@ -154,27 +155,16 @@ public class CrewDao {
 	// 테스트 데이터 만드는 메소드
 	private static void createTest(Calendar cal, Random random, ArrayList<Exercise> exercises, User user, CrewDao dao) {
 		
-		// User data 랜덤하게 생성
-		cal = Calendar.getInstance();
-		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
-		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
-		
-		cal = Calendar.getInstance();
-		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
-		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
-		
-		cal = Calendar.getInstance();
-		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
-		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
-		user.setExercises(exercises);
-		
+		// Crew 생성
 		Crew crew = new Crew("KH", "KH 정보 교육원 (강남)", "문대훈");
 		crew.setAccept(true);
-		ArrayList<User> userList = new ArrayList<>();
-		userList.add(user);
 		
+		// User data 세팅
+		ArrayList<User> userList = new ArrayList<>();
+		/////////////////////////////////////////////////////////////////////////////////
 		userList.add(new User("최용석", 20, 100, 50, '남', false));
 		exercises = new ArrayList<Exercise>();
+		
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
@@ -187,8 +177,11 @@ public class CrewDao {
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));		userList.get(userList.size() - 1).setExercises(exercises);
 		
+		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////
 		userList.add(new User("문대훈", 20, 100, 50, '남', false));
 		exercises = new ArrayList<Exercise>();
+		
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
@@ -201,8 +194,11 @@ public class CrewDao {
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));		userList.get(userList.size() - 1).setExercises(exercises);
 
+		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////		
 		userList.add(new User("서민지", 20, 100, 50, '여', false));
 		exercises = new ArrayList<Exercise>();
+		
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
@@ -215,9 +211,11 @@ public class CrewDao {
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));		userList.get(userList.size() - 1).setExercises(exercises);
 		
-		
+		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////		
 		userList.add(new User("최선호", 20, 100, 50, '여', false));
 		exercises = new ArrayList<Exercise>();
+		
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
@@ -230,8 +228,25 @@ public class CrewDao {
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));		userList.get(userList.size() - 1).setExercises(exercises);
 		
-		// 빈 데이터에 대한 처리
+		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////
 		userList.add(new User("유기용", 20, 100, 50, '남', false));
+		exercises = new ArrayList<Exercise>();
+		
+		cal = Calendar.getInstance();
+		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+		
+		cal = Calendar.getInstance();
+		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+		
+		cal = Calendar.getInstance();
+		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+		
+		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////
 		
 		crew.setUserList(userList);
 		dao.addCrew(crew);
@@ -239,8 +254,11 @@ public class CrewDao {
 		crew = new Crew("런데이", "런데이에 오신 것을 환영합니다.", "런데이");
 		crew.setAccept(true);
 		userList = new ArrayList<>();
+		
+		/////////////////////////////////////////////////////////////////////////////////
 		userList.add(new User("런데이", 99, 999, 99, '남', false));
 		exercises = new ArrayList<Exercise>();
+		
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
@@ -252,6 +270,7 @@ public class CrewDao {
 		cal = Calendar.getInstance();
 		cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
 		exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20, random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));		userList.get(userList.size() - 1).setExercises(exercises);
+		/////////////////////////////////////////////////////////////////////////////////
 		
 		crew.setUserList(userList);
 		dao.addCrew(crew);
@@ -268,7 +287,6 @@ public class CrewDao {
 		CrewDao dao = new CrewDao(user);
 
 //		createTest(cal, random, exercises, user, dao);
-
 //		dao.saveCrewList();
 		
 		dao.loadCrewList();

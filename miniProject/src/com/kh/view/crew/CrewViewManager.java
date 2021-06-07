@@ -385,6 +385,10 @@ public class CrewViewManager {
 		return crewPanel;
 	}
 
+	public CrewRankPanel getRankPanel() {
+		return rankPanel;
+	}
+	
 	public static void test() {
 		User user = new User("김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
 //		User user = new User("문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)

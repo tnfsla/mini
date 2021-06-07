@@ -32,25 +32,13 @@ public class CrewController {
 	}
 
 	public String getCrewDistance(Crew crew) {
-		double totalDistance = 0;
-
-		for (User user : crew.getUserList()) {
-			for (Exercise exercise : user.getExercises()) {
-				totalDistance += exercise.getDistance();
-			}
-		}
+		double totalDistance = crew.getTotalDistance();
 
 		return String.format("%.1f km", totalDistance);
 	}
 
 	public String getCrewTime(Crew crew) {
-		long totalTime = 0;
-
-		for (User user : crew.getUserList()) {
-			for (Exercise exercise : user.getExercises()) {
-				totalTime += exercise.getRunTime();
-			}
-		}
+		long totalTime = crew.getTotalTime();
 
 		long hour, min, sec;
 

@@ -140,7 +140,9 @@ public class CrewPanel extends JPanel {
 		panelCrewUserInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				crewManager.getRankPanel().setRank(crew);
 				crewManager.convertPanel("rank");
+				System.out.println("랭킹 이동");
 			}
 		});
 		panelCrewUserInfo.setBounds(94, 10, 155, 135);

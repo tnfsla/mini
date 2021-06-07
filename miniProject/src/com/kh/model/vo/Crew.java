@@ -76,4 +76,28 @@ public class Crew implements Serializable {
 				+ isAccept + "]";
 	}
 
+	public long getTotalTime() {
+		long totalRunTime = 0;
+		
+		for (User user : userList) {
+			for (Exercise exercise : user.getExercises()) {
+				totalRunTime += exercise.getRunTime();
+			}
+		}
+		
+		return totalRunTime;
+	}
+
+	public double getTotalDistance() {
+		double totalDistance = 0;
+		
+		for (User user : userList) {
+			for (Exercise exercise : user.getExercises()) {
+				totalDistance += exercise.getDistance();
+			}
+		}
+		
+		return totalDistance;
+	}
+
 }
