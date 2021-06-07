@@ -22,7 +22,7 @@ public class CrewDao {
 	public CrewDao(User user) {
 		crewList = new ArrayList<Crew>();
 
-		loadCrewList(); // 저장된 크루 리스트 읽어오기
+//		loadCrewList(); // 저장된 크루 리스트 읽어오기 중복으로 읽어오게됨 빼버리기
 
 		updateUser(user);
 	}
@@ -60,6 +60,7 @@ public class CrewDao {
 				return crew;
 			}
 		}
+		System.out.println("not found crew");
 		return null; // 못찾으면 null 반환
 	}
 
@@ -73,12 +74,27 @@ public class CrewDao {
 		Crew crew = selectCrew(crewName);
 
 		if (crew != null) {
+			System.out.println("crew removed : " + crew);
 			crewList.remove(crew);
 		}
 
 		return crew; // 못찾았으면 null 반환 찾고 지웠으면 지워진 크루 반환
 	}
 
+	// 크루 가입 따로 크루 리스트 확인 없이 바로 해당 크루에 user 추가
+	public void joinCrew(Crew crew, User user) {
+		user.setCrewName(crew.getCrewName()); // 해당 유저의 크루 가입 여부 표시
+		crew.getUserList().add(user);
+	}
+
+	// 크루 만들기
+	public void createCrew(String crewName, String crewContents, User crewMaster) {
+		Crew crew = new Crew(crewName, crewContents, crewMaster.getName());
+		addCrew(crew); // 크루 추가하기
+		crewMaster.setCrewName(crewName); // 유저에 크루 가입 확인하기
+		joinCrew(crew, crewMaster); // 크루장이지만 크루에 크루원으로 추가하기
+	}
+	
 	// 생성된 크루들 읽어오기
 	public void loadCrewList() {
 
@@ -135,20 +151,37 @@ public class CrewDao {
 
 		CrewDao dao = new CrewDao(user);
 
-		dao.addCrew(new Crew("런데이1", "런데이좋아요4", "런데이마스터1"));
-		dao.addCrew(new Crew("런데이2", "런데이좋아요3", "런데이마스터2"));
-		dao.addCrew(new Crew("런데이3", "런데이좋아요2", "런데이마스터3"));
-		dao.addCrew(new Crew("런데이4", "런데이좋아요1", "런데이마스터4"));
+//		Crew crew = new Crew("KH", "KH 정보 교육원 (강남)", "문대훈");
+//		crew.setAccept(true);
+//		ArrayList<User> userList = new ArrayList<>();
+//		userList.add(user);
+//		userList.add(new User("최용석", 20, 100, 50, '남', false));
+//		userList.add(new User("문대훈", 20, 100, 50, '남', false));
+//		userList.add(new User("서민지", 20, 100, 50, '여', false));
+//		userList.add(new User("최선호", 20, 100, 50, '여', false));
+//		userList.add(new User("유기용", 20, 100, 50, '남', false));
+//		crew.setUserList(userList);
+//		dao.addCrew(crew);
+//
+//		crew = new Crew("런데이", "런데이에 오신 것을 환영합니다.", "런데이");
+//		crew.setAccept(true);
+//		userList = new ArrayList<>();
+//		userList.add(new User("런데이", 99, 999, 99, '남', false));
+//		crew.setUserList(userList);
+//		dao.addCrew(crew);
+
 		dao.printCrewList();
 		System.out.println();
 
-		dao.removeCrew("런데이3");
-		dao.printCrewList();
-		System.out.println();
-
-		dao.saveCrewList();
-
-		dao.loadCrewList();
-		dao.printCrewList();
+//		dao.removeCrew("런데이3");
+//		dao.printCrewList();
+//		System.out.println();
+//
+//		dao.saveCrewList();
+//
+//		dao.loadCrewList();
+//		dao.printCrewList();
 	}
+
+
 }

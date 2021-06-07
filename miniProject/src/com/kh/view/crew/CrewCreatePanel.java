@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 
 public class CrewCreatePanel extends JPanel {
 
@@ -26,16 +27,25 @@ public class CrewCreatePanel extends JPanel {
 	private JTextField textFieldCrewName; // 크루명이 입력되는 텍스트필드
 	private JTextArea textAreaCrewContents; // 크루 소개가 입력되는 텍스트 에리어
 
-	public CrewCreatePanel() {
+	public CrewCreatePanel(CrewViewManager crewManager, CrewCreateController createController) {
+		setBorder(new EmptyBorder(0, 0, 0, 0));
+		this.crewManager = crewManager;
+		this.createController = createController;
+		initialize();
+	}
+	
+	// panel 초기 설정 crewManager, crewController 설정 후에 호출해야해서 initialize 메소드로 따로 뺌
+	private void initialize() {
 		setForeground(Color.BLACK);
-		setBackground(Color.WHITE);
+		setBackground(Color.GRAY);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
 		JButton btnCreateCrew = new JButton("완료");
 		btnCreateCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(), crewManager.getUser().getName());
+				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(), crewManager.getUser());
+				crewManager.updateCrewJoinState(); // 크루 가입 상태 업데이트
 				crewManager.convertPanel("main"); // main page로
 			}
 		});
@@ -88,28 +98,17 @@ public class CrewCreatePanel extends JPanel {
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
 				crewManager.convertPanel("main");
+				crewManager.updateCrewJoinState();
 			}
 		});
 		footerPanel.add(lblHome);
 	}
-
-	public CrewCreatePanel(CrewViewManager crewManager, CrewCreateController createController) {
-		this();
-		this.crewManager = crewManager;
-		this.createController = createController;
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrewCreatePanel panel = new CrewCreatePanel();
-					panel.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	// 패널 상태 초기화
+	public void initPanel() {
+		textFieldCrewName.setText("");
+		textAreaCrewContents.setText("내용을 입력해주세요");
 	}
 }
