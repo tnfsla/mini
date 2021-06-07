@@ -1,14 +1,10 @@
 package com.kh.model.vo;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class User implements Serializable {
-	
-	
+
 //public abstract class User  {//06.04(수)최용석
 	private String name;
 	private int age;
@@ -18,7 +14,7 @@ public class User implements Serializable {
 	private boolean hasBedge; // 미션 달성 여부
 	private String crewName; // 크루 가입 여부 가입시 가입한 크루이름, 미가입시 null
 
-	
+	private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
 	public User(String name, int age, double height, double weight, char gender, boolean hasBedge) {
 		super();
@@ -86,7 +82,17 @@ public class User implements Serializable {
 	public void setCrewName(String crewName) {
 		this.crewName = crewName;
 	}
-	
 
+	public ArrayList<Exercise> getExercises() {
+		return exercises;
+	}
+
+	public void setExercises(ArrayList<Exercise> exercises) {
+		this.exercises = exercises;
+	}
+
+	// 운동 기록 추가 메소드
+	public void addExercise(Exercise exercise) {
+		exercises.add(exercise);
+	}
 }
-
