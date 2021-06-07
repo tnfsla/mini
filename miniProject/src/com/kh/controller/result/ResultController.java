@@ -2,7 +2,7 @@ package com.kh.controller.result;
 
 import java.util.ArrayList;
 
-import com.kh.model.vo.Excercise;
+import com.kh.model.vo.Exercise;
 
 public class ResultController {
 
@@ -10,7 +10,7 @@ public class ResultController {
 		// TODO Auto-generated constructor stub
 	}
 
-	ArrayList<Excercise> exercises;
+	ArrayList<Exercise> exercises;
 
 	public int getTotalDistance() {
 

@@ -2,7 +2,7 @@ package com.kh.model.vo;
 
 import java.util.Calendar;
 
-public class Excercise {
+public class Exercise {
 
 	private Calendar dates; // 기록했던 날짜
 	private int runHour; // GUI 작업을 위한 시 변수
@@ -14,10 +14,10 @@ public class Excercise {
 	private double pace; // 페이스
 	private int star; // 별점 (1 ~ 5)
 
-	public Excercise() {
+	public Exercise() {
 	}
 
-	public Excercise(Calendar dates, int runHour, int runMin, int runSec, long runTime, double distance, double calorie,
+	public Exercise(Calendar dates, int runHour, int runMin, int runSec, long runTime, double distance, double calorie,
 			double pace, int star) {
 		super();
 		this.dates = dates;
