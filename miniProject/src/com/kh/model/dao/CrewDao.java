@@ -19,9 +19,13 @@ public class CrewDao {
 
 	private static final String CREW_FILEPATH = "./resources/crewList.dat";
 
-	public CrewDao(User user) {
+	public CrewDao() {
 		crewList = new ArrayList<Crew>();
-
+		
+	}
+	
+	public CrewDao(User user) {
+		this();
 //		loadCrewList(); // 저장된 크루 리스트 읽어오기 중복으로 읽어오게됨 빼버리기
 
 		updateUser(user);
