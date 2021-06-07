@@ -23,7 +23,7 @@ public class PendingApprovalP extends JPanel {
 	private JTable table;
 	private AdminViewManager avm;
 	private String crewName;
-	private ArrayList<Crew> crew = new ArrayList<Crew>(new CrewDao().getCrewList());
+//	private ArrayList<Crew> crew = new ArrayList<Crew>(new CrewDao().getCrewList());
 
 	/**
 	 * Create the panel.
@@ -85,10 +85,10 @@ public class PendingApprovalP extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				//crewName에 저장되어있는 것과 같은 crew의 isAccept를 true로 변환
-				for(int i = 0 ; i < crew.size(); i++) {
-					if(crew.get(i).getCrewName().equals(crewName))
-						crew.get(i).setAccept(true);
-				}
+//				for(int i = 0 ; i < crew.size(); i++) {
+//					if(crew.get(i).getCrewName().equals(crewName))
+//						crew.get(i).setAccept(true);
+//				}
 			}
 		});
 		btnNewButton_1.setBounds(182, 450, 113, 39);
