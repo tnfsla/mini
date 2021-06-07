@@ -36,9 +36,9 @@ public class AdminViewManager {
 //		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 //		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 //		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
-		crewList = new CrewListP();
-		eventSetting = new EventSettingP();
-		pendingApproval = new PendingApprovalP();
+		crewList = new CrewListP(this);
+		eventSetting = new EventSettingP(this);
+		pendingApproval = new PendingApprovalP(this);
 		eventAlert = new EventEndAlertD();
 		
 		panelMap = new LinkedHashMap<String, JPanel>();
