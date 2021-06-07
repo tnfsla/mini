@@ -1,6 +1,5 @@
 package com.kh.view.admin;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.kh.model.dao.CrewDao;
+
 public class AdminViewManager {
 
 	private JPanel mainPanel; // 메인 - 시작 page
@@ -19,7 +20,6 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private EventEndAlertD eventAlert; //이벤트 마감 알림 page
-
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
 //	private CrewControllerManager controllerManager; // 메인 controller

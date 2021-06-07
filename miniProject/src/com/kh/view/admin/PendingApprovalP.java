@@ -23,12 +23,17 @@ public class PendingApprovalP extends JPanel {
 	private JTable table;
 	private AdminViewManager avm;
 	private String crewName;
-//	private ArrayList<Crew> crew = new ArrayList<Crew>(new CrewDao().getCrewList());
+	private CrewDao crewDao;
+	private ArrayList<Crew> crew;
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public PendingApprovalP() {
+		crewDao.loadCrewList();
+		crew = new ArrayList<Crew>(crewDao.getCrewList());
+		System.out.println(crew.size());
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
@@ -36,7 +41,24 @@ public class PendingApprovalP extends JPanel {
 		scrollPane.setBounds(74, 141, 199, 177);
 		add(scrollPane);
 
-		table = new JTable();
+		String[] colNames = new String[] { "크루 명", "신청자 명" };
+		String[] rows = new String[2];
+		DefaultTableModel model = new DefaultTableModel(colNames, 0);
+		for (int i = 0; i < crew.size(); i++) {
+			for (int j = 0; j < 2; j++) {
+				if (!crew.get(i).isAccept()) {
+					if (j == 0) {
+						rows[j] = crew.get(i).getCrewName();
+					}else if(j==1) {
+						rows[j] = crew.get(i).getCrewMasterName();
+					}
+				}
+				model.addRow(rows);
+			}
+		}
+
+
+		table = new JTable(model);
 		table.setRowSelectionAllowed(false);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -47,22 +69,23 @@ public class PendingApprovalP extends JPanel {
 			}
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"\uD558\uB098", "\uBB38\uB300\uD6C8"},
-				{"\uB458", "\uC7AC\uBBF8"},
-			},
-			new String[] {
-				"\uD06C\uB8E8\uBA85", "\uC2E0\uCCAD\uC790"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Object.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{"\uD558\uB098", "\uBB38\uB300\uD6C8"},
+//
+//
+//			},
+//			new String[] {
+//				"크루 명", "신청자"
+//			}
+//		) {
+//			Class[] columnTypes = new Class[] {
+//				String.class, Object.class
+//			};
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//		});
 		scrollPane.setViewportView(table);
 
 		JLabel lblEvent = new JLabel("크루 승인 관리");
@@ -84,11 +107,11 @@ public class PendingApprovalP extends JPanel {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//crewName에 저장되어있는 것과 같은 crew의 isAccept를 true로 변환
-//				for(int i = 0 ; i < crew.size(); i++) {
-//					if(crew.get(i).getCrewName().equals(crewName))
-//						crew.get(i).setAccept(true);
-//				}
+				// crewName에 저장되어있는 것과 같은 crew의 isAccept를 true로 변환
+				for (int i = 0; i < crew.size(); i++) {
+					if (crew.get(i).getCrewName().equals(crewName))
+						crew.get(i).setAccept(true);
+				}
 			}
 		});
 		btnNewButton_1.setBounds(182, 450, 113, 39);

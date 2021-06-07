@@ -1,42 +1,46 @@
 package com.kh.view.admin;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-
 import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import com.kh.view.crew.CrewCreatePanel;
-
-import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import com.kh.model.dao.CrewDao;
+import com.kh.model.vo.Crew;
 
 public class CrewListP extends JPanel {
 	private AdminViewManager avm;
 	private JTable table;
 	private String crewName;
+	private CrewDao crewDao;
+	private ArrayList<Crew> crew;
 
 
 	/**
 	 * Create the panel.
 	 */
 	public CrewListP() {
+		crewDao.loadCrewList();
+		crew = new ArrayList<Crew>(crewDao.getCrewList());
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 		
 		JButton btnNewButton = new JButton("조회");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {//
+			public void mouseClicked(MouseEvent e) {// 정보 읽어오면 안의 사람 띄우기 
 			}
 		});
 		btnNewButton.setBounds(168, 459, 113, 39);
@@ -61,7 +65,23 @@ public class CrewListP extends JPanel {
 		scrollPane.setBounds(32, 134, 249, 302);
 		add(scrollPane);
 		
-		table = new JTable();
+		String[] colNames = new String[] {"No","크루 명","총 크루 인원" };
+		String[] rows = new String[3];
+		DefaultTableModel model = new DefaultTableModel(colNames, 0);
+		for (int i = 0; i < crew.size(); i++) {
+			for (int j = 0; j < 3 ; j++) {
+					if (j == 0) {
+						rows[j] = Integer.valueOf(i).toString(); // i번째
+					}else if(j==1) {
+						rows[j] = crew.get(i).getCrewName(); //크루명
+					}else if(j==2) {
+						rows[j] = Integer.valueOf(crew.get(i).getCrewUserSize()).toString(); // 전 인원수
+				}
+				model.addRow(rows);
+			}
+		}
+		
+		table = new JTable(model);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setRowSelectionAllowed(false);
 		table.addMouseListener(new MouseAdapter() {
@@ -72,27 +92,25 @@ public class CrewListP extends JPanel {
 				System.out.println(crewName);
 			}
 		});
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Integer(1), "\uD558\uB098", new Integer(50)},
-				{new Integer(2), "\uB450\uC6B8", new Integer(30)},
-			},
-			new String[] {
-				"No", "\uD074\uB7FD\uBA85", "\uD604\uC7AC\uD074\uB7FD\uC778\uC6D0"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, Object.class, Integer.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{new Integer(1), "\uD558\uB098", new Integer(50)},
+//				{new Integer(2), "\uB450\uC6B8", new Integer(30)},
+//			},
+//			new String[] {
+//				"No", "\uD074\uB7FD\uBA85", "\uD604\uC7AC\uD074\uB7FD\uC778\uC6D0"
+//			}
+//		) {
+//			Class[] columnTypes = new Class[] {
+//				Integer.class, Object.class, Integer.class
+//			};
+//			public Class getColumnClass(int columnIndex) {
+//				return columnTypes[columnIndex];
+//			}
+//		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(44);
 		table.getColumnModel().getColumn(2).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
-		
-	
 
 	}
 
