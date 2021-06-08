@@ -15,8 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.kh.controller.crew.CrewController;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
 
@@ -26,11 +28,13 @@ public class CrewListP extends JPanel {
 	private String crewName;
 	private CrewDao crewDao;
 	private ArrayList<Crew> crew;
+	private CrewController controller;
 
 
 	/**
 	 * Create the panel.
 	 */
+	
 	public CrewListP() {
 		crewDao.loadCrewList();
 		crew = new ArrayList<Crew>(crewDao.getCrewList());
@@ -75,7 +79,7 @@ public class CrewListP extends JPanel {
 					}else if(j==1) {
 						rows[j] = crew.get(i).getCrewName(); //크루명
 					}else if(j==2) {
-						rows[j] = Integer.valueOf(crew.get(i).getCrewUserSize()).toString(); // 전 인원수
+						rows[j] = Integer.valueOf(crew.get(i).getCrewUserCount()).toString(); // 전 인원수
 				}
 				model.addRow(rows);
 			}
@@ -112,6 +116,13 @@ public class CrewListP extends JPanel {
 		table.getColumnModel().getColumn(2).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
 
+	}
+	
+	public CrewListP(AdminViewManager avm, CrewController controller) {
+		this();
+		setBorder(new EmptyBorder(0, 0, 0, 0));
+		this.avm = avm;
+		this.controller = controller;
 	}
 
 	public CrewListP(AdminViewManager avm) {

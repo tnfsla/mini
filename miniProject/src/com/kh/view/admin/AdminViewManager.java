@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
 
 public class AdminViewManager {
@@ -21,12 +22,13 @@ public class AdminViewManager {
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private EventEndAlertD eventAlert; //이벤트 마감 알림 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-
-//	private CrewControllerManager controllerManager; // 메인 controller
+	private CrewControllerManager controllerManager;
 
 	public AdminViewManager() {
+		
 		initialize();
 		initPanel();
+		
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
@@ -36,7 +38,7 @@ public class AdminViewManager {
 //		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 //		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 //		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
-		crewList = new CrewListP(this);
+		crewList = new CrewListP(this, controllerManager.getCrewController());
 		eventSetting = new EventSettingP(this);
 		pendingApproval = new PendingApprovalP(this);
 		eventAlert = new EventEndAlertD();
