@@ -11,14 +11,15 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Timer;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.kh.controller.crew.CrewControllerManager;
-import com.kh.model.dao.CrewDao;
+import com.kh.controller.admin.ScheduledJob;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.crew.CrewViewManager;
@@ -28,38 +29,37 @@ public class AdminViewManager {
 	private User user;
 	private JPanel mainPanel; // 메인 - 시작 page
 	private ArrayList<Crew> crew;
-	private CrewListP crewList; //  크루 리스트 page
+	private CrewListP crewList; // 크루 리스트 page
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
-	private EventEndAlertD eventAlert; //이벤트 마감 알림 page
+	private EventEndAlertD eventAlert; // 이벤트 마감 알림 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-
 
 	public AdminViewManager(User user) {
 		this.user = user;
 		loadCrewList();
 		initialize();
 		initPanel();
-		
+
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
 	private void initPanel() {
-		
+
 //
 //		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 //		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 //		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
 		crewList = new CrewListP(this, crew);
 		eventSetting = new EventSettingP(this);
-		pendingApproval = new PendingApprovalP(this, crew);
+		pendingApproval = new PendingApprovalP(this, crew, crewList);
 		eventAlert = new EventEndAlertD();
-		
+
 		panelMap = new LinkedHashMap<String, JPanel>();
 		// frameMap에 crew에서 쓰이는 패널들 다 넣어둠
 		panelMap.put("main", mainPanel);
 		panelMap.put("list", crewList);
-		panelMap.put("eventSetting",eventSetting);
+		panelMap.put("eventSetting", eventSetting);
 		panelMap.put("pendingApproval", pendingApproval);
 //		panelMap.put("eventAlert", eventAlert); //패널이 아니어서 못넣음 새로운 방법 강구 프레임으로 쓰던지
 	}
@@ -100,21 +100,32 @@ public class AdminViewManager {
 		btnNewButton.setBounds(27, 83, 286, 96);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("eventSetting"); 
+				convertPanel("eventSetting");
 			}
 		});
 		mainPanel.add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("EVENT 마감");
 		btnNewButton_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		btnNewButton_1.setBounds(27, 189, 286, 96);
+
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("evnetAlert"); 
+				if (eventSetting.getEventGoal() != 0) {
+					EventEndAlertD dialog = new EventEndAlertD(eventSetting.getEventFlag(),
+							eventSetting.getEventGoal());
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					eventSetting.setEventFlag("");
+					eventSetting.setEventGoal(0);
+				} else {
+					System.out.println("이벤트 진행중이 아니다.");
+				}
 			}
-		}); //알럿은 알림이기때문에 아직 구현 안됨. 수정요망
+		}); // 알럿은 알림이기때문에 아직 구현 안됨. 수정요망
+
 		mainPanel.add(btnNewButton_1);
-		
+
 		JButton btnNewButton_1_1 = new JButton("크루 승인 관리");
 		btnNewButton_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		btnNewButton_1_1.setBounds(27, 295, 286, 96);
@@ -124,7 +135,7 @@ public class AdminViewManager {
 			}
 		});
 		mainPanel.add(btnNewButton_1_1);//
-		
+
 		JButton btnNewButton_1_1_1 = new JButton("전체 크루 명단");
 		btnNewButton_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -134,22 +145,22 @@ public class AdminViewManager {
 		btnNewButton_1_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		btnNewButton_1_1_1.setBounds(27, 401, 286, 96);
 		mainPanel.add(btnNewButton_1_1_1);
-		
+
 		JButton btnNewButton_2 = new JButton("종료");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
-		});//이전 로그인화면 아니면 종료로 구현
+		});// 이전 로그인화면 아니면 종료로 구현
 		btnNewButton_2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		btnNewButton_2.setBounds(216, 512, 97, 23);
 		mainPanel.add(btnNewButton_2);
-		
+
 		JLabel lblNewLabel = new JLabel("관리자 메뉴");
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
 		lblNewLabel.setBounds(104, 16, 128, 57);
 		mainPanel.add(lblNewLabel);
 	}
-	
+
 	public void loadCrewList() {
 
 		crew = new ArrayList<Crew>();
@@ -198,7 +209,17 @@ public class AdminViewManager {
 //				}
 //			}
 //		});
-		
+		ScheduledJob job = new ScheduledJob();
+		Timer jobScheduler = new Timer();
+		jobScheduler.scheduleAtFixedRate(job, 0, 1000);
+
+		try {
+			Thread.sleep(20000);
+		} catch (InterruptedException ex) {
+			//
+		}
+		jobScheduler.cancel();
+
 		test();
 	}
 }

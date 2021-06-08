@@ -16,8 +16,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import com.kh.controller.crew.CrewControllerManager;
-import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
 
 public class PendingApprovalP extends JPanel {
@@ -25,7 +23,7 @@ public class PendingApprovalP extends JPanel {
 	private AdminViewManager avm;
 	private String crewName;
 	private ArrayList<Crew> crew;
-
+	private CrewListP crewp;
 
 	/**
 	 * Create the panel.
@@ -47,16 +45,19 @@ public class PendingApprovalP extends JPanel {
 		String[] rows = new String[2];
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
 		for (int i = 0; i < crew.size(); i++) {
-			for (int j = 0; j < 2; j++) {
-				if (!crew.get(i).isAccept()) {
+			if (!crew.get(i).isAccept()) {
+				for (int j = 0; j < 2; j++) {
+
 					if (j == 0) {
 						rows[j] = crew.get(i).getCrewName();
 					} else if (j == 1) {
 						rows[j] = crew.get(i).getCrewMasterName();
 					}
 				}
+
 				model.addRow(rows);
 			}
+
 		}
 
 		table = new JTable(model);
@@ -109,9 +110,21 @@ public class PendingApprovalP extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// crewName에 저장되어있는 것과 같은 crew의 isAccept를 true로 변환
-				for (int i = 0; i < crew.size(); i++) {
-					if (crew.get(i).getCrewName().equals(crewName))
-						crew.get(i).setAccept(true);
+				ArrayList<Crew> pending = new ArrayList<Crew>();
+				for(int i = 0 ; i<crew.size(); i++) {
+					if(!crew.get(i).isAccept()) {
+						pending.add(crew.get(i));
+						
+					}
+				}
+				
+				for (int i = 0; i < pending.size(); i++) {
+					if (pending.get(i).getCrewName().equals(crewName)) {
+						pending.get(i).setAccept(true);
+						model.removeRow(i);
+						crewp.reFresh();
+					}
+					
 				}
 			}
 		});
@@ -123,10 +136,11 @@ public class PendingApprovalP extends JPanel {
 		add(lblNewLabel);
 	}
 
-	public PendingApprovalP(AdminViewManager avm, ArrayList<Crew> crew) {
+	public PendingApprovalP(AdminViewManager avm, ArrayList<Crew> crew, CrewListP crewList) {
 		this();
 		this.avm = avm;
 		this.crew = crew;
+		this.crewp = crewList;
 		initialize();
 	}
 }

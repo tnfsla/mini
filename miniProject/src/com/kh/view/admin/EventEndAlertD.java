@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EventEndAlertD extends JDialog {
 
@@ -31,13 +33,18 @@ public class EventEndAlertD extends JDialog {
 	 * Create the dialog.
 	 */
 	public EventEndAlertD() {
+		
+	}
+
+	public EventEndAlertD(String eventFlag, int eventGoal) {
 		setBounds(100, 100, 452, 188);
+		contentPanel.setLayout(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(null);
+		
 		{
-			JLabel lblNewLabel = new JLabel("진행중인 EVENT를 마감 하시겠습니까?");
+			JLabel lblNewLabel = new JLabel("진행중인 "+eventGoal+eventFlag+" 달리기를 마감 하시겠습니까?");
 			lblNewLabel.setBounds(26, 26, 375, 29);
 			lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 			contentPanel.add(lblNewLabel);
@@ -53,12 +60,24 @@ public class EventEndAlertD extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						dispose();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

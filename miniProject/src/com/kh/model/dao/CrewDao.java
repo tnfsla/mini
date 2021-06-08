@@ -252,7 +252,7 @@ public class CrewDao {
 		dao.addCrew(crew);
 
 		crew = new Crew("런데이", "런데이에 오신 것을 환영합니다.", "런데이");
-		crew.setAccept(true);
+		crew.setAccept(false);
 		userList = new ArrayList<>();
 		
 		/////////////////////////////////////////////////////////////////////////////////

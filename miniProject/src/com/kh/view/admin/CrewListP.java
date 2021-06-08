@@ -31,7 +31,7 @@ public class CrewListP extends JPanel {
 	private ArrayList<Crew> crew;
 	private CrewController controller;
 	private CrewControllerManager controllerManager;
-
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the panel.
@@ -46,16 +46,16 @@ public class CrewListP extends JPanel {
 	public void initialize() {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("조회");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {// 정보 읽어오면 안의 사람 띄우기 
+			public void mouseClicked(MouseEvent e) {// 정보 읽어오면 안의 사람 띄우기
 			}
 		});
 		btnNewButton.setBounds(168, 459, 113, 39);
 		add(btnNewButton);
-		
+
 		JButton btnNewButton_1 = new JButton("이전");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -64,33 +64,44 @@ public class CrewListP extends JPanel {
 		});
 		btnNewButton_1.setBounds(32, 459, 113, 39);
 		add(btnNewButton_1);
-		
+
 		JLabel lblEvent = new JLabel("전체 크루 명단");
 		lblEvent.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEvent.setFont(new Font("맑은 고딕", Font.BOLD, 30));
 		lblEvent.setBounds(24, 42, 257, 58);
 		add(lblEvent);
-		
-		JScrollPane scrollPane = new JScrollPane();
+
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(32, 134, 249, 302);
 		add(scrollPane);
 		
-		String[] colNames = new String[] {"No","크루 명","총 크루 인원" };
+		reFresh();
+
+		
+	}
+
+	public void reFresh() {
+		String[] colNames = new String[] { "No", "크루 명", "총 크루 인원" };
 		String[] rows = new String[3];
 		DefaultTableModel model = new DefaultTableModel(colNames, 0);
-		for (int i = 0; i < crew.size(); i++) {
-			for (int j = 0; j < 3 ; j++) {
-					if (j == 0) {
-						rows[j] = Integer.valueOf(i).toString(); // i번째
-					}else if(j==1) {
-						rows[j] = crew.get(i).getCrewName(); //크루명
-					}else if(j==2) {
-						rows[j] = Integer.valueOf(crew.get(i).getCrewUserCount()).toString(); // 전 인원수
-				}
-				model.addRow(rows);
-			}
-		}
 		
+		for (int i = 0; i < crew.size(); i++) {
+			if (crew.get(i).isAccept()) {
+				for (int j = 0; j < 3; j++) {
+					if (j == 0) {
+						rows[j] = Integer.valueOf(i + 1).toString(); // i번째
+					} else if (j == 1) {
+						rows[j] = crew.get(i).getCrewName(); // 크루명
+					} else if (j == 2) {
+						rows[j] = Integer.valueOf(crew.get(i).getCrewUserCount()).toString(); // 전 인원수
+					}
+
+				}
+			
+			model.addRow(rows);
+			}
+			System.out.println(rows[i]);
+		}
 		table = new JTable(model);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setRowSelectionAllowed(false);
@@ -98,6 +109,7 @@ public class CrewListP extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = table.getSelectedRow();
+				System.out.println(table.getSelectedRow());
 				crewName = (String) table.getModel().getValueAt(row, 1);
 				System.out.println(crewName);
 			}
@@ -120,21 +132,20 @@ public class CrewListP extends JPanel {
 //		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(44);
 		table.getColumnModel().getColumn(2).setPreferredWidth(95);
+		
 		scrollPane.setViewportView(table);
-
 	}
-	
+
 	public CrewListP() {
 		initialize();
 
 	}
-	
 
 	public CrewListP(AdminViewManager avm) {
 		this();
 		this.avm = avm;
 	}
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

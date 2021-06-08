@@ -3,7 +3,7 @@ package com.kh.model.vo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User extends SystemUser implements Serializable {
 
 //public abstract class User  {//06.04(수)최용석
 	private String name;
