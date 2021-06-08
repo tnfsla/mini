@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.kh.controller.crew.CrewController;
+import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
 
@@ -29,15 +30,20 @@ public class CrewListP extends JPanel {
 	private CrewDao crewDao;
 	private ArrayList<Crew> crew;
 	private CrewController controller;
+	private CrewControllerManager controllerManager;
 
 
 	/**
 	 * Create the panel.
 	 */
-	
-	public CrewListP() {
-		crewDao.loadCrewList();
-		crew = new ArrayList<Crew>(crewDao.getCrewList());
+	public CrewListP(AdminViewManager avm, ArrayList<Crew> crew) {
+		setBorder(new EmptyBorder(0, 0, 0, 0));
+		this.avm = avm;
+		this.crew = crew;
+		initialize();
+	}
+
+	public void initialize() {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 		
@@ -118,12 +124,11 @@ public class CrewListP extends JPanel {
 
 	}
 	
-	public CrewListP(AdminViewManager avm, CrewController controller) {
-		this();
-		setBorder(new EmptyBorder(0, 0, 0, 0));
-		this.avm = avm;
-		this.controller = controller;
+	public CrewListP() {
+		initialize();
+
 	}
+	
 
 	public CrewListP(AdminViewManager avm) {
 		this();
