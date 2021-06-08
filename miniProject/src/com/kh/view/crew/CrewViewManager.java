@@ -81,19 +81,19 @@ public class CrewViewManager {
 		if (crewList.size() >= 1) {
 			crew = crewList.get(0);
 			lblCrewName1.setText(crew.getCrewName());
-			lblCrewCount1.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+			lblCrewCount1.setText(String.valueOf(crew.getCrewUserCount()) + " 명");
 		}
 
 		if (crewList.size() >= 2) {
 			crew = crewList.get(1);
 			lblCrewName2.setText(crew.getCrewName());
-			lblCrewCount2.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+			lblCrewCount2.setText(String.valueOf(crew.getCrewUserCount()) + " 명");
 		}
 
 		if (crewList.size() >= 3) {
 			crew = crewList.get(2);
 			lblCrewName3.setText(crew.getCrewName());
-			lblCrewCount3.setText(String.valueOf(crew.getCrewUserSize()) + " 명");
+			lblCrewCount3.setText(String.valueOf(crew.getCrewUserCount()) + " 명");
 		}
 	}
 
@@ -272,7 +272,7 @@ public class CrewViewManager {
 		btnCrewPage2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!lblCrewName2.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
-					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
+					Crew crew = controllerManager.selectCrew(lblCrewName2.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
 					convertPanel("crew");
@@ -307,7 +307,7 @@ public class CrewViewManager {
 		btnCrewPage3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!lblCrewName3.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
-					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
+					Crew crew = controllerManager.selectCrew(lblCrewName3.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
 					convertPanel("crew");
@@ -385,6 +385,10 @@ public class CrewViewManager {
 		return crewPanel;
 	}
 
+	public CrewRankPanel getRankPanel() {
+		return rankPanel;
+	}
+	
 	public static void test() {
 		User user = new User("김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
 //		User user = new User("문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)

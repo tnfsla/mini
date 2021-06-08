@@ -57,7 +57,11 @@ public class CrewPanel extends JPanel {
 		
 		lblCrewName.setText(crew.getCrewName());
 		textAreaCrewContent.setText(crew.getCrewContents());
-		lblCrewUserCount.setText(String.valueOf(crew.getCrewUserSize()));
+		lblCrewUserCount.setText(String.valueOf(crew.getCrewUserCount()));
+		
+		lblCrewNum.setText(crewController.getCrewNum(crew));
+		lblCrewDistance.setText(crewController.getCrewDistance(crew));
+		lblCrewTime.setText(crewController.getCrewTime(crew));
 	}
 
 	public void setIsJoinCrew(boolean isJoinCrew) {
@@ -133,6 +137,14 @@ public class CrewPanel extends JPanel {
 		panelCrewInfo.setLayout(null);
 
 		JPanel panelCrewUserInfo = new JPanel();
+		panelCrewUserInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				crewManager.getRankPanel().setRank(crew);
+				crewManager.convertPanel("rank");
+				System.out.println("랭킹 이동");
+			}
+		});
 		panelCrewUserInfo.setBounds(94, 10, 155, 135);
 		panelCrewInfo.add(panelCrewUserInfo);
 		panelCrewUserInfo.setLayout(null);
@@ -159,15 +171,15 @@ public class CrewPanel extends JPanel {
 		JPanel panelShortInfo = new JPanel();
 		tabbedPane.addTab("요약", null, panelShortInfo, null);
 		panelShortInfo.setLayout(null);
-
-		textAreaNotJoinCrewInfo = new JTextArea();
-		textAreaNotJoinCrewInfo.setLineWrap(true);
-		textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
-		textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
-		textAreaNotJoinCrewInfo.setEditable(false);
-		textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
-		textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
-		panelShortInfo.add(textAreaNotJoinCrewInfo);
+		
+				textAreaNotJoinCrewInfo = new JTextArea();
+				textAreaNotJoinCrewInfo.setLineWrap(true);
+				textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
+				textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
+				textAreaNotJoinCrewInfo.setEditable(false);
+				textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
+				textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
+				panelShortInfo.add(textAreaNotJoinCrewInfo);
 
 		JPanel panelCrewInfoDistance = new JPanel();
 		panelCrewInfoDistance.setBounds(108, 0, 96, 107);

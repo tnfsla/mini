@@ -66,7 +66,7 @@ public class Crew implements Serializable {
 	}
 	
 	// 크루 인원 수 반환
-	public int getCrewUserSize() {
+	public int getCrewUserCount() {
 		return userList.size(); 
 	}
 
@@ -74,6 +74,30 @@ public class Crew implements Serializable {
 	public String toString() {
 		return "Crew [crewName=" + crewName + ", crewMasterName=" + crewMasterName + ", userNum=" + userList.size() + ", isAccept="
 				+ isAccept + "]";
+	}
+
+	public long getTotalTime() {
+		long totalRunTime = 0;
+		
+		for (User user : userList) {
+			for (Exercise exercise : user.getExercises()) {
+				totalRunTime += exercise.getRunTime();
+			}
+		}
+		
+		return totalRunTime;
+	}
+
+	public double getTotalDistance() {
+		double totalDistance = 0;
+		
+		for (User user : userList) {
+			for (Exercise exercise : user.getExercises()) {
+				totalDistance += exercise.getDistance();
+			}
+		}
+		
+		return totalDistance;
 	}
 
 }

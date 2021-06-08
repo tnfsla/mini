@@ -1,6 +1,7 @@
 package com.kh.view.crew;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,55 +13,23 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.kh.controller.crew.CrewRankController;
-import javax.swing.border.EmptyBorder;
+import com.kh.model.vo.Crew;
+import com.kh.model.vo.User;
 
 public class CrewRankPanel extends JPanel {
 
-	private final class DefaultTableModelExtension3 extends DefaultTableModel {
-		Class[] columnTypes = new Class[] { Integer.class };
-		boolean[] columnEditables = new boolean[] { false };
-
-		private DefaultTableModelExtension3(Object[][] data, Object[] columnNames) {
-			super(data, columnNames);
-		}
-
-		public Class getColumnClass(int columnIndex) {
-			return columnTypes[columnIndex];
-		}
-
-		public boolean isCellEditable(int row, int column) {
-			return columnEditables[column];
-		}
-	}
-
-	private final class DefaultTableModelExtension2 extends DefaultTableModel {
-		Class[] columnTypes = new Class[] { Integer.class, String.class, String.class };
-		boolean[] columnEditables = new boolean[] { false, false, false };
-
-		private DefaultTableModelExtension2(Object[][] data, Object[] columnNames) {
-			super(data, columnNames);
-		}
-
-		public Class getColumnClass(int columnIndex) {
-			return columnTypes[columnIndex];
-		}
-
-		public boolean isCellEditable(int row, int column) {
-			return columnEditables[column];
-		}
-	}
-
-	private final class DefaultTableModelExtension extends DefaultTableModel {
+	private class CrewRankTableModel extends DefaultTableModel {
 		Class[] columnTypes = new Class[] { Integer.class, String.class, String.class };
 
-		private DefaultTableModelExtension(Object[][] data, Object[] columnNames) {
+		private CrewRankTableModel(Object[][] data, Object[] columnNames) {
 			super(data, columnNames);
 		}
 
-		public Class getColumnClass(int columnIndex) {
+		public Class GetColumnClass(int columnIndex) {
 			return columnTypes[columnIndex];
 		}
 	}
@@ -68,9 +37,9 @@ public class CrewRankPanel extends JPanel {
 	private CrewViewManager crewManager;
 
 	private CrewRankController rankController;
-	private JTable table_2;
-	private JTable table;
-	private JTable table_1;
+	private JTable tableTotalCrewUser;
+	private JTable tableTopCrewUser;
+	private JTable tableCurCrewUser;
 
 	public CrewRankPanel() {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -83,24 +52,44 @@ public class CrewRankPanel extends JPanel {
 		this.rankController = rankController;
 	}
 
+	public void setRank(Crew crew) {
+		// 오름차순 asc, 내림차순 des
+		rankController.sortRankDistanceDES(crew.getUserList());
+		String[][] ranks = rankController.getRank(crew.getUserList());
+		String[][] myRank = rankController.getUserRank(crew.getUserList(), crewManager.getUser());
+
+		String[] columnNames = { "순위", "이름", "거리" };
+
+		String[][] topRanks = new String[3][3];
+		
+		for (int i = 0; i < topRanks.length; i++) {
+//			System.arraycopy(ranks[i], 0, topRanks[i], 0, topRanks[i].length); // 깊은 복사
+			topRanks[i] = ranks[i]; // 얕은 복사 둘다 바뀌면 같이 바뀌게 별차이는 없긴함
+		}
+		
+		tableTopCrewUser.setModel(new CrewRankTableModel(topRanks, columnNames));
+		tableTotalCrewUser.setModel(new CrewRankTableModel(ranks, columnNames));
+		tableCurCrewUser.setModel(new DefaultTableModel(myRank, new String[] { "내 순위" }));
+	}
+
 	// panel 초기 설정 crewManager, crewController 설정 후에 호출해야해서 initialize 메소드로 따로 뺌
 	private void initialize() {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		JButton btnNewButton = new JButton("뒤로가기");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCrewPageBack = new JButton("뒤로가기");
+		btnCrewPageBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 특정 crew 페이지로 다시 이동
 				crewManager.convertPanel("crew");
 			}
 		});
-		btnNewButton.setBounds(12, 10, 97, 23);
-		add(btnNewButton);
+		btnCrewPageBack.setBounds(12, 10, 97, 23);
+		add(btnCrewPageBack);
 
-		JLabel lblNewLabel = new JLabel("명예의 전당");
-		lblNewLabel.setBounds(117, 14, 75, 15);
-		add(lblNewLabel);
+		JLabel lblHallOfFame = new JLabel("명예의 전당");
+		lblHallOfFame.setBounds(117, 14, 75, 15);
+		add(lblHallOfFame);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -108,54 +97,72 @@ public class CrewRankPanel extends JPanel {
 		scrollPane.setBounds(22, 299, 313, 219);
 		add(scrollPane);
 
-		table_2 = new JTable();
-		table_2.setShowVerticalLines(false);
-		table_2.setModel(
-				new DefaultTableModelExtension(
+		tableTotalCrewUser = new JTable();
+		tableTotalCrewUser.setShowVerticalLines(false);
+		tableTotalCrewUser
+				.setModel(new DefaultTableModel(
 						new Object[][] { { null, null, null }, { null, null, null }, { null, null, null },
 								{ null, null, null }, { null, null, null }, },
-						new String[] { "\uC21C\uC704", "\uC774\uB984", "\uAC70\uB9AC" }));
-		table_2.getColumnModel().getColumn(0).setResizable(false);
-		table_2.getColumnModel().getColumn(0).setPreferredWidth(107);
-		table_2.getColumnModel().getColumn(1).setResizable(false);
-		table_2.getColumnModel().getColumn(1).setPreferredWidth(112);
-		table_2.getColumnModel().getColumn(2).setResizable(false);
-		table_2.getColumnModel().getColumn(2).setPreferredWidth(108);
-		scrollPane.setViewportView(table_2);
+						new String[] { "\uC21C\uC704", "\uC774\uB984", "\uAC70\uB9AC" }) {
+					Class[] columnTypes = new Class[] { Integer.class, String.class, String.class };
+
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+
+					boolean[] columnEditables = new boolean[] { false, false, false };
+
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+		scrollPane.setViewportView(tableTotalCrewUser);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(22, 55, 313, 230);
+
 		add(panel);
 		panel.setLayout(null);
 
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 10, 289, 103);
-		panel.add(scrollPane_1);
+		JScrollPane scrollPaneTopCrewUser = new JScrollPane();
+		scrollPaneTopCrewUser.setBounds(12, 10, 289, 103);
+		panel.add(scrollPaneTopCrewUser);
 
-		table = new JTable();
-		table.setShowVerticalLines(false);
-		table.setModel(new DefaultTableModelExtension2(
+		tableTopCrewUser = new JTable();
+		tableTopCrewUser.setFont(new Font("굴림", Font.PLAIN, 12));
+		tableTopCrewUser.setShowVerticalLines(false);
+		tableTopCrewUser.setModel(new DefaultTableModel(
 				new Object[][] { { null, null, null }, { null, null, null }, { null, null, null }, },
-				new String[] { "\uC21C\uC704", "\uC774\uB984", "\uAC70\uB9AC" }));
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		scrollPane_1.setViewportView(table);
+				new String[] { "\uC21C\uC704", "\uC774\uB984", "\uAC70\uB9AC" }) {
+			Class[] columnTypes = new Class[] { Integer.class, String.class, String.class };
 
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(12, 161, 289, 59);
-		panel.add(scrollPane_2);
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 
-		table_1 = new JTable();
-		table_1.setShowVerticalLines(false);
-		table_1.setModel(
-				new DefaultTableModelExtension3(new Object[][] { { null }, }, new String[] { "\uB0B4 \uC21C\uC704" }));
-		table_1.getColumnModel().getColumn(0).setResizable(false);
-		scrollPane_2.setViewportView(table_1);
+		scrollPaneTopCrewUser.setViewportView(tableTopCrewUser);
+
+		JScrollPane scrollPaneCurCrewUser = new JScrollPane();
+		scrollPaneCurCrewUser.setBounds(12, 161, 289, 59);
+		panel.add(scrollPaneCurCrewUser);
+
+		tableCurCrewUser = new JTable();
+		tableCurCrewUser.setShowVerticalLines(false);
+		tableCurCrewUser
+				.setModel(new DefaultTableModel(new Object[][] { { null }, }, new String[] { "\uB0B4 \uC21C\uC704" }) {
+					Class[] columnTypes = new Class[] { Integer.class };
+
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+				});
+		scrollPaneCurCrewUser.setViewportView(tableCurCrewUser);
 
 		JPanel footerPanel = new JPanel();
 		footerPanel.setBackground(Color.LIGHT_GRAY);
 		footerPanel.setBounds(0, 561, 360, 29);
+
 		add(footerPanel);
 
 		JLabel lblHome = new JLabel("Home");
