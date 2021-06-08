@@ -3,6 +3,12 @@ package com.kh.view.admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -11,34 +17,42 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
+import com.kh.model.vo.Crew;
+import com.kh.model.vo.User;
+import com.kh.view.crew.CrewViewManager;
 
 public class AdminViewManager {
 
+	private User user;
 	private JPanel mainPanel; // 메인 - 시작 page
+	private ArrayList<Crew> crew;
 	private CrewListP crewList; //  크루 리스트 page
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private EventEndAlertD eventAlert; //이벤트 마감 알림 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
-//	private CrewControllerManager controllerManager; // 메인 controller
 
-	public AdminViewManager() {
+	public AdminViewManager(User user) {
+		this.user = user;
+		loadCrewList();
 		initialize();
 		initPanel();
+		
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
 	private void initPanel() {
-//		controllerManager = new CrewControllerManager();
+		
 //
 //		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 //		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 //		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
-		crewList = new CrewListP(this);
+		crewList = new CrewListP(this, crew);
 		eventSetting = new EventSettingP(this);
-		pendingApproval = new PendingApprovalP(this);
+		pendingApproval = new PendingApprovalP(this, crew);
 		eventAlert = new EventEndAlertD();
 		
 		panelMap = new LinkedHashMap<String, JPanel>();
@@ -135,12 +149,36 @@ public class AdminViewManager {
 		lblNewLabel.setBounds(104, 16, 128, 57);
 		mainPanel.add(lblNewLabel);
 	}
+	
+	public void loadCrewList() {
+
+		crew = new ArrayList<Crew>();
+
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./resources/crewList.dat"))) {
+
+			while (true) {
+				crew.add((Crew) ois.readObject());
+			}
+
+		} catch (EOFException e) {
+			System.out.println("크루 리스트 읽기 완료");
+			return;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void test() {
 		// 테스트 용
+		User user = new User("김태훈", 20, 100, 100, '남', false);
 
 		JFrame frame = new JFrame();
-		AdminViewManager avm = new AdminViewManager();
+		CrewViewManager crewViewManager = new CrewViewManager(user);
+		AdminViewManager avm = new AdminViewManager(user);
 		frame.setBounds(100, 100, 360, 600);
 		frame.setLayout(null);
 		avm.addPanels(frame);
