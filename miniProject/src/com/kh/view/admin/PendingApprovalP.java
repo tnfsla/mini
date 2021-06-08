@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
 
@@ -23,16 +24,17 @@ public class PendingApprovalP extends JPanel {
 	private JTable table;
 	private AdminViewManager avm;
 	private String crewName;
-	private CrewDao crewDao;
 	private ArrayList<Crew> crew;
-	
+
 
 	/**
 	 * Create the panel.
 	 */
 	public PendingApprovalP() {
-		crewDao.loadCrewList();
-		crew = new ArrayList<Crew>(crewDao.getCrewList());
+
+	}
+
+	private void initialize() {
 		System.out.println(crew.size());
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
@@ -49,14 +51,13 @@ public class PendingApprovalP extends JPanel {
 				if (!crew.get(i).isAccept()) {
 					if (j == 0) {
 						rows[j] = crew.get(i).getCrewName();
-					}else if(j==1) {
+					} else if (j == 1) {
 						rows[j] = crew.get(i).getCrewMasterName();
 					}
 				}
 				model.addRow(rows);
 			}
 		}
-
 
 		table = new JTable(model);
 		table.setRowSelectionAllowed(false);
@@ -120,11 +121,12 @@ public class PendingApprovalP extends JPanel {
 		JLabel lblNewLabel = new JLabel("대기중인 크루");
 		lblNewLabel.setBounds(38, 109, 83, 31);
 		add(lblNewLabel);
-
 	}
 
-	public PendingApprovalP(AdminViewManager avm) {
+	public PendingApprovalP(AdminViewManager avm, ArrayList<Crew> crew) {
 		this();
 		this.avm = avm;
+		this.crew = crew;
+		initialize();
 	}
 }
