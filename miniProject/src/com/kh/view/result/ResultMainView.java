@@ -8,6 +8,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
@@ -109,41 +116,93 @@ public class ResultMainView extends JFrame implements ActionListener {
 		JLabel Distance = new JLabel();
 		Distance.setBounds(88, 0, 82, 25);
 		getContentPane().add(Distance);
-		Distance.setText("총거리");
+		int totalDistance = 1;
+		Distance.setText(String.valueOf(totalDistance+"km"));
 
 		JLabel Time = new JLabel();
 		Time.setBounds(88, 27, 82, 25);
 		getContentPane().add(Time);
-		Time.setText("총시간");
+		long totalTime = 50;
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			
+		Time.setText(String.valueOf(totalTime));
 		
 		JLabel Kcal = new JLabel();
 		Kcal.setBounds(129, 50, 82, 25);
 		getContentPane().add(Kcal);
-		Kcal.setText("총 소모한 칼로리");
-
+		int totalKcal = 3;
+		Kcal.setText(String.valueOf(totalKcal+"kcal"));
+		
 		JLabel dateDistance = new JLabel();
-		dateDistance.setBounds(90, 83, 60, 25);
-		getContentPane().add(dateDistance);
-		dateDistance.setText("달린 거리");
 		
 		JLabel dateTime = new JLabel();
-		dateTime.setBounds(90, 107, 60, 25);
-		getContentPane().add(dateTime);
-		dateTime.setText("달린 시간");
 		
 		JLabel dateKcal = new JLabel();
-		dateKcal.setBounds(128, 131, 60, 25);
-		getContentPane().add(dateKcal);
-		dateKcal.setText("소모한 칼로리 ");
 		
 		JLabel dateStar = new JLabel();
-		dateStar.setBounds(60, 155, 60, 25);
-		getContentPane().add(dateStar);
-		dateStar.setText("별점");
-		//exercise에 총 거리, 총 시간, 소모한 칼로리를 txt에 입력받아서 출력하기
-		//이건 사용자 arrayList에 있는 거리,시간,칼로리들을 합한 값을 출력하면 된다 (어떻게하지?)
-		//dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장된다던데이걸어떻게				 
+		
+	
+		//dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
+		
 		//운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
+		//fileReader를통해서해보자.
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("Exercise.txt"));
+			bw.write("3");
+			bw.newLine();
+			bw.write("3");
+			bw.newLine();
+			bw.write("3");
+			bw.newLine();
+			bw.write("3");
+			bw.flush();
+			bw.close();
+
+			
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Exercise.txt"));
+			
+			
+			dateDistance.setBounds(90, 83, 60, 25);
+			getContentPane().add(dateDistance);
+			
+			dateTime.setBounds(90, 107, 60, 25);
+			getContentPane().add(dateTime);
+			
+			dateKcal.setBounds(128, 131, 60, 25);
+			getContentPane().add(dateKcal);
+			
+			dateStar.setBounds(60, 155, 60, 25);
+			getContentPane().add(dateStar);
+			
+			String line = "";
+			int count = 0;
+			while((line = br.readLine()) != null) {
+				count++;
+				if(count == 1) {
+					dateDistance.setText(line+"km");
+				}else if(count == 2) {
+					dateTime.setText(line);				
+				}else if(count == 3) {
+					dateKcal.setText(line+"kcal");					
+				}else if(count == 4) {
+					dateStar.setText(line+"개");
+				}
+				
+			}
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		
 		
