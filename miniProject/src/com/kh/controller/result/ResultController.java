@@ -1,5 +1,6 @@
 package com.kh.controller.result;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.kh.model.vo.Exercise;
@@ -24,8 +25,10 @@ public class ResultController {
 
 	}
 
-	public int getTotalTime() {
-		int sum = 0;
+	public long getTotalTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		
+		long sum = 0;
 
 		for (int i = 0; i < exercises.size(); i++) {
 			sum += exercises.get(i).getRunTime();

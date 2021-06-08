@@ -75,7 +75,7 @@ public class CrewListP extends JPanel {
 					}else if(j==1) {
 						rows[j] = crew.get(i).getCrewName(); //크루명
 					}else if(j==2) {
-						rows[j] = Integer.valueOf(crew.get(i).getCrewUserSize()).toString(); // 전 인원수
+						//rows[j] = Integer.valueOf(crew.get(i).getCrewUserSize()).toString(); // 전 인원수
 				}
 				model.addRow(rows);
 			}
