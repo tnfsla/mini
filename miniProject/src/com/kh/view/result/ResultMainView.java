@@ -8,13 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
@@ -23,17 +16,22 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.result.ResultController;
+import com.kh.model.vo.Exercise;
 
 public class ResultMainView extends JFrame implements ActionListener {
 	public ResultMainView() {
+		
+			
+		
 		
 		
 
 	}
 	private JFrame frame;
-	ResultController rc;
+	ResultController rc = new ResultController();
 	
 	// ------------외형구현---------------
 	Calendar cal; // 캘린더
@@ -65,6 +63,11 @@ public class ResultMainView extends JFrame implements ActionListener {
 	JPanel datePane = new JPanel(new GridLayout(0, 7));
 	JPanel title = new JPanel(new GridLayout(1, 7));
 	String titleStr[] = { "일", "월", "화", "수", "목", "금", "토" };
+	private JLabel dateDistance;
+	private JLabel dateTime;
+	private JLabel dateKcal;
+	private JLabel dateStar;
+	private JLabel selDate;
 
 	
 
@@ -116,92 +119,61 @@ public class ResultMainView extends JFrame implements ActionListener {
 		JLabel Distance = new JLabel();
 		Distance.setBounds(88, 0, 82, 25);
 		getContentPane().add(Distance);
-		int totalDistance = 1;
+		int totalDistance = rc.getTotalDistance();
 		Distance.setText(String.valueOf(totalDistance+"km"));
 
 		JLabel Time = new JLabel();
 		Time.setBounds(88, 27, 82, 25);
 		getContentPane().add(Time);
-		long totalTime = 50;
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-			
-		Time.setText(String.valueOf(totalTime));
+		String totalTime = rc.getTotalTime();			
+		Time.setText(totalTime);
 		
 		JLabel Kcal = new JLabel();
 		Kcal.setBounds(129, 50, 82, 25);
 		getContentPane().add(Kcal);
-		int totalKcal = 3;
+		int totalKcal = rc.getTotalKcal();
 		Kcal.setText(String.valueOf(totalKcal+"kcal"));
 		
-		JLabel dateDistance = new JLabel();
+		dateDistance = new JLabel();
 		
-		JLabel dateTime = new JLabel();
+		dateTime = new JLabel();
 		
-		JLabel dateKcal = new JLabel();
+		dateKcal = new JLabel();
 		
-		JLabel dateStar = new JLabel();
+		
+		dateStar = new JLabel();
+		
+		selDate = new JLabel();
+		
+		dateDistance.setBounds(90, 83, 60, 25);
+		getContentPane().add(dateDistance);
+		
+		
+		dateTime.setBounds(90, 107, 60, 25);
+		getContentPane().add(dateTime);
+		
+		dateKcal.setBounds(128, 131, 60, 25);
+		getContentPane().add(dateKcal);
+		
+		dateStar.setBounds(60, 155, 60, 25);
+		getContentPane().add(dateStar);
+		
+		
+		selDate.setBounds(108, 21, 193, 60);
+		getContentPane().add(selDate);
 		
 	
 		//dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
 		
 		//운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
-		//fileReader를통해서해보자.
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("Exercise.txt"));
-			bw.write("3");
-			bw.newLine();
-			bw.write("3");
-			bw.newLine();
-			bw.write("3");
-			bw.newLine();
-			bw.write("3");
-			bw.flush();
-			bw.close();
-
+		
+		
 			
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("Exercise.txt"));
+		
 			
 			
-			dateDistance.setBounds(90, 83, 60, 25);
-			getContentPane().add(dateDistance);
-			
-			dateTime.setBounds(90, 107, 60, 25);
-			getContentPane().add(dateTime);
-			
-			dateKcal.setBounds(128, 131, 60, 25);
-			getContentPane().add(dateKcal);
-			
-			dateStar.setBounds(60, 155, 60, 25);
-			getContentPane().add(dateStar);
-			
-			String line = "";
-			int count = 0;
-			while((line = br.readLine()) != null) {
-				count++;
-				if(count == 1) {
-					dateDistance.setText(line+"km");
-				}else if(count == 2) {
-					dateTime.setText(line);				
-				}else if(count == 3) {
-					dateKcal.setText(line+"kcal");					
-				}else if(count == 4) {
-					dateStar.setText(line+"개");
-				}
-				
-			}
-			
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		
 		
 		
 		
@@ -236,7 +208,6 @@ public class ResultMainView extends JFrame implements ActionListener {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		
@@ -247,6 +218,7 @@ public class ResultMainView extends JFrame implements ActionListener {
 		frame.getContentPane().add(dateDistance);
 		frame.getContentPane().add(dateTime);
 		frame.getContentPane().add(dateKcal);
+		frame.getContentPane().add(selDate);
 
 
 		
@@ -274,7 +246,6 @@ public class ResultMainView extends JFrame implements ActionListener {
 
 		// 각종 명령어
 		setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setResizable(false);
 		setSize(400, 330);
@@ -321,9 +292,12 @@ public class ResultMainView extends JFrame implements ActionListener {
 			}
 			yearCombo.setSelectedItem(yy);
 			monthCombo.setSelectedItem(mm);
+			
 		}
 	}
-
+	public ResultController getRc() {
+		return rc;
+	}
 	// 날짜출력
 	public void day(int year, int month) {
 		Calendar date = Calendar.getInstance();// 오늘날짜 + 시간
@@ -340,14 +314,37 @@ public class ResultMainView extends JFrame implements ActionListener {
 		}
 
 		// 날짜 출력
-		for (int day = 1; day <= lastDay; day++) {
-			JButton jbt = new JButton(String.valueOf(day));
+		for (int i = 1; i <= lastDay; i++) {
+			int day = i;
+			JButton jbt = new JButton();
+			JLabel jlb1 = new JLabel();
+			
+			if(rc.getDay(day) == true) {
+			
+			jbt = new JButton(String.valueOf(day));
+			datePane.add(jbt);
+			
+			
+			
+
+			}else {
+				jlb1 = new JLabel(String.valueOf(day));
+				datePane.add(jlb1);
+				jlb1.setHorizontalAlignment(SwingConstants.CENTER);
+
+			}
 			jbt.addMouseListener(new MouseAdapter() {
 
 				@Override
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					super.mousePressed(e);
+					Exercise ex = rc.selectExercise(year, month, day);
+					dateDistance.setText(String.valueOf(ex.getDistance()+"km"));
+					dateTime.setText(rc.secToHHMMSS(ex.getRunTime()));
+					dateKcal.setText(String.valueOf(ex.getCalorie()+"kcal"));
+					dateStar.setText(String.valueOf(ex.getStar()+"점"));
+					selDate.setText(String.valueOf(rc.selectYear()));
 					
 					pane4.setVisible(true);
 					frame.setVisible(true);
@@ -362,7 +359,7 @@ public class ResultMainView extends JFrame implements ActionListener {
 			} else if (Week == 7) {
 				jbt.setForeground(Color.BLUE);
 			}
-			datePane.add(jbt);
+			
 		}
 	}
 }
