@@ -394,9 +394,9 @@ public class CrewViewManager {
 	}
 	
 	public static void test() {
-		User user = new User("김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
-//		User user = new User("문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)
-//		User user = new User("최용석", 20, 100, 50, '남', false); // 크루 가입한 유저
+		User user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
+//		User user = new User("test", "1234", "문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)
+//		User user = new User("test", "1234", "최용석", 20, 100, 50, '남', false); // 크루 가입한 유저
 
 		// 테스트 용
 		CrewViewManager crewViewManager = new CrewViewManager(user);

@@ -185,7 +185,7 @@ public class AdminViewManager {
 
 	public static void test() {
 		// 테스트 용
-		User user = new User("김태훈", 20, 100, 100, '남', false);
+		User user = new User("k1", "1234", "김태훈", 20, 100, 100, '남', false);
 
 		JFrame frame = new JFrame();
 		CrewViewManager crewViewManager = new CrewViewManager(user);
