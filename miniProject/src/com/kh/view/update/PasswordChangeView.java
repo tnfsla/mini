@@ -1,32 +1,32 @@
 package com.kh.view.update;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-
-import com.kh.model.vo.User;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import java.awt.event.ActionListener;
-import java.util.Scanner;
-import java.awt.event.ActionEvent;
+import com.kh.controller.update.PasswordChangeController;
+import com.kh.model.vo.User;
 
-public class PasswordChange extends JPanel {
+public class PasswordChangeView extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
 	protected User user;
-	private PasswordChange passwordchange;
+	private PasswordChangeController passwordchangeController;
 	/**
 	 * Create the panel.
 	 */
-	public PasswordChange() {
+	public PasswordChangeView() {
 		
-		PasswordChange passwordchange = new PasswordChange();
+		passwordchangeController = new PasswordChangeController();
 		
 		setLayout(null);
+		setBounds(0, 0, 360, 600);
 		
 		JLabel lblNewLabel = new JLabel("비밀번호");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 20));
@@ -57,7 +57,7 @@ public class PasswordChange extends JPanel {
 		JButton btnNewButton_1 = new JButton("확인");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				passwordchange.newPassword(user, textField.getText());
+				passwordchangeController.newPassword(user, textField.getText());
 			}
 		});
 		btnNewButton_1.setBounds(180, 358, 79, 27);
@@ -69,11 +69,11 @@ public class PasswordChange extends JPanel {
 		JFrame frame = new JFrame();
 
 		frame.setBounds(100, 100, 360, 600);
-		frame.setResizable(false);
 
 		frame.setVisible(true);
+		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		PasswordChange cmain = new PasswordChange();
+		PasswordChangeView cmain = new PasswordChangeView();
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(cmain);
 		
