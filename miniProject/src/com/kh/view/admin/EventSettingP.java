@@ -25,7 +25,7 @@ public class EventSettingP extends JPanel {
 	private int eventGoal;
 	private String eventFlag;
 	private Calendar cal;
-	private long setTime;
+	private int sTimeI;
 
 	/**
 	 * Create the panel.
@@ -35,11 +35,7 @@ public class EventSettingP extends JPanel {
 
 	}
 	
-	public EventSettingP(long dTimeI) {
-		setTime = dTimeI;
-		initailize();
-		
-	}
+
 
 	private void initailize() {
 		setBounds(0, 0, 360, 600);
@@ -119,7 +115,7 @@ public class EventSettingP extends JPanel {
 //				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmss", Locale.KOREA);
 //				String dTime = formatter.format(systemTime);
 //				long dTimeI = Long.parseLong(dTime);
-				int sTimeI = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100
+				sTimeI = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100
 						+ cal.get(Calendar.DATE);
 				
 
@@ -165,11 +161,14 @@ public class EventSettingP extends JPanel {
 
 	}
 
-	public long getSetTime() {
-		return setTime;
+	public int getsTimeI() {
+		return sTimeI;
 	}
 
-	public void setSetTime(long setTime) {
-		this.setTime = setTime;
+	public void setsTimeI(int sTimeI) {
+		this.sTimeI = sTimeI;
 	}
+	
+	
+
 }
