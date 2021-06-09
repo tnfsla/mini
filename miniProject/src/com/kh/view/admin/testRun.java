@@ -21,7 +21,6 @@ public class testRun {
 
 		
 		
-
 		
 //		avm.setPriority(8);
 //		t1.setPriority(2);
