@@ -33,6 +33,7 @@ public class CrewViewManager {
 	private CrewCreatePanel createPanel; // 크루 만들기 page
 	private CrewPanel crewPanel; // 특정 크루 page
 	private CrewRankPanel rankPanel; // 특정 크루 랭킹 page
+	private CrewFeedPanel feedPanel; // 특정 크루 피드 page
 
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
@@ -104,6 +105,7 @@ public class CrewViewManager {
 		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
+		feedPanel = new CrewFeedPanel(this, controllerManager.getCrewController().getCrewFeedController());
 
 		panelMap = new LinkedHashMap<String, JPanel>();
 		// frameMap에 crew에서 쓰이는 frame들 다 넣어둠
@@ -111,6 +113,7 @@ public class CrewViewManager {
 		panelMap.put("create", createPanel);
 		panelMap.put("crew", crewPanel);
 		panelMap.put("rank", rankPanel);
+		panelMap.put("feed", feedPanel);
 	}
 
 	// 패널 전환 메소드
@@ -143,7 +146,7 @@ public class CrewViewManager {
 		// 크루 미가입 상태
 		if (user.getCrewName() == null) {
 			System.out.println("현재 유저 크루 미가입 상태");
-			
+
 			btnCrewCreateCancel.setVisible(false);
 
 			btnCreatePage.setText("크루 만들기");
@@ -159,7 +162,7 @@ public class CrewViewManager {
 		// 크루 만들기 상태 (가입 상태)이나 크루 승인이 나지 않은 경우
 		if (controllerManager.selectCrew(user.getCrewName()).isAccept() == false) {
 			System.out.println("현재 유저 크루 만들기 상태 승인 안남");
-			
+
 			btnCrewCreateCancel.setVisible(true);
 
 			btnCreatePage.setText("크루 승인을 요청하고 있습니다.");
@@ -388,11 +391,15 @@ public class CrewViewManager {
 	public CrewRankPanel getRankPanel() {
 		return rankPanel;
 	}
-	
+
+	public CrewFeedPanel getFeedPanel() {
+		return feedPanel;
+	}
+
 	public CrewControllerManager getControllerManager() {
 		return controllerManager;
 	}
-	
+
 	public static void test() {
 		User user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false); // 크루 미가입 유저
 //		User user = new User("test", "1234", "문대훈", 20, 100, 50, '남', false); // 크루 가입한 유저 (크루장)
@@ -415,4 +422,5 @@ public class CrewViewManager {
 	public static void main(String[] args) {
 		test();
 	}
+
 }

@@ -61,12 +61,12 @@ public class CrewRankPanel extends JPanel {
 		String[] columnNames = { "순위", "이름", "거리" };
 
 		String[][] topRanks = new String[3][3];
-		
+
 		for (int i = 0; i < topRanks.length; i++) {
 //			System.arraycopy(ranks[i], 0, topRanks[i], 0, topRanks[i].length); // 깊은 복사
 			topRanks[i] = ranks[i]; // 얕은 복사 둘다 바뀌면 같이 바뀌게 별차이는 없긴함
 		}
-		
+
 		tableTopCrewUser.setModel(new CrewRankTableModel(topRanks, columnNames));
 		tableTotalCrewUser.setModel(new CrewRankTableModel(ranks, columnNames));
 		tableCurCrewUser.setModel(new DefaultTableModel(myRank, new String[] { "내 순위" }));

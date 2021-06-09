@@ -45,6 +45,8 @@ public class CrewPanel extends JPanel {
 
 	private JLabel lblCrewNum;
 
+	private JLabel lblCrewFeedCount;
+
 	public CrewPanel(CrewViewManager crewManager, CrewController crewController) {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		this.crewManager = crewManager;
@@ -57,7 +59,9 @@ public class CrewPanel extends JPanel {
 		
 		lblCrewName.setText(crew.getCrewName());
 		textAreaCrewContent.setText(crew.getCrewContents());
+		
 		lblCrewUserCount.setText(String.valueOf(crew.getCrewUserCount()));
+		lblCrewFeedCount.setText(String.valueOf(crew.getFeedCount()));
 		
 		lblCrewNum.setText(crewController.getCrewNum(crew));
 		lblCrewDistance.setText(crewController.getCrewDistance(crew));
@@ -145,23 +149,50 @@ public class CrewPanel extends JPanel {
 				System.out.println("랭킹 이동");
 			}
 		});
-		panelCrewUserInfo.setBounds(94, 10, 155, 135);
+		panelCrewUserInfo.setBounds(12, 10, 150, 135);
 		panelCrewInfo.add(panelCrewUserInfo);
 		panelCrewUserInfo.setLayout(null);
 
 		JLabel lblCrewUserInfo = new JLabel("크루원");
 		lblCrewUserInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCrewUserInfo.setBounds(49, 10, 57, 15);
+		lblCrewUserInfo.setBounds(45, 10, 60, 15);
 		panelCrewUserInfo.add(lblCrewUserInfo);
 
 		JPanel panelCrewUserCount = new JPanel();
-		panelCrewUserCount.setBounds(26, 42, 103, 72);
+		panelCrewUserCount.setBounds(25, 42, 100, 72);
 		panelCrewUserInfo.add(panelCrewUserCount);
 		panelCrewUserCount.setLayout(new BorderLayout(0, 0));
 
 		lblCrewUserCount = new JLabel("0");
 		lblCrewUserCount.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCrewUserCount.add(lblCrewUserCount, BorderLayout.CENTER);
+		
+		JPanel panelCrewFeedrInfo = new JPanel();
+		panelCrewFeedrInfo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				crewManager.getFeedPanel().setFeed(crew);
+				crewManager.convertPanel("feed");
+				System.out.println("피드 이동");
+			}
+		});
+		panelCrewFeedrInfo.setLayout(null);
+		panelCrewFeedrInfo.setBounds(174, 10, 150, 135);
+		panelCrewInfo.add(panelCrewFeedrInfo);
+		
+		JLabel lblCrewFeedInfo = new JLabel("피드");
+		lblCrewFeedInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCrewFeedInfo.setBounds(45, 10, 60, 15);
+		panelCrewFeedrInfo.add(lblCrewFeedInfo);
+		
+		JPanel panelCrewFeedCount = new JPanel();
+		panelCrewFeedCount.setBounds(25, 42, 100, 72);
+		panelCrewFeedrInfo.add(panelCrewFeedCount);
+		panelCrewFeedCount.setLayout(new BorderLayout(0, 0));
+		
+		lblCrewFeedCount = new JLabel("0");
+		lblCrewFeedCount.setHorizontalAlignment(SwingConstants.CENTER);
+		panelCrewFeedCount.add(lblCrewFeedCount, BorderLayout.CENTER);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(22, 415, 310, 136);

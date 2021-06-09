@@ -10,11 +10,13 @@ public class Crew implements Serializable {
 	private String crewName; // 크루명
 	private String crewMasterName; // 크루장 일단 String으로처리 (크루장은 User이름)
 	private ArrayList<User> userList; // 크루원 리스트
+	private ArrayList<Feed> feedList; // 피드 리스트
 	private String crewContents; // 크루 내용
 	private boolean isAccept; // 크루 만들기 승인 여부 관리자가 승인 기본값 false
 
 	public Crew() {
 		userList = new ArrayList<User>();
+		feedList = new ArrayList<Feed>();
 	}
 
 	public Crew(String crewName, String crewContents, String crewMasterName) {
@@ -64,40 +66,52 @@ public class Crew implements Serializable {
 	public void setUserList(ArrayList<User> userList) {
 		this.userList = userList;
 	}
-	
+
+	public ArrayList<Feed> getFeedList() {
+		return feedList;
+	}
+
+	public void setFeedList(ArrayList<Feed> feedList) {
+		this.feedList = feedList;
+	}
+
 	// 크루 인원 수 반환
 	public int getCrewUserCount() {
-		return userList.size(); 
+		return userList.size();
+	}
+
+	// 피드 작성 수 반환
+	public int getFeedCount() {
+		return feedList.size();
 	}
 
 	@Override
 	public String toString() {
-		return "Crew [crewName=" + crewName + ", crewMasterName=" + crewMasterName + ", userNum=" + userList.size() + ", isAccept="
-				+ isAccept + "]";
+		return "Crew [crewName=" + crewName + ", crewMasterName=" + crewMasterName + ", userNum=" + userList.size()
+				+ ", feedNum=" + feedList.size() + ", isAccept=" + isAccept + "]";
 	}
 
 	public long getTotalTime() {
 		long totalRunTime = 0;
-		
+
 		for (User user : userList) {
 			for (Exercise exercise : user.getExercises()) {
 				totalRunTime += exercise.getRunTime();
 			}
 		}
-		
+
 		return totalRunTime;
 	}
 
 	public double getTotalDistance() {
 		double totalDistance = 0;
-		
+
 		for (User user : userList) {
 			for (Exercise exercise : user.getExercises()) {
 				totalDistance += exercise.getDistance();
 			}
 		}
-		
+
 		return totalDistance;
 	}
-
 }
