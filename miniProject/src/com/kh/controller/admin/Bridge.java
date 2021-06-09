@@ -20,38 +20,53 @@
 //
 //}
 
-
 package com.kh.controller.admin;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.swing.JLabel;
 
-public class Bridge{
+public class Bridge {
 
-   private JLabel sharedLabel;
-   private long sharedData = 0;
-   private boolean isReady = true;
-   
-   public void setSharedLabel(JLabel sharedLabel) {
-      this.sharedLabel = sharedLabel;
-   }
-   
-   public JLabel getSharedLabel() {
-      return sharedLabel;
-   }
-   
-   public long getSharedData() {
-      System.out.println("받아갔다 : " + sharedData);
-      return sharedData;
-   }
-   public void setSharedData(long sharedData) {
-      System.out.println("설정했다 : " + sharedData);
-      this.sharedData = sharedData;
-   }
-   public boolean isReady() {
-      return isReady;
-   }
-   public void setReady(boolean isReady) {
-      this.isReady = isReady;
-   }
-   
+	private JLabel sharedLabel;
+	private long sharedData = 0;
+	private boolean isReady = true;
+
+	public void setSharedLabel(JLabel sharedLabel) {
+		this.sharedLabel = sharedLabel;
+	}
+
+	public JLabel getSharedLabel() {
+		return sharedLabel;
+	}
+
+	public long getSharedData() {
+		return sharedData;
+	}
+
+
+	public void setSharedData(long sharedData) {
+		this.sharedData = sharedData;
+	}
+
+	public boolean isReady() {
+		return isReady;
+	}
+
+	public void setReady(boolean isReady) {
+		this.isReady = isReady;
+	}
+	
+
+	public int getSharedDataI() {
+		long systemTime = System.currentTimeMillis();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+		String dTime = formatter.format(systemTime);
+		System.out.println(dTime);
+		int dTimeI = Integer.parseInt(dTime);
+		
+		return dTimeI;
+	}
+
 }
