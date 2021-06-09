@@ -16,7 +16,7 @@ public class Run {
 		ResultMainView rm = new ResultMainView();
 		Calendar cal = Calendar.getInstance();
 		Calendar cal1 = Calendar.getInstance();
-
+		
 		
 		cal.set(2021, 6, 9);	
 		rm.getRc().addExercise(new Exercise(cal, 0, 0, 0, 7300, 10, 700, 10, 3  ));
