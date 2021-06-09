@@ -212,6 +212,8 @@ package com.kh.view.admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -226,14 +228,17 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.admin.Bridge;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class AdminViewManager {
 
 	private User user;
+	private Main main;
 	private JPanel mainPanel; // 메인 - 시작 page
 	private ArrayList<Crew> crew;
 	private CrewListP crewList; // 크루 리스트 page
@@ -249,6 +254,11 @@ public class AdminViewManager {
 		ts = new Bridge();
 		run();
 		ts.setSharedLabel(lbltest);
+	}
+
+	public AdminViewManager(Main main, User user) {
+		this(user);
+		this.main = main;
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
@@ -368,6 +378,18 @@ public class AdminViewManager {
 		lbltest = new JLabel("New label");
 		lbltest.setBounds(12, 527, 301, 37);
 		mainPanel.add(lbltest);
+		
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		mainPanel.add(lblHome);
 	}
 
 	public void loadCrewList() {
@@ -393,19 +415,9 @@ public class AdminViewManager {
 	}
 
 	public void run() {
-		// 테스트 용
-		User user = new User("k1", "1234", "김태훈", 20, 100, 100, '남', false);
-
-		JFrame frame = new JFrame();
 		loadCrewList();
 		initialize();
 		initPanel();
-		frame.setBounds(100, 100, 360, 600);
-		frame.getContentPane().setLayout(null);
-		this.addPanels(frame);
-		this.convertPanel("main");
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public long getdTimeI() {
@@ -418,5 +430,9 @@ public class AdminViewManager {
 
 	public Bridge getTs() {
 		return ts;
+	}
+	
+	public JPanel getMainPanel() {
+		return mainPanel;
 	}
 }

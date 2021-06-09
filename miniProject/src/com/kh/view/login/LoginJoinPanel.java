@@ -12,9 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class LoginJoinPanel extends Panel {
+public class LoginJoinPanel extends JPanel {
 
 	private JTextField textField;
 	private JTextField textField_1;

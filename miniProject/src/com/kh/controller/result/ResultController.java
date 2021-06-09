@@ -17,6 +17,10 @@ public class ResultController {
 	public void addExercise(Exercise ex) {
 		exercises.add(ex);
 	}
+	
+	public void setExercises(ArrayList<Exercise> exercises) {
+		this.exercises = exercises;
+	}
 
 	public int getTotalDistance() {
 

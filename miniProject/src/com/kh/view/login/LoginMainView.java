@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,10 +20,18 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginMainView extends Panel {
+import com.kh.model.vo.User;
+import com.kh.view.main.Main;
+import javax.swing.SwingConstants;
+
+public class LoginMainView extends JPanel {
 
 	private JTextField textField;
 	private JPasswordField passwordField;
+
+	private User user;
+
+	private Main main;
 
 	/**
 	 * Launch the application.
@@ -48,6 +58,27 @@ public class LoginMainView extends Panel {
 	 */
 	public LoginMainView() {
 		initialize();
+
+	}
+
+	public LoginMainView(User user) {
+		this();
+		this.user = user;
+		
+		this.user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
+	}
+
+
+	public LoginMainView(Main main, User user) {
+		this(user);
+		this.main = main;
+
+		updateUser();
+	}
+
+	// login 성공시 해당 user를 다른 part의 넣어 패널을 생성하기 위한 메소드
+	public void updateUser() {
+		main.lazeInitPanel(user);
 	}
 
 	/**
@@ -57,10 +88,6 @@ public class LoginMainView extends Panel {
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
-		
-		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
-		panel.setSize(getSize());
-		add(panel);
 
 		JButton btnNewButton = new JButton("확인");
 		btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
@@ -111,6 +138,22 @@ public class LoginMainView extends Panel {
 		});
 		btnNewButton_1.setBounds(111, 514, 105, 27);
 		add(btnNewButton_1);
+		
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		add(lblHome);
+		
+				ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
+				panel.setSize(getSize());
+				add(panel);
 	}
 }
 

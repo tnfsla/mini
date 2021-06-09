@@ -3,17 +3,23 @@ package com.kh.view.update;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.update.PasswordChangeController;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class PasswordChangeView extends JPanel {
+	private Main main;
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	protected User user;
@@ -63,6 +69,23 @@ public class PasswordChangeView extends JPanel {
 		btnNewButton_1.setBounds(180, 358, 79, 27);
 		add(btnNewButton_1);
 
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		add(lblHome);
+	}
+	
+	public PasswordChangeView(Main main, User user) {
+		this();
+		this.main = main;
+		this.user = user;
 	}
 	
 	public static void main(String[] args) {
@@ -71,12 +94,12 @@ public class PasswordChangeView extends JPanel {
 		frame.setBounds(100, 100, 360, 600);
 
 		frame.setVisible(true);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		PasswordChangeView cmain = new PasswordChangeView();
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(cmain);
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		
 		
 	}

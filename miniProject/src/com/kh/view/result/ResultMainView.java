@@ -3,9 +3,7 @@ package com.kh.view.result;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,10 +20,28 @@ import javax.swing.SwingConstants;
 
 import com.kh.controller.result.ResultController;
 import com.kh.model.vo.Exercise;
+import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class ResultMainView extends JPanel implements ActionListener {
-	public ResultMainView() {
+	private Main main;
+	private User user;
 
+	public ResultMainView() {
+		setLayout(new BorderLayout());
+
+	}
+
+	public ResultMainView(User user) {
+		this();
+		this.user = user;
+	}
+
+	public ResultMainView(Main main, User user) {
+		this(user);
+		this.main = main;
+
+		CalendarMain(); // resultView의 경우 CalendarMain 메소드를 호출해야 UI 생성 (다른 클래스의 initialize와 같음)
 	}
 
 	private JFrame frame;
@@ -62,9 +77,22 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	private JLabel selDate;
 	private JLabel dateexercise;
-	
+
 	// 화면디자인
 	public void CalendarMain() {
+		// 홈 버튼 추가
+//		JLabel lblHome = new JLabel("Home");
+//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblHome.setBounds(150, 561, 60, 29);
+//		lblHome.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				System.out.println("메인 페이지로 이동");
+//				main.convertPanel("main");
+//			}
+//		});
+//		add(lblHome);
+		
 		// ------년도 월 구하기------------
 		cal = Calendar.getInstance(); // 현재날짜
 		year = cal.get(Calendar.YEAR);
@@ -115,7 +143,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 		JLabel exercise = new JLabel("<html>총 거리 : " + totalDistance + "km<br>총 시간 : " + totalTime + "   <br>소모한 칼로리 :  "
 				+ totalKcal + "kcal<br>페이스 : " + totalPace + " </html>");
-		;
+		
 
 		selDate = new JLabel();
 
@@ -127,7 +155,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 		// 운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
 
 		// ----------------------------
-		frame.setTitle("운동기록 확인");
+		frame.setTitle("운동기록 확인"); //////
 
 		pane.add(btn1);
 		pane.add(yearCombo);
@@ -135,17 +163,22 @@ public class ResultMainView extends JPanel implements ActionListener {
 		pane.add(monthCombo);
 		pane.add(monthlb);
 		pane.add(btn2);
-		add(BorderLayout.CENTER, pane);
 
 		pane2.add(title, "North");
 		pane2.add(datePane);
-		add(BorderLayout.SOUTH, pane2);
 
-		pane3.add(exercise);
-
+		pane3.add(exercise); // 
+		add(BorderLayout.NORTH, pane3); // 사용자 운동기록 통계
+		
 		exercise.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-		add(BorderLayout.NORTH, pane3);
 
+		JPanel calendarPanel = new JPanel();
+		calendarPanel.setLayout(new BorderLayout());
+		calendarPanel.add(BorderLayout.NORTH, pane); // 달력 날짜 선택 콤보 박스
+		calendarPanel.add(BorderLayout.CENTER, pane2); // 달력 날짜들
+	 
+		add(BorderLayout.CENTER, calendarPanel);
+		
 		frame.getContentPane().add(selDate);
 
 		btn3.addActionListener(new ActionListener() {
@@ -165,10 +198,10 @@ public class ResultMainView extends JPanel implements ActionListener {
 		
 		
 
-		frame.setResizable(false);
-		setSize(400, 330);
+		frame.setResizable(false); ///////////
+		setSize(360, 600); ///////
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ////////
 
 		// ----------기능구현----------
 		btn1.addActionListener(this);
@@ -259,9 +292,9 @@ public class ResultMainView extends JPanel implements ActionListener {
 					Exercise ex = rc.selectExercise(year, month, day);
 					selDate.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 					selDate.setText(String.format("%02d년 %02d월 %02d일", year, month, day));
-					dateexercise.setText("<html> 달린 거리 : " + ex.getDistance() + "km <br> 달린 시간 : " + rc.secToHHMMSS(ex.getRunTime())
-							+ "<br> 소모한 칼로리 : " + ex.getCalorie() + "kcal<br> 평균 페이스 : " + ex.getPace() + "<br> 별점 : "
-							+ ex.getStar() + "개</html>");
+					dateexercise.setText("<html> 달린 거리 : " + ex.getDistance() + "km <br> 달린 시간 : "
+							+ rc.secToHHMMSS(ex.getRunTime()) + "<br> 소모한 칼로리 : " + ex.getCalorie()
+							+ "kcal<br> 평균 페이스 : " + ex.getPace() + "<br> 별점 : " + ex.getStar() + "개</html>");
 
 					frame.setVisible(true);
 

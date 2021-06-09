@@ -24,8 +24,11 @@ import javax.swing.border.EmptyBorder;
 import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class CrewViewManager {
+
+	private Main main;
 
 	private User user; // 현재 접속 중인 사용자
 
@@ -72,6 +75,11 @@ public class CrewViewManager {
 		setPanel();
 
 		updateCrewJoinState(); // 크루 가입 상태에 따라 처리하는 메소드
+	}
+
+	public CrewViewManager(Main main, User user) {
+		this(user);
+		this.main = main;
 	}
 
 	// 읽어온 크루 정보로 페널 세팅하기
@@ -329,7 +337,7 @@ public class CrewViewManager {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				convertPanel("main");
+				main.convertPanel("main");
 				updateCrewJoinState();
 			}
 		});
@@ -382,6 +390,10 @@ public class CrewViewManager {
 
 	public User getUser() {
 		return user;
+	}
+
+	public JPanel getMainPanel() {
+		return mainPanel;
 	}
 
 	public CrewPanel getCrewPanel() {
