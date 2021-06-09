@@ -88,31 +88,14 @@ public class ResultController {
 		return null;
 	}
 
-	public String selectYear() {
+	public double getTotalPace() {
+		int sum = 0;
 
-		String date = "";
-		int year = 0;
-		int month = 0;
-		int day = 0;
-		
 		for (int i = 0; i < exercises.size(); i++) {
-			
-			
-				
-			year = exercises.get(i).getDates().get(Calendar.YEAR);
-			month = exercises.get(i).getDates().get(Calendar.MONTH);
-			day = exercises.get(i).getDates().get(Calendar.DATE);
-			System.out.println(exercises.get(i));
-			
-			date =  String.format("%02d년 %02d월 %02d일", year, month, day);
-			
-			}
-		return date;
-		
-		
+			sum += exercises.get(i).getPace();
+
+		}
+		return sum;
 	}
-
-
-	
 
 }
