@@ -1,17 +1,25 @@
 package com.kh.view.exercise;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+
+import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class RecordMainPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+	private User user;
+	private Main main;
+	
 	public RecordMainPanel() {
 
-		setBounds(100, 100, 360, 600);
+		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
 		JTextArea t1 = new JTextArea("나에게 맞는 목표를 세우고" + "\n" + "자유롭게 훈련하세요." + "\n" + "처음에는 부담 없는 목표를 설정하고" + "\n"
@@ -30,6 +38,23 @@ public class RecordMainPanel extends JPanel {
 		b2.setSize(180, 80);
 		add(b2);
 
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		add(lblHome);
+	}
+
+	public RecordMainPanel(Main main, User user) {
+		this();
+		this.main = main;
+		this.user = user;
 	}
 
 }
