@@ -2,27 +2,26 @@ package com.kh.view.admin;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class EventEndAlertD extends JDialog {
+public class ErrorD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private EventSettingP eventSetting;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			EventEndAlertD dialog = new EventEndAlertD();
+			ErrorD dialog = new ErrorD();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -33,31 +32,20 @@ public class EventEndAlertD extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public EventEndAlertD() {
-		
-	}
-
-	public EventEndAlertD(EventSettingP eventSetting) {
-		this.eventSetting = eventSetting;
-		setBounds(100, 100, 452, 188);
-		contentPanel.setLayout(null);
+	public ErrorD() {
+		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+		contentPanel.setLayout(null);
 		{
-			JLabel lblNewLabel = new JLabel("진행중인 "+eventSetting.getEventGoal()+eventSetting.getEventFlag()+" 달리기를 마감 하시겠습니까?");
-			lblNewLabel.setBounds(26, 26, 375, 29);
+			JLabel lblNewLabel = new JLabel("잘못된 접근입니다.");
+			lblNewLabel.setBounds(31, 88, 375, 29);
 			lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("총 "/*++*/+"x명중 "/*++*/+"y명이 목표를 달성하였습니다."); //총인원과 목표달성 인원 구현되면 받아오기
-			lblNewLabel_1.setBounds(26, 65, 236, 23);
-			contentPanel.add(lblNewLabel_1);
-		}
-		{
-			JPanel buttonPane = new JPanel();//
+			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -65,9 +53,6 @@ public class EventEndAlertD extends JDialog {
 				okButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						eventSetting.setEventFlag("");
-						eventSetting.setEventGoal(0);
-						eventSetting.setsTimeI(0);
 						dispose();
 					}
 				});

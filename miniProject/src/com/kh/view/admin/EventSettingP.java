@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -25,7 +23,7 @@ public class EventSettingP extends JPanel {
 	private int eventGoal;
 	private String eventFlag;
 	private Calendar cal;
-	private int sTimeI;
+	private int sTimeI = 0;
 
 	/**
 	 * Create the panel.
@@ -118,13 +116,12 @@ public class EventSettingP extends JPanel {
 				sTimeI = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100
 						+ cal.get(Calendar.DATE);
 				
-
-				if (avm.ts.getSharedData() < sTimeI) {
+				if (avm.ts.getSharedDataI() < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());
 					System.out.println(eventGoal + eventFlag + "로 설정되었다.");
 
 				} else {
-					System.out.println("오늘 날짜인 이후만 입력하시오(" +avm.ts.getSharedData() + " 보다 큰 값)");
+					System.out.println("오늘 날짜인 이후만 입력하시오(" +avm.ts.getSharedDataI() + " 보다 큰 값)");
 				}
 				
 				
