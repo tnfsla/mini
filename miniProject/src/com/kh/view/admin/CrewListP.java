@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -51,6 +52,9 @@ public class CrewListP extends JPanel {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {// 정보 읽어오면 안의 사람 띄우기
+				crewListD dialog1 = new crewListD(crew, crewName);
+				dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog1.setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(168, 459, 113, 39);
@@ -112,22 +116,7 @@ public class CrewListP extends JPanel {
 				crewName = (String) table.getModel().getValueAt(row, 1);
 			}
 		});
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{new Integer(1), "\uD558\uB098", new Integer(50)},
-//				{new Integer(2), "\uB450\uC6B8", new Integer(30)},
-//			},
-//			new String[] {
-//				"No", "\uD074\uB7FD\uBA85", "\uD604\uC7AC\uD074\uB7FD\uC778\uC6D0"
-//			}
-//		) {
-//			Class[] columnTypes = new Class[] {
-//				Integer.class, Object.class, Integer.class
-//			};
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
+
 		table.getColumnModel().getColumn(0).setPreferredWidth(44);
 		table.getColumnModel().getColumn(2).setPreferredWidth(95);
 		

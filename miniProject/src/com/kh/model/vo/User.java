@@ -100,4 +100,12 @@ public class User extends SystemUser implements Serializable {
 	public void addExercise(Exercise exercise) {
 		exercises.add(exercise);
 	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return super.getId();
+	}
+	
+	
 }
