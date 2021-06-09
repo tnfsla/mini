@@ -20,9 +20,9 @@ public class User extends SystemUser implements Serializable {
 
 	private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
-	public User(String id, String pw, boolean adminFlag, String name, int age, double height, double weight,
+	public User(String id, String pw, String name, int age, double height, double weight,
 			char gender, boolean hasBedge) {
-		super(id, pw, adminFlag);
+		super(id, pw, false);
 		this.name = name;
 		this.age = age;
 		this.height = height;

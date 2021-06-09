@@ -162,7 +162,7 @@ public class CrewDao {
 		// User data 세팅
 		ArrayList<User> userList = new ArrayList<>();
 		/////////////////////////////////////////////////////////////////////////////////
-		userList.add(new User("최용석", 20, 100, 50, '남', false));
+		userList.add(new User("c1", "1234", "최용석", 20, 100, 50, '남', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -179,7 +179,7 @@ public class CrewDao {
 		
 		userList.get(userList.size() - 1).setExercises(exercises);
 		/////////////////////////////////////////////////////////////////////////////////
-		userList.add(new User("문대훈", 20, 100, 50, '남', false));
+		userList.add(new User("m1", "1234", "문대훈", 20, 100, 50, '남', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -196,7 +196,7 @@ public class CrewDao {
 
 		userList.get(userList.size() - 1).setExercises(exercises);
 		/////////////////////////////////////////////////////////////////////////////////		
-		userList.add(new User("서민지", 20, 100, 50, '여', false));
+		userList.add(new User("s1", "1234", "서민지", 20, 100, 50, '여', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -213,7 +213,7 @@ public class CrewDao {
 		
 		userList.get(userList.size() - 1).setExercises(exercises);
 		/////////////////////////////////////////////////////////////////////////////////		
-		userList.add(new User("최선호", 20, 100, 50, '여', false));
+		userList.add(new User("c2", "1234", "최선호", 20, 100, 50, '여', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -230,7 +230,7 @@ public class CrewDao {
 		
 		userList.get(userList.size() - 1).setExercises(exercises);
 		/////////////////////////////////////////////////////////////////////////////////
-		userList.add(new User("유기용", 20, 100, 50, '남', false));
+		userList.add(new User("u1", "1234", "유기용", 20, 100, 50, '남', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -256,7 +256,7 @@ public class CrewDao {
 		userList = new ArrayList<>();
 		
 		/////////////////////////////////////////////////////////////////////////////////
-		userList.add(new User("런데이", 99, 999, 99, '남', false));
+		userList.add(new User("runday", "1234", "런데이", 99, 999, 99, '남', false));
 		exercises = new ArrayList<Exercise>();
 		
 		cal = Calendar.getInstance();
@@ -282,14 +282,14 @@ public class CrewDao {
 		Calendar cal = Calendar.getInstance();
 		Random random = new Random();
 
-		User user = new User("김태훈", 31, 170, 85, '남', false);
+		User user = new User("k1", "1234", "김태훈", 31, 170, 85, '남', false);
 
 		CrewDao dao = new CrewDao(user);
 
-//		createTest(cal, random, exercises, user, dao);
-//		dao.saveCrewList();
+		createTest(cal, random, exercises, user, dao);
+		dao.saveCrewList();
 		
-		dao.loadCrewList();
+//		dao.loadCrewList();
 
 		// 확인
 		dao.printCrewList();
@@ -297,7 +297,7 @@ public class CrewDao {
 
 		for (User u : dao.getCrewList().get(0).getUserList()) {
 			for (Exercise exercise : u.getExercises()) {
-				System.out.println(u.getName() + " : " + exercise.toString());
+				System.out.println("[" + u.getId() + "," + u.getPw() + "]" + u.getName() + " -> " + exercise.toString());
 			}
 			System.out.println();
 		}
