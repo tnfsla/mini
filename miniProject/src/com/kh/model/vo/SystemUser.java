@@ -15,6 +15,13 @@ public class SystemUser {
 		// TODO Auto-generated constructor stub
 	}
 
+	public SystemUser(String id, String pw, boolean adminFlag) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.adminFlag = adminFlag;
+	}
+
 	public boolean isAdminFlag() {
 		return adminFlag;
 	}

@@ -27,6 +27,18 @@ public class User extends SystemUser implements Serializable {
 		this.crewName = null;
 	}
 
+	public User(String id, String pw, boolean adminFlag, String name, int age, double height, double weight,
+			char gender, boolean hasBedge) {
+		super(id, pw, adminFlag);
+		this.name = name;
+		this.age = age;
+		this.height = height;
+		this.weight = weight;
+		this.gender = gender;
+		this.hasBedge = hasBedge;
+		this.crewName = null;
+	}
+
 	public String getName() {
 		return name;
 	}
