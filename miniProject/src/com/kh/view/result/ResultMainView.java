@@ -23,16 +23,12 @@ import com.kh.model.vo.Exercise;
 
 public class ResultMainView extends JFrame implements ActionListener {
 	public ResultMainView() {
-		
-			
-		
-		
-		
 
 	}
+
 	private JFrame frame;
 	ResultController rc = new ResultController();
-	
+
 	// ------------외형구현---------------
 	Calendar cal; // 캘린더
 	int year, month, date;
@@ -42,14 +38,11 @@ public class ResultMainView extends JFrame implements ActionListener {
 	JButton btn1 = new JButton("◀"); // 이전버튼
 	JButton btn2 = new JButton("▶"); // 다음버튼
 	JButton btn3 = new JButton("뒤로가기"); // 뒤로가기 버튼
-	
 
 	// 위에 라벨추가
 	JLabel yearlb = new JLabel("년");
 	JLabel monthlb = new JLabel("월");
-	
-																									
-	
+
 	// 년월 추가
 	JComboBox<Integer> yearCombo = new JComboBox<Integer>();
 	DefaultComboBoxModel<Integer> yearModel = new DefaultComboBoxModel<Integer>();
@@ -63,17 +56,9 @@ public class ResultMainView extends JFrame implements ActionListener {
 	JPanel datePane = new JPanel(new GridLayout(0, 7));
 	JPanel title = new JPanel(new GridLayout(1, 7));
 	String titleStr[] = { "일", "월", "화", "수", "목", "금", "토" };
-	private JLabel dateDistance;
-	private JLabel dateTime;
-	private JLabel dateKcal;
-	private JLabel dateStar;
+
 	private JLabel selDate;
-
-	
-
-	
-	
-	
+	private JLabel dateexercise;
 
 	// 화면디자인
 	public void CalendarMain() {
@@ -110,119 +95,53 @@ public class ResultMainView extends JFrame implements ActionListener {
 		}
 		// 날짜 출력
 		day(year, month);
-		
-		//입력받기
-		JLabel exercise = new JLabel("<html>총 거리 :  <br>총 시간 :   <br>소모한 칼로리 :  </html>");
-		
-		JLabel dateexercise = new JLabel("<html>달린 거리 :  <br>달린 시간 :  <br>소모한 칼로리 : <br>별점 :  </html>");
-		
-		JLabel Distance = new JLabel();
-		Distance.setBounds(88, 0, 82, 25);
-		getContentPane().add(Distance);
-		int totalDistance = rc.getTotalDistance();
-		Distance.setText(String.valueOf(totalDistance+"km"));
 
-		JLabel Time = new JLabel();
-		Time.setBounds(88, 27, 82, 25);
-		getContentPane().add(Time);
-		String totalTime = rc.getTotalTime();			
-		Time.setText(totalTime);
-		
-		JLabel Kcal = new JLabel();
-		Kcal.setBounds(129, 50, 82, 25);
-		getContentPane().add(Kcal);
+		// 입력받기
+
+		int totalDistance = rc.getTotalDistance();
+		String totalTime = rc.getTotalTime();
 		int totalKcal = rc.getTotalKcal();
-		Kcal.setText(String.valueOf(totalKcal+"kcal"));
-		
-		dateDistance = new JLabel();
-		
-		dateTime = new JLabel();
-		
-		dateKcal = new JLabel();
-		
-		
-		dateStar = new JLabel();
-		
+		double totalPace = rc.getTotalPace();
+
+		JLabel exercise = new JLabel("<html>총 거리 : " + totalDistance + " <br>총 시간 : " + totalTime + "   <br>소모한 칼로리 :  "
+				+ totalKcal + "<br>페이스 : " + totalPace + " </html>");
+		;
+
 		selDate = new JLabel();
-		
-		dateDistance.setBounds(90, 83, 60, 25);
-		getContentPane().add(dateDistance);
-		
-		
-		dateTime.setBounds(90, 107, 60, 25);
-		getContentPane().add(dateTime);
-		
-		dateKcal.setBounds(128, 131, 60, 25);
-		getContentPane().add(dateKcal);
-		
-		dateStar.setBounds(60, 155, 60, 25);
-		getContentPane().add(dateStar);
-		
-		
+
 		selDate.setBounds(108, 21, 193, 60);
 		getContentPane().add(selDate);
-		
-	
-		//dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
-		
-		//운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
-		
-		
-			
-		
-			
-			
-		
-		
-		
-		
-		
-		
+
+		// dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
+
+		// 운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
+
 		// ----------------------------
 		setTitle("운동기록 확인");
-		
-		
-		
+
 		pane.add(btn1);
 		pane.add(yearCombo);
 		pane.add(yearlb);
 		pane.add(monthCombo);
 		pane.add(monthlb);
-		pane.add(btn2);		
+		pane.add(btn2);
 		getContentPane().add(BorderLayout.CENTER, pane);
-		
+
 		pane2.add(title, "North");
 		pane2.add(datePane);
 		getContentPane().add(BorderLayout.SOUTH, pane2);
-		
+
 		pane3.add(exercise);
-		
-		
+
 		exercise.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		getContentPane().add(BorderLayout.NORTH, pane3);
-		
-		
-		
 
-		
-		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
-		
-		
-		dateexercise.setBounds(0, 82, 434, 96);
-		dateexercise.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
-		frame.getContentPane().add(dateexercise);
-		frame.getContentPane().add(dateStar);
-		frame.getContentPane().add(dateDistance);
-		frame.getContentPane().add(dateTime);
-		frame.getContentPane().add(dateKcal);
+
 		frame.getContentPane().add(selDate);
 
-
-		
-	
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pane.setVisible(true);
@@ -235,27 +154,15 @@ public class ResultMainView extends JFrame implements ActionListener {
 		btn3.setBounds(0, 0, 87, 23);
 		frame.getContentPane().add(btn3);
 		frame.setVisible(false);
-		
-		
-	
-		
-		
-		
-		
-	
 
 		// 각종 명령어
 		setVisible(true);
 
 		setResizable(false);
 		setSize(400, 330);
-		
-		
-		
 
-		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		// ----------기능구현----------
 		btn1.addActionListener(this);
 		btn2.addActionListener(this);
@@ -292,12 +199,14 @@ public class ResultMainView extends JFrame implements ActionListener {
 			}
 			yearCombo.setSelectedItem(yy);
 			monthCombo.setSelectedItem(mm);
-			
+
 		}
 	}
+
 	public ResultController getRc() {
 		return rc;
 	}
+
 	// 날짜출력
 	public void day(int year, int month) {
 		Calendar date = Calendar.getInstance();// 오늘날짜 + 시간
@@ -318,16 +227,13 @@ public class ResultMainView extends JFrame implements ActionListener {
 			int day = i;
 			JButton jbt = new JButton();
 			JLabel jlb1 = new JLabel();
-			
-			if(rc.getDay(day) == true) {
-			
-			jbt = new JButton(String.valueOf(day));
-			datePane.add(jbt);
-			
-			
-			
 
-			}else {
+			if (rc.getDay(day) == true) {
+
+				jbt = new JButton(String.valueOf(day));
+				datePane.add(jbt);
+
+			} else {
 				jlb1 = new JLabel(String.valueOf(day));
 				datePane.add(jlb1);
 				jlb1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -340,17 +246,19 @@ public class ResultMainView extends JFrame implements ActionListener {
 					// TODO Auto-generated method stub
 					super.mousePressed(e);
 					Exercise ex = rc.selectExercise(year, month, day);
-					dateDistance.setText(String.valueOf(ex.getDistance()+"km"));
-					dateTime.setText(rc.secToHHMMSS(ex.getRunTime()));
-					dateKcal.setText(String.valueOf(ex.getCalorie()+"kcal"));
-					dateStar.setText(String.valueOf(ex.getStar()+"점"));
-					selDate.setText(String.valueOf(rc.selectYear()));
-					
-					pane4.setVisible(true);
+					selDate.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+					selDate.setText(String.format("%02d년 %02d월 %02d일", year, month, day));
+					dateexercise = new JLabel("<html> 달린 거리 : " + ex.getDistance() + " <br> 달린 시간 : " + ex.getRunTime()
+							+ "<br> 소모한 칼로리 : " + ex.getCalorie() + "<br> 페이스 : " + ex.getPace() + "<br> 별점 : "
+							+ ex.getStar() + "</html>");
+					dateexercise.setBounds(0, 82, 434, 120);
+					dateexercise.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
+					frame.getContentPane().add(dateexercise);
+
 					frame.setVisible(true);
-				
+
 				}
-				
+
 			});
 			cal.set(year, month - 1, day);
 			int Week = cal.get(Calendar.DAY_OF_WEEK);
@@ -359,7 +267,7 @@ public class ResultMainView extends JFrame implements ActionListener {
 			} else if (Week == 7) {
 				jbt.setForeground(Color.BLUE);
 			}
-			
+
 		}
 	}
 }

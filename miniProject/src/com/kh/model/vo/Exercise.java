@@ -15,7 +15,7 @@ public class Exercise implements Serializable {
 	private long runTime; // 달린 시간 초 단위로 저장 해당 시간으로 전체 시간 등을 계산
 	private double distance; // 이동거리
 	private double calorie; // 칼로리
-	private double pace; // 페이스
+	private double pace; // 페이스 (1km 뛰는데 걸리는시간)
 	private int star; // 별점 (1 ~ 5)
 
 	public Exercise() {
