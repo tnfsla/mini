@@ -63,7 +63,6 @@ public class Bridge {
 		long systemTime = System.currentTimeMillis();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
 		String dTime = formatter.format(systemTime);
-		System.out.println(dTime);
 		int dTimeI = Integer.parseInt(dTime);
 		
 		return dTimeI;

@@ -314,17 +314,15 @@ public class AdminViewManager {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(eventSetting.getsTimeI());
 				System.out.println(ts.getSharedDataI());
-				if (eventSetting.getsTimeI() != 0 && eventSetting.getsTimeI() >= ts.getSharedDataI()) {
+				if (eventSetting.getsTimeI() != 0 && eventSetting.getsTimeI() <= ts.getSharedDataI()) {
 					EventEndAlertD dialog = new EventEndAlertD(eventSetting);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 					
 				} else {
-					ErrorD dialog1 = new ErrorD();
+					ErrorD dialog1 = new ErrorD(eventSetting);
 					dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog1.setVisible(true);
-					
-					System.out.println("이벤트 진행중이 아니다.");
 				}
 			}
 		}); // 알럿은 알림이기때문에 아직 구현 안됨. 수정요망

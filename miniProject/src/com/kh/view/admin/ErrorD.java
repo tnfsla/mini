@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 public class ErrorD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
+	private EventSettingP eventSetting;
 	/**
 	 * Launch the application.
 	 */
@@ -29,10 +29,18 @@ public class ErrorD extends JDialog {
 		}
 	}
 
+	
 	/**
 	 * Create the dialog.
 	 */
 	public ErrorD() {
+	
+	}
+
+
+	public ErrorD(EventSettingP eventSetting) {
+		this.eventSetting = eventSetting;
+		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -40,10 +48,22 @@ public class ErrorD extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("잘못된 접근입니다.");
-			lblNewLabel.setBounds(31, 88, 375, 29);
+			lblNewLabel.setBounds(32, 37, 367, 55);
 			lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 			contentPanel.add(lblNewLabel);
 		}
+		
+		JLabel lblNewLabel = new JLabel("이벤트 설정을 하지 않았거나, 지정 날짜가 되지 않았습니다.");
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		lblNewLabel.setBounds(32, 79, 367, 55);
+		contentPanel.add(lblNewLabel);
+		{
+			JLabel lblNewLabel_1 = new JLabel("설정 날짜 : " +Integer.toString(eventSetting.getsTimeI()));
+			lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+			lblNewLabel_1.setBounds(32, 127, 367, 55);
+			contentPanel.add(lblNewLabel_1);
+		}
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -73,5 +93,4 @@ public class ErrorD extends JDialog {
 			}
 		}
 	}
-
 }
