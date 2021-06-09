@@ -7,7 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import com.kh.controller.exercise.StopWatchController;
+
 public class StopWatchPanel extends JPanel {
+	
+	private StopWatchController stopWatchController;
 
 	JButton startB;
 	JButton stopB;
