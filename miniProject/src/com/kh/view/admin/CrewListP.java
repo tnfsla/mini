@@ -109,9 +109,7 @@ public class CrewListP extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = table.getSelectedRow();
-				System.out.println(table.getSelectedRow());
 				crewName = (String) table.getModel().getValueAt(row, 1);
-				System.out.println(crewName);
 			}
 		});
 //		table.setModel(new DefaultTableModel(

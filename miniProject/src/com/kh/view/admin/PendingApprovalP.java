@@ -33,7 +33,6 @@ public class PendingApprovalP extends JPanel {
 	}
 
 	private void initialize() {
-		System.out.println(crew.size());
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 

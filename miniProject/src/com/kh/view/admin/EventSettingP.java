@@ -25,11 +25,23 @@ public class EventSettingP extends JPanel {
 	private int eventGoal;
 	private String eventFlag;
 	private Calendar cal;
+	private long setTime;
 
 	/**
 	 * Create the panel.
 	 */
 	public EventSettingP() {
+		initailize();
+
+	}
+	
+	public EventSettingP(long dTimeI) {
+		setTime = dTimeI;
+		initailize();
+		
+	}
+
+	private void initailize() {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
@@ -98,20 +110,25 @@ public class EventSettingP extends JPanel {
 				cal.set(Calendar.YEAR, Integer.parseInt(eventDate.substring(0, 4)));
 				cal.set(Calendar.MONTH, Integer.parseInt(eventDate.substring(4, 6)) - 1);
 				cal.set(Calendar.DATE, Integer.parseInt(eventDate.substring(6)));
-				long systemTime = System.currentTimeMillis();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
-				String dTime = formatter.format(systemTime);
-				long dTimeI = Long.parseLong(dTime);
+//				long systemTime = System.currentTimeMillis();
+//				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+//				String dTime = formatter.format(systemTime);
+//				int dTimeI = Integer.parseInt(dTime);
+				
+//				long systemTime = System.currentTimeMillis();
+//				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmss", Locale.KOREA);
+//				String dTime = formatter.format(systemTime);
+//				long dTimeI = Long.parseLong(dTime);
 				int sTimeI = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100
 						+ cal.get(Calendar.DATE);
-				System.out.println(dTimeI);
+				
 
-				if (dTimeI < sTimeI) {
+				if (avm.ts.getSharedData() < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());
 					System.out.println(eventGoal + eventFlag + "로 설정되었다.");
 
 				} else {
-					System.out.println("오늘 날짜인 이후만 입력하시오(" + dTimeI + " 보다 큰 값)");
+					System.out.println("오늘 날짜인 이후만 입력하시오(" +avm.ts.getSharedData() + " 보다 큰 값)");
 				}
 				
 				
@@ -123,7 +140,7 @@ public class EventSettingP extends JPanel {
 		});
 		btnNewButton_1.setBounds(196, 478, 113, 39);
 		add(btnNewButton_1);
-
+		
 	}
 
 	public int getEventGoal() {
@@ -146,5 +163,13 @@ public class EventSettingP extends JPanel {
 		this();
 		this.avm = avm;
 
+	}
+
+	public long getSetTime() {
+		return setTime;
+	}
+
+	public void setSetTime(long setTime) {
+		this.setTime = setTime;
 	}
 }

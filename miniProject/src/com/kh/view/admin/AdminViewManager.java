@@ -19,12 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.kh.controller.admin.ScheduledJob;
+import com.kh.controller.admin.Bridge;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
-import com.kh.view.crew.CrewViewManager;
 
-public class AdminViewManager {
+public class AdminViewManager extends Thread{
 
 	private User user;
 	private JPanel mainPanel; // 메인 - 시작 page
@@ -34,18 +33,24 @@ public class AdminViewManager {
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private EventEndAlertD eventAlert; // 이벤트 마감 알림 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+	Bridge ts;
+	private long dTimeI=0;
+
+	
 
 	public AdminViewManager(User user) {
 		this.user = user;
-		loadCrewList();
-		initialize();
-		initPanel();
+
 
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
 	private void initPanel() {
-
+		while(!ts.isReady() == true) {
+			continue;
+		}
+		dTimeI=ts.getSharedData();
+		System.out.println(dTimeI);
 //
 //		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 //		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
@@ -183,43 +188,30 @@ public class AdminViewManager {
 		}
 	}
 
-	public static void test() {
+	public void run() {
 		// 테스트 용
-		User user = new User("k1", "1234", "김태훈", 20, 100, 100, '남', false);
+		User user = new User("k1","1234","김태훈", 20, 100, 100, '남', false);
 
 		JFrame frame = new JFrame();
-		CrewViewManager crewViewManager = new CrewViewManager(user);
-		AdminViewManager avm = new AdminViewManager(user);
+		loadCrewList();
+		initialize();
+		initPanel();
 		frame.setBounds(100, 100, 360, 600);
 		frame.setLayout(null);
-		avm.addPanels(frame);
-		avm.convertPanel("main");
+		this.addPanels(frame);
+		this.convertPanel("main");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
 
-	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					AdminViewManager avm = new AdminViewManager();
-//					avm.mainPanel.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-		ScheduledJob job = new ScheduledJob();
-		Timer jobScheduler = new Timer();
-		jobScheduler.scheduleAtFixedRate(job, 0, 1000);
-
-		try {
-			Thread.sleep(20000);
-		} catch (InterruptedException ex) {
-			//
-		}
-		jobScheduler.cancel();
-
-		test();
+	public long getdTimeI() {
+		return dTimeI;
 	}
+
+	public void setdTimeI(long dTimeI) {
+		this.dTimeI = dTimeI;
+	}
+
+
 }
