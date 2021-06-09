@@ -9,16 +9,22 @@ import com.kh.model.vo.User;
 public class CrewController {
 
 	private CrewRankController crewRankController; // crew 랭킹 page controller
+	private CrewFeedController crewFeedController; // crew 피드 page controller
 
 	private CrewDao crewDao; // Crew dao 생성은 CrewControllerManager에서만
 
 	public CrewController(CrewDao crewDao) {
 		crewRankController = new CrewRankController(crewDao);
+		crewFeedController = new CrewFeedController(crewDao);
 		this.crewDao = crewDao;
 	}
 
 	public CrewRankController getCrewRankController() {
 		return crewRankController;
+	}
+	
+	public CrewFeedController getCrewFeedController() {
+		return crewFeedController;
 	}
 
 	// 크루 가입

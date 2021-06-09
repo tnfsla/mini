@@ -66,6 +66,7 @@ public class CrewRankController {
 		for (int i = 0; i < userList.size(); i++) {
 			if (userList.get(i).getName().equals(user.getName())) {
 				result[0][0] = String.valueOf(i + 1);
+				break;
 			}
 		}
 
