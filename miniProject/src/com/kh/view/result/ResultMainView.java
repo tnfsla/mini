@@ -25,7 +25,7 @@ import com.kh.controller.result.ResultController;
 import com.kh.model.vo.Exercise;
 import com.sun.tools.javac.launcher.Main;
 
-public class ResultMainView extends JFrame implements ActionListener {
+public class ResultMainView extends JPanel implements ActionListener {
 	public ResultMainView() {
 
 	}
@@ -121,14 +121,14 @@ public class ResultMainView extends JFrame implements ActionListener {
 		selDate = new JLabel();
 
 		selDate.setBounds(108, 21, 193, 60);
-		getContentPane().add(selDate);
+		add(selDate);
 
 		// dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
 
 		// 운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
 
 		// ----------------------------
-		setTitle("운동기록 확인");
+		frame.setTitle("운동기록 확인");
 
 		pane.add(btn1);
 		pane.add(yearCombo);
@@ -136,16 +136,16 @@ public class ResultMainView extends JFrame implements ActionListener {
 		pane.add(monthCombo);
 		pane.add(monthlb);
 		pane.add(btn2);
-		getContentPane().add(BorderLayout.CENTER, pane);
+		add(BorderLayout.CENTER, pane);
 
 		pane2.add(title, "North");
 		pane2.add(datePane);
-		getContentPane().add(BorderLayout.SOUTH, pane2);
+		add(BorderLayout.SOUTH, pane2);
 
 		pane3.add(exercise);
 
 		exercise.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-		getContentPane().add(BorderLayout.NORTH, pane3);
+		add(BorderLayout.NORTH, pane3);
 
 		frame.getContentPane().add(selDate);
 
@@ -163,13 +163,13 @@ public class ResultMainView extends JFrame implements ActionListener {
 		frame.setVisible(false);
 
 		// 각종 명령어
-		setVisible(true);
+		
 		
 
-		setResizable(false);
+		frame.setResizable(false);
 		setSize(400, 330);
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// ----------기능구현----------
 		btn1.addActionListener(this);
