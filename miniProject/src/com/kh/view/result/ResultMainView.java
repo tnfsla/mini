@@ -23,7 +23,6 @@ import javax.swing.SwingConstants;
 
 import com.kh.controller.result.ResultController;
 import com.kh.model.vo.Exercise;
-import com.sun.tools.javac.launcher.Main;
 
 public class ResultMainView extends JPanel implements ActionListener {
 	public ResultMainView() {
