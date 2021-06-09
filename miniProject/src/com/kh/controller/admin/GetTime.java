@@ -46,9 +46,6 @@ package com.kh.controller.admin;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.kh.view.admin.AdminViewManager;
-import com.kh.view.admin.EventSettingP;
-
 public class GetTime extends Thread{
    
    public Bridge ts;
@@ -72,7 +69,7 @@ public class GetTime extends Thread{
             
             ts.setReady(true);
             
-            sleep(2000);
+            sleep(1000);
          }
       }catch(Exception e ) {
          

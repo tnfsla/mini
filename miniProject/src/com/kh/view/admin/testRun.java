@@ -30,7 +30,6 @@
 
 package com.kh.view.admin;
 
-import com.kh.controller.admin.Bridge;
 import com.kh.controller.admin.GetTime;
 import com.kh.model.vo.User;
 
@@ -41,7 +40,7 @@ public class testRun {
       User user = new User("k1","1234","김태훈", 20, 100, 100, '남', false);
       
       GetTime t1 = new GetTime();
-      Bridge ts = new Bridge();
+
       
       AdminViewManager avm = new AdminViewManager(user);
       t1.ts = avm.ts;
