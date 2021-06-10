@@ -219,8 +219,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -244,12 +246,11 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-	private long sTimeI;
-	private long dTimeI;
+	private long sTime1 =0;
 
 	public AdminViewManager(User user) {
 		this.user = user;
-
+		run();
 	}
 
 	public AdminViewManager(Main main, User user) {
@@ -322,15 +323,20 @@ public class AdminViewManager {
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				setsTime1(getEventSetting().getsTimeI()); 
 				long sTime2 = getEventSetting().getsTimeI() / 1000000;
 				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
 				
-				long dTime2 = getEventSetting().getdTimeI() / 1000000;
-				long dTime3 = getEventSetting().getdTimeI() - (getEventSetting().getdTimeI() / 1000000) * 1000000;
-
+				long dTimeI = System.currentTimeMillis();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+				String dTime = formatter.format(dTimeI);
+				long dTime1 = Long.parseLong(dTime);
+				long dTime2 = dTime1 / 1000000;
+				long dTime3 = dTime1 - (dTime1 / 1000000) * 1000000;
+				System.out.println(sTime2);
+				System.out.println(dTime2);
 				if (sTime2 != 0 && sTime2 >= dTime2) {
-					if (sTime3 >= dTime3) {
+					if (sTime3 <= dTime3) {
 						EventEndAlertD dialog = new EventEndAlertD(eventSetting);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
@@ -437,20 +443,12 @@ public class AdminViewManager {
 		this.eventSetting = eventSetting;
 	}
 
-	public long getsTimeI() {
-		return sTimeI;
+	public long getsTime1() {
+		return sTime1;
 	}
 
-	public void setsTimeI(long sTimeI) {
-		this.sTimeI = sTimeI;
-	}
-
-	public long getdTimeI() {
-		return dTimeI;
-	}
-
-	public void setdTimeI(long dTimeI) {
-		this.dTimeI = dTimeI;
+	public void setsTime1(long sTime1) {
+		this.sTime1 = sTime1;
 	}
 
 }

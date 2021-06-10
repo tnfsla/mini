@@ -24,6 +24,7 @@ public class MainPanel extends JPanel {
 	JLabel lblTime;
 	JLabel lblEvent;
 	private long sTime = 0;
+	private long dTimeI = 0;
 	private AdminViewManager avm;
 
 	public void ThreadTime() {
@@ -31,7 +32,6 @@ public class MainPanel extends JPanel {
 			public void run() {
 				try {
 					while (true) {
-						long dTimeI = 0L;
 						long systemTime = System.currentTimeMillis();
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 						String dTime = formatter.format(systemTime);
@@ -39,16 +39,25 @@ public class MainPanel extends JPanel {
 								Locale.KOREA);
 						String dTime1 = formatter1.format(systemTime);
 						dTimeI = Long.parseLong(dTime);
-						System.out.println(dTimeI);
+
+						sTime = main.getsTimeI();
 
 						lblTime.setText(dTime1);
 						lblTime.setBounds(42, 500, 280, 20);
-					
 
 						lblEvent.setText("Event가 진행중이지 않습니다.");
-						lblEvent.setBounds(42, 71, 57, 15);
+						lblEvent.setBounds(42, 71, 160, 40);
 
-						sleep(1000);
+						if (sTime != 0 && 5 >= sTime) {
+							lblEvent.setText("Event가 진행중이지 않습니다.");
+							lblEvent.setBounds(42, 71, 160, 40);
+						} else {
+							lblEvent.setText("Event가 진행중입니다.");
+							lblEvent.setBounds(42, 71, 160, 40);
+						}
+						Thread.sleep(1000);
+						System.out.println(sTime);
+						System.out.println(dTimeI);
 
 					}
 				} catch (Exception e) {
@@ -136,10 +145,9 @@ public class MainPanel extends JPanel {
 		lblEvent = new JLabel("event");
 
 		lblTime = new JLabel("time");
-		
+
 		add(lblTime);
 		add(lblEvent);
-
 
 		JLabel label = new JLabel("러닝 프로그램");
 		label.setFont(new Font("맑은 고딕", Font.BOLD, 16));
@@ -150,6 +158,7 @@ public class MainPanel extends JPanel {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.convertPanel("admin");
+				System.out.println("amin버튼 눌렀을떄 : " + sTime);
 			}
 		});
 		btnNewButton_2.setBounds(185, 24, 97, 23);
@@ -172,6 +181,13 @@ public class MainPanel extends JPanel {
 	public void setsTime(long sTime) {
 		this.sTime = sTime;
 	}
-	
-	
+
+	public long getdTimeI() {
+		return dTimeI;
+	}
+
+	public void setdTimeI(long dTimeI) {
+		this.dTimeI = dTimeI;
+	}
+
 }

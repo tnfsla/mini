@@ -24,7 +24,6 @@ public class EventSettingP extends JPanel {
 	private String eventDate;
 	private int eventGoal;
 	private String eventFlag;
-	private Calendar cal;
 	private long sTimeI = 0;
 	private long dTimeI = 0;
 
@@ -50,7 +49,7 @@ public class EventSettingP extends JPanel {
 
 		JLabel lblNewLabel = new JLabel("시작 날짜(yyyyMMddHHmmss)");
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		lblNewLabel.setBounds(29, 152, 199, 23);
+		lblNewLabel.setBounds(29, 152, 230, 23);
 		add(lblNewLabel);
 
 		date = new JTextField();
@@ -83,8 +82,6 @@ public class EventSettingP extends JPanel {
 		goal.setBounds(52, 300, 257, 32);
 		add(goal);
 
-		cal = Calendar.getInstance();
-
 		JButton btnNewButton = new JButton("이전");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -104,15 +101,12 @@ public class EventSettingP extends JPanel {
 					eventFlag = "H";
 				}
 				eventDate = date.getText();
-//				cal.set(Calendar.YEAR, Integer.parseInt(eventDate.substring(0, 4)));
-//				cal.set(Calendar.MONTH, Integer.parseInt(eventDate.substring(4, 6)) - 1);
-//				cal.set(Calendar.DATE, Integer.parseInt(eventDate.substring(6)));
 				sTimeI=Long.parseLong(eventDate);
+
 //				long systemTime = System.currentTimeMillis();
 //				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
 //				String dTime = formatter.format(systemTime);
 //				int dTimeI = Integer.parseInt(dTime);
-				
 				long systemTime = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 				String dTime = formatter.format(systemTime);
