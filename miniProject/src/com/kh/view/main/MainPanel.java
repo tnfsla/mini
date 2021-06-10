@@ -46,14 +46,14 @@ public class MainPanel extends JPanel {
 						lblTime.setBounds(42, 500, 280, 20);
 
 						lblEvent.setText("Event가 진행중이지 않습니다.");
-						lblEvent.setBounds(42, 71, 160, 40);
+						lblEvent.setBounds(42, 71, 200, 40);
 
-						if (sTime != 0 && 5 >= sTime) {
+						if (sTime == 0 || dTimeI <= sTime) {
 							lblEvent.setText("Event가 진행중이지 않습니다.");
-							lblEvent.setBounds(42, 71, 160, 40);
+							lblEvent.setBounds(42, 71, 200, 40);
 						} else {
 							lblEvent.setText("Event가 진행중입니다.");
-							lblEvent.setBounds(42, 71, 160, 40);
+							lblEvent.setBounds(42, 71, 200, 40);
 						}
 						Thread.sleep(1000);
 						System.out.println(sTime);
