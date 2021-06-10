@@ -81,7 +81,7 @@ public class CrewRankPanel extends JPanel {
 		btnCrewPageBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 특정 crew 페이지로 다시 이동
-				crewManager.convertPanel("crew");
+				crewManager.convertPanel("crew_crew");
 			}
 		});
 		btnCrewPageBack.setBounds(12, 10, 97, 23);
@@ -170,7 +170,7 @@ public class CrewRankPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				crewManager.convertPanel("main");
+				crewManager.convertPanel("crew_main");
 				crewManager.updateCrewJoinState();
 			}
 		});

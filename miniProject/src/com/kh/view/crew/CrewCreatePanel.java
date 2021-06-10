@@ -46,7 +46,7 @@ public class CrewCreatePanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(), crewManager.getUser());
 				crewManager.updateCrewJoinState(); // 크루 가입 상태 업데이트
-				crewManager.convertPanel("main"); // main page로
+				crewManager.convertPanel("crew_main"); // main page로
 			}
 		});
 		btnCreateCrew.setBounds(235, 20, 97, 23);
@@ -99,7 +99,7 @@ public class CrewCreatePanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				crewManager.convertPanel("main");
+				crewManager.convertPanel("crew_main");
 				crewManager.updateCrewJoinState();
 			}
 		});
