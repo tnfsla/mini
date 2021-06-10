@@ -30,6 +30,10 @@ public class Main {
 	private ResultMainView resultView; // Result Part 시작 Panel
 	private CrewViewManager crewManager; // Crew Part 시작 Panel
 	private PasswordChangeView pwdChangeView; // Update Part 시작 Panel
+	private long sTimeI;
+	private int eventGoal;
+	private String eventFlag;
+	
 
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
@@ -80,9 +84,10 @@ public class Main {
 
 	// 바로 new로 객체 생성하지 않고 로그인에서 user 객체가 생성이 되면 호출
 	public void lazeInitPanel(User user) {
-		mainPanel = new MainPanel(this, adminManager);
+
 
 		adminManager = new AdminViewManager(this, user); // loginView에서
+		mainPanel = new MainPanel(this);
 		recordMain = new RecordMainPanel(this, user); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this, user);
 		crewManager = new CrewViewManager(this, user);
@@ -94,8 +99,10 @@ public class Main {
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", pwdChangeView);
+		
+		sTimeI = adminManager.getEventSetting().getsTimeI();
+		System.out.println("sTimeI : "+sTimeI);
 
-		mainPanel.setsTime(adminManager.getEventSetting().getsTimeI());
 	}
 
 	public void convertPanel(String panelName) {
@@ -131,12 +138,28 @@ public class Main {
 		return panelMap;
 	}
 
-	public AdminViewManager getAdminManager() {
-		return adminManager;
+	public long getsTimeI() {
+		return adminManager.getEventSetting().getsTimeI();
 	}
 
-	public void setAdminManager(AdminViewManager adminManager) {
-		this.adminManager = adminManager;
+	public void setsTimeI(long sTimeI) {
+		this.sTimeI = sTimeI;
+	}
+
+	public int getEventGoal() {
+		return adminManager.getEventSetting().getEventGoal();
+	}
+
+	public void setEventGoal(int eventGoal) {
+		this.eventGoal = eventGoal;
+	}
+
+	public String getEventFlag() {
+		return adminManager.getEventSetting().getEventFlag();
+	}
+
+	public void setEventFlag(String eventFlag) {
+		this.eventFlag = eventFlag;
 	}
 
 

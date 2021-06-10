@@ -23,15 +23,17 @@ public class MainPanel extends JPanel {
 	private Thread t1;
 	JLabel lblTime;
 	JLabel lblEvent;
-	private double sTime;
-	private AdminViewManager avm;
+	private long sTime = 0;
+	private long dTimeI = 0;
+
+	private int eventGoal;
+	private String eventFlag;
 
 	public void ThreadTime() {
 		t1 = new Thread() {
 			public void run() {
 				try {
 					while (true) {
-						long dTimeI = 0L;
 						long systemTime = System.currentTimeMillis();
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 						String dTime = formatter.format(systemTime);
@@ -39,17 +41,27 @@ public class MainPanel extends JPanel {
 								Locale.KOREA);
 						String dTime1 = formatter1.format(systemTime);
 						dTimeI = Long.parseLong(dTime);
-						System.out.println(dTimeI);
+						sTime = main.getsTimeI();
+						eventGoal = main.getEventGoal();
+						eventFlag = main.getEventFlag();
 
 						lblTime.setText(dTime1);
 						lblTime.setBounds(42, 500, 280, 20);
-//						add(lblTime);
 
 						lblEvent.setText("Event가 진행중이지 않습니다.");
-						lblEvent.setBounds(42, 71, 57, 15);
-//						add(lblEvent);
+						lblEvent.setBounds(42, 71, 200, 40);
 
-						sleep(1000);
+						if (sTime == 0 || dTimeI <= sTime) {
+							lblEvent.setText("Event가 진행중이지 않습니다.");
+							lblEvent.setBounds(42, 71, 200, 40);
+						} else {
+							lblEvent.setText("미션 "+eventGoal+eventFlag+" 달리기가 진행중입니다.");
+							lblEvent.setBounds(42, 71, 200, 40);
+						}
+						Thread.sleep(1000);
+						
+//						System.out.println(sTime);
+						System.out.println(dTimeI);
 
 					}
 				} catch (Exception e) {
@@ -66,12 +78,6 @@ public class MainPanel extends JPanel {
 
 	public MainPanel(Main main) {
 		this.main = main;
-		initPanel();
-	}
-
-	public MainPanel(Main main, AdminViewManager adminManager) {
-		this.main = main;
-		this.avm = adminManager;
 		initPanel();
 	}
 
@@ -132,9 +138,12 @@ public class MainPanel extends JPanel {
 		btnNewButton_1_2.setBounds(41, 315, 262, 118);
 		add(btnNewButton_1_2);
 
+		ThreadTime();
+
 		lblEvent = new JLabel("event");
+
 		lblTime = new JLabel("time");
-		
+
 		add(lblTime);
 		add(lblEvent);
 
@@ -160,11 +169,22 @@ public class MainPanel extends JPanel {
 		});
 		btnNewButton_3.setBounds(185, 67, 97, 23);
 		add(btnNewButton_3);
-		
-		ThreadTime();
 	}
 
-	public void setsTime(double sTime) {
+	public long getsTime() {
+		return sTime;
+	}
+
+	public void setsTime(long sTime) {
 		this.sTime = sTime;
 	}
+
+	public long getdTimeI() {
+		return dTimeI;
+	}
+
+	public void setdTimeI(long dTimeI) {
+		this.dTimeI = dTimeI;
+	}
+
 }
