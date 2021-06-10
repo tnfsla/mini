@@ -81,12 +81,6 @@ public class MainPanel extends JPanel {
 		initPanel();
 	}
 
-//	public MainPanel(Main main, AdminViewManager adminManager) {
-//		this.main = main;
-//		this.avm = adminManager;
-//		initPanel();
-//	}
-
 	public void initPanel() {
 
 		setLayout(null);

@@ -34,8 +34,6 @@ public class EventSettingP extends JPanel {
 		initailize();
 
 	}
-	
-
 
 	private void initailize() {
 		setBounds(0, 0, 360, 600);
