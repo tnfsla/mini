@@ -47,6 +47,7 @@ public class CrewCreatePanel extends JPanel {
 				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(), crewManager.getUser());
 				crewManager.updateCrewJoinState(); // 크루 가입 상태 업데이트
 				crewManager.convertPanel("crew_main"); // main page로
+				crewManager.getControllerManager().getCrewDao().saveCrewList(); // 해당 크루 정보 저장
 			}
 		});
 		btnCreateCrew.setBounds(235, 20, 97, 23);
