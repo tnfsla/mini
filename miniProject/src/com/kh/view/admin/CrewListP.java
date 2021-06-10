@@ -63,7 +63,7 @@ public class CrewListP extends JPanel {
 		JButton btnNewButton_1 = new JButton("이전");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				avm.convertPanel("main"); // 크루 만들기 page로
+				avm.convertPanel("admin_main"); // 크루 만들기 page로
 			}
 		});
 		btnNewButton_1.setBounds(32, 459, 113, 39);

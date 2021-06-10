@@ -42,7 +42,7 @@ public class testRun {
       GetTime t1 = new GetTime();
 
       
-      AdminViewManager avm = new AdminViewManager(user);
+      AdminViewManager avm = new AdminViewManager(null, user);
       t1.ts = avm.ts;
       
       t1.start();
