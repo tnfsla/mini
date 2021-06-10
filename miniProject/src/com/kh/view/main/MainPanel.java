@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +18,46 @@ import javax.swing.JPanel;
 public class MainPanel extends JPanel {
 
 	private Main main;
+	private Thread t1;
+	JLabel lblTime;
+	JLabel lblEvent;
+
+	public void ThreadTime() {
+		t1 = new Thread() {
+			public void run() {
+				 try {
+			         while(true) {         
+			            long dTimeI = 0L;
+			            long systemTime = System.currentTimeMillis();
+			            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+			            String dTime = formatter.format(systemTime);
+			            SimpleDateFormat formatter1 = new SimpleDateFormat("현재시각 : yyyy년 MM월 dd일 HH시 mm분 ss초", Locale.KOREA);
+			            String dTime1 = formatter1.format(systemTime);
+			            dTimeI = Long.parseLong(dTime);
+			            System.out.println(dTimeI);
+			            
+			            lblTime.setText(dTime1);
+			            lblTime.setBounds(42, 500, 280, 20);
+			    		add(lblTime);
+
+			    		lblEvent.setText("Event가 진행중이지 않습니다.");
+			    		lblEvent.setBounds(42, 71, 57, 15);
+			    		add(lblEvent);
+			    		
+			    		
+			    		
+			
+			            sleep(1000);
+			            
+			            
+			         }
+			      }catch(Exception e ) {
+			         
+			      }
+			}
+		};
+		t1.start();
+	}
 
 	public MainPanel() {
 		setLayout(null);
@@ -73,9 +115,11 @@ public class MainPanel extends JPanel {
 		btnNewButton_1_2.setBounds(41, 315, 262, 118);
 		add(btnNewButton_1_2);
 
-		JLabel lblNewLabel = new JLabel("event");
-		lblNewLabel.setBounds(42, 71, 57, 15);
-		add(lblNewLabel);
+		ThreadTime();
+
+		lblEvent = new JLabel("event");
+	
+        lblTime = new JLabel("time");
 
 		JLabel label = new JLabel("러닝 프로그램");
 		label.setFont(new Font("맑은 고딕", Font.BOLD, 16));
