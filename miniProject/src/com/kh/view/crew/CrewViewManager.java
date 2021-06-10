@@ -255,11 +255,13 @@ public class CrewViewManager {
 		});
 		btnCrewPage1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!lblCrewName1.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+				if (!lblCrewName1.getText().equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
 					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
 					convertPanel("crew_crew");
+				} else {
+					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
 				}
 			}
 		});
@@ -292,11 +294,13 @@ public class CrewViewManager {
 		btnCrewPage2.setBounds(0, 0, 280, 55);
 		btnCrewPage2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!lblCrewName2.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+				if (!lblCrewName2.getText().equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
 					Crew crew = controllerManager.selectCrew(lblCrewName2.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
 					convertPanel("crew_crew");
+				} else {
+					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
 				}
 			}
 		});
@@ -327,11 +331,13 @@ public class CrewViewManager {
 		btnCrewPage3.setBounds(0, 0, 280, 55);
 		btnCrewPage3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!lblCrewName3.equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
+				if (!lblCrewName3.getText().equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
 					Crew crew = controllerManager.selectCrew(lblCrewName3.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
 					convertPanel("crew_crew");
+				} else {
+					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
 				}
 			}
 		});
@@ -385,7 +391,7 @@ public class CrewViewManager {
 
 		rdbtnCrew3.setSelected(true);
 
-		btnCrewCreateCancel = new JButton("만들기 해제");
+		btnCrewCreateCancel = new JButton("만들기 취소");
 		btnCrewCreateCancel.setVisible(false);
 		btnCrewCreateCancel.setContentAreaFilled(false);
 		btnCrewCreateCancel.addActionListener(new ActionListener() {
@@ -394,6 +400,8 @@ public class CrewViewManager {
 				user.setCrewName(null); // 다시 미가입 상태로 변경
 
 				updateCrewJoinState();
+				
+				controllerManager.getCrewDao().saveCrewList(); // 해당 크루 정보 저장
 			}
 		});
 		btnCrewCreateCancel.setBounds(215, 37, 120, 23);

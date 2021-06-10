@@ -56,13 +56,13 @@ public class CrewPanel extends JPanel {
 
 	public void setCrew(Crew crew) {
 		this.crew = crew;
-		
+
 		lblCrewName.setText(crew.getCrewName());
 		textAreaCrewContent.setText(crew.getCrewContents());
-		
+
 		lblCrewUserCount.setText(String.valueOf(crew.getCrewUserCount()));
 		lblCrewFeedCount.setText(String.valueOf(crew.getFeedCount()));
-		
+
 		lblCrewNum.setText(crewController.getCrewNum(crew));
 		lblCrewDistance.setText(crewController.getCrewDistance(crew));
 		lblCrewTime.setText(crewController.getCrewTime(crew));
@@ -144,9 +144,15 @@ public class CrewPanel extends JPanel {
 		panelCrewUserInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				crewManager.getRankPanel().setRank(crew);
-				crewManager.convertPanel("crew_rank");
-				System.out.println("랭킹 이동");
+				// 크루 가입 상태일때만 랭킹 페이지로 이동
+				if (crewManager.getUser().getCrewName() != null
+						&& crewManager.getUser().getCrewName().equals(crew.getCrewName())) {
+					crewManager.getRankPanel().setRank(crew);
+					crewManager.convertPanel("crew_rank");
+					System.out.println("랭킹 이동");
+				} else {
+					System.out.println("크루 가입이 필요합니다 크루에 가입하세요");
+				}
 			}
 		});
 		panelCrewUserInfo.setBounds(12, 10, 150, 135);
@@ -166,30 +172,36 @@ public class CrewPanel extends JPanel {
 		lblCrewUserCount = new JLabel("0");
 		lblCrewUserCount.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCrewUserCount.add(lblCrewUserCount, BorderLayout.CENTER);
-		
+
 		JPanel panelCrewFeedrInfo = new JPanel();
 		panelCrewFeedrInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				crewManager.getFeedPanel().setFeed(crew);
-				crewManager.convertPanel("crew_feed");
-				System.out.println("피드 이동");
+				// 크루 가입 상태일때만 피드 페이지로 이동
+				if (crewManager.getUser().getCrewName() != null
+						&& crewManager.getUser().getCrewName().equals(crew.getCrewName())) {
+					crewManager.getFeedPanel().setFeed(crew);
+					crewManager.convertPanel("crew_feed");
+					System.out.println("피드 이동");
+				} else {
+					System.out.println("크루 가입이 필요합니다 크루에 가입하세요");
+				}
 			}
 		});
 		panelCrewFeedrInfo.setLayout(null);
 		panelCrewFeedrInfo.setBounds(174, 10, 150, 135);
 		panelCrewInfo.add(panelCrewFeedrInfo);
-		
+
 		JLabel lblCrewFeedInfo = new JLabel("피드");
 		lblCrewFeedInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewFeedInfo.setBounds(45, 10, 60, 15);
 		panelCrewFeedrInfo.add(lblCrewFeedInfo);
-		
+
 		JPanel panelCrewFeedCount = new JPanel();
 		panelCrewFeedCount.setBounds(25, 42, 100, 72);
 		panelCrewFeedrInfo.add(panelCrewFeedCount);
 		panelCrewFeedCount.setLayout(new BorderLayout(0, 0));
-		
+
 		lblCrewFeedCount = new JLabel("0");
 		lblCrewFeedCount.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCrewFeedCount.add(lblCrewFeedCount, BorderLayout.CENTER);
@@ -202,15 +214,15 @@ public class CrewPanel extends JPanel {
 		JPanel panelShortInfo = new JPanel();
 		tabbedPane.addTab("요약", null, panelShortInfo, null);
 		panelShortInfo.setLayout(null);
-		
-				textAreaNotJoinCrewInfo = new JTextArea();
-				textAreaNotJoinCrewInfo.setLineWrap(true);
-				textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
-				textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
-				textAreaNotJoinCrewInfo.setEditable(false);
-				textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
-				textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
-				panelShortInfo.add(textAreaNotJoinCrewInfo);
+
+		textAreaNotJoinCrewInfo = new JTextArea();
+		textAreaNotJoinCrewInfo.setLineWrap(true);
+		textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
+		textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
+		textAreaNotJoinCrewInfo.setEditable(false);
+		textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
+		textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
+		panelShortInfo.add(textAreaNotJoinCrewInfo);
 
 		JPanel panelCrewInfoDistance = new JPanel();
 		panelCrewInfoDistance.setBounds(108, 0, 96, 107);
@@ -256,5 +268,5 @@ public class CrewPanel extends JPanel {
 		footerPanel.add(lblHome);
 
 	}
-	
+
 }
