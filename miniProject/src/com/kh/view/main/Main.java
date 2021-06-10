@@ -80,7 +80,7 @@ public class Main {
 
 	// 바로 new로 객체 생성하지 않고 로그인에서 user 객체가 생성이 되면 호출
 	public void lazeInitPanel(User user) {
-		mainPanel = new MainPanel(this);
+		mainPanel = new MainPanel(this, adminManager);
 
 		adminManager = new AdminViewManager(this, user); // loginView에서
 		recordMain = new RecordMainPanel(this, user); // 추후 user가 들어가야함
@@ -130,4 +130,15 @@ public class Main {
 	public Map<String, JPanel> getPanelMap() {
 		return panelMap;
 	}
+
+	public AdminViewManager getAdminManager() {
+		return adminManager;
+	}
+
+	public void setAdminManager(AdminViewManager adminManager) {
+		this.adminManager = adminManager;
+	}
+
+
+	
 }

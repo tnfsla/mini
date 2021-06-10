@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,7 +25,8 @@ public class EventSettingP extends JPanel {
 	private int eventGoal;
 	private String eventFlag;
 	private Calendar cal;
-	private int sTimeI = 0;
+	private long sTimeI = 0;
+	private long dTimeI = 0;
 
 	/**
 	 * Create the panel.
@@ -109,19 +112,19 @@ public class EventSettingP extends JPanel {
 //				String dTime = formatter.format(systemTime);
 //				int dTimeI = Integer.parseInt(dTime);
 				
-//				long systemTime = System.currentTimeMillis();
-//				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmss", Locale.KOREA);
-//				String dTime = formatter.format(systemTime);
-//				long dTimeI = Long.parseLong(dTime);
+				long systemTime = System.currentTimeMillis();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddhhmmss", Locale.KOREA);
+				String dTime = formatter.format(systemTime);
+				dTimeI = Long.parseLong(dTime);
 				sTimeI = cal.get(Calendar.YEAR) * 10000 + (cal.get(Calendar.MONTH) + 1) * 100
 						+ cal.get(Calendar.DATE);
 				
-				if (avm.ts.getSharedDataI() < sTimeI) {
+				if (dTimeI < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());
 					System.out.println(eventGoal + eventFlag + "로 설정되었다.");
 
 				} else {
-					System.out.println("오늘 날짜인 이후만 입력하시오(" +avm.ts.getSharedDataI() + " 보다 큰 값)");
+					System.out.println("오늘 날짜인 이후만 입력하시오(" +dTimeI + " 보다 큰 값)");
 				}
 				
 				
@@ -158,12 +161,20 @@ public class EventSettingP extends JPanel {
 
 	}
 
-	public int getsTimeI() {
+	public long getsTimeI() {
 		return sTimeI;
 	}
 
-	public void setsTimeI(int sTimeI) {
+	public void setsTimeI(long sTimeI) {
 		this.sTimeI = sTimeI;
+	}
+
+	public long getdTimeI() {
+		return dTimeI;
+	}
+
+	public void setdTimeI(long dTimeI) {
+		this.dTimeI = dTimeI;
 	}
 	
 	
