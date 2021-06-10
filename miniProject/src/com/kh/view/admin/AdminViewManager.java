@@ -245,14 +245,10 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-	Bridge ts;
-	private long dTimeI = 0;
-	private JLabel lbltest;
 
 	public AdminViewManager(User user) {
 		this.user = user;
-		ts = new Bridge();
-		ts.setSharedLabel(lbltest);
+
 	}
 
 	public AdminViewManager(Main main, User user) {
@@ -326,8 +322,8 @@ public class AdminViewManager {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(eventSetting.getsTimeI());
-				System.out.println(ts.getSharedDataI());
-				if (eventSetting.getsTimeI() != 0 && eventSetting.getsTimeI() <= ts.getSharedDataI()) {
+				System.out.println(eventSetting.getdTimeI());
+				if (eventSetting.getsTimeI() != 0 && eventSetting.getsTimeI() <= eventSetting.getdTimeI()) {
 					EventEndAlertD dialog = new EventEndAlertD(eventSetting);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
@@ -376,10 +372,6 @@ public class AdminViewManager {
 		lblNewLabel.setBounds(104, 16, 128, 57);
 		mainPanel.add(lblNewLabel);
 
-		lbltest = new JLabel("New label");
-		lbltest.setBounds(12, 527, 301, 37);
-		mainPanel.add(lbltest);
-
 		JLabel lblHome = new JLabel("Home");
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHome.setBounds(150, 561, 60, 29);
@@ -421,19 +413,17 @@ public class AdminViewManager {
 		initPanel();
 	}
 
-	public long getdTimeI() {
-		return dTimeI;
-	}
-
-	public void setdTimeI(long dTimeI) {
-		this.dTimeI = dTimeI;
-	}
-
-	public Bridge getTs() {
-		return ts;
-	}
-
 	public JPanel getMainPanel() {
 		return mainPanel;
 	}
+
+	public EventSettingP getEventSetting() {
+		return eventSetting;
+	}
+
+	public void setEventSetting(EventSettingP eventSetting) {
+		this.eventSetting = eventSetting;
+	}
+	
+	
 }
