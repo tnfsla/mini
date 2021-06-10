@@ -1,9 +1,11 @@
 package com.kh.view.result;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -53,8 +56,8 @@ public class ResultMainView extends JPanel implements ActionListener {
 	JPanel pane = new JPanel();
 
 	// 위에 버튼 추가
-	JButton btn1 = new JButton("◀"); // 이전버튼
-	JButton btn2 = new JButton("▶"); // 다음버튼
+	JButton btn1 = new JButton(); // 이전버튼
+	JButton btn2 = new JButton(); // 다음버튼
 	JButton btn3 = new JButton("뒤로가기"); // 뒤로가기 버튼
 
 	// 위에 라벨추가
@@ -77,9 +80,37 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	private JLabel selDate;
 	private JLabel dateexercise;
+	private JPanel footerPanel;
+	private JLabel lblHome;
 
 	// 화면디자인
 	public void CalendarMain() {
+		
+		ImageIcon Home = new ImageIcon("images/home2.PNG");
+		Image HomeImg = Home.getImage();
+		Image updateHomeImg = HomeImg.getScaledInstance(360, 20, Image.SCALE_SMOOTH);
+		ImageIcon updateHome = new ImageIcon(updateHomeImg);
+		
+		lblHome = new JLabel(updateHome);
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		ImageIcon Left = new ImageIcon("images/left1.PNG");
+		Image HomeLeft = Left.getImage();
+		Image updateLeftImg = HomeLeft.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon updateLeft = new ImageIcon(updateLeftImg);
+		btn1 = new JButton(updateLeft);
+		btn1.setBorderPainted(false);
+		btn1.setBounds(0, 0, 15 , 15);
+		btn1.setBackground(Color.white);
+		ImageIcon Right = new ImageIcon("images/right1.PNG");
+		Image HomeRight = Right.getImage();
+		Image updateRightImg = HomeRight.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon updateRight = new ImageIcon(updateRightImg);
+		btn2 = new JButton(updateRight);
+		btn2.setBorderPainted(false);
+		btn2.setBounds(0, 0, 15 , 15);
+		btn2.setBackground(Color.white);
+		
 		// 홈 버튼 추가
 //		JLabel lblHome = new JLabel("Home");
 //		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
@@ -98,12 +129,12 @@ public class ResultMainView extends JPanel implements ActionListener {
 		year = cal.get(Calendar.YEAR);
 		month = cal.get(Calendar.MONTH) + 1;
 		date = cal.get(Calendar.DATE);
-
+		
 		// 년
 		for (int i = year - 100; i <= year + 50; i++) {
 			yearModel.addElement(i);
 		}
-
+		
 		yearCombo.setModel(yearModel);
 		yearCombo.setSelectedItem(year);
 
@@ -117,6 +148,8 @@ public class ResultMainView extends JPanel implements ActionListener {
 		// 월화수목금토일
 		for (int i = 0; i < titleStr.length; i++) {
 			JLabel lbl = new JLabel(titleStr[i], JLabel.CENTER);
+			
+			title.setBackground(Color.white);
 			if (i == 0) {
 				lbl.setForeground(Color.red);
 			} else if (i == 6) {
@@ -150,9 +183,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 		selDate.setBounds(108, 21, 193, 60);
 		add(selDate);
 
-		// dateexercise에 달린 거리, 달린 시간,소모한 칼로리,별점을 date에 저장할거임
 
-		// 운동기록추가할때 달린거리 ,시간, 칼로리, 별점을 담을 txt파일을 만들어서 거기에 입력받은다음에 출력하기 (이건어떻게하지?)
 
 		// ----------------------------
 		frame.setTitle("운동기록 확인"); //////
@@ -166,7 +197,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 		pane2.add(title, "North");
 		pane2.add(datePane);
-
+		add(BorderLayout.SOUTH, lblHome);
 		pane3.add(exercise); // 
 		add(BorderLayout.NORTH, pane3); // 사용자 운동기록 통계
 		
@@ -180,7 +211,14 @@ public class ResultMainView extends JPanel implements ActionListener {
 		add(BorderLayout.CENTER, calendarPanel);
 		
 		frame.getContentPane().add(selDate);
-
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+				
+			}
+		});
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pane.setVisible(true);
@@ -193,6 +231,13 @@ public class ResultMainView extends JPanel implements ActionListener {
 		btn3.setBounds(0, 0, 87, 23);
 		frame.getContentPane().add(btn3);
 		frame.setVisible(false);
+		frame.setBackground(Color.white);
+		pane.setBackground(Color.white);
+		pane4.setBackground(Color.white);
+		pane2.setBackground(Color.white);
+		pane3.setBackground(Color.white);
+		yearCombo.setBackground(Color.white);
+		monthCombo.setBackground(Color.white);
 
 		// 각종 명령어
 		
@@ -212,12 +257,15 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	// 기능구현
 	public void actionPerformed(ActionEvent e) {
+		
 		Object eventObj = e.getSource();
 		if (eventObj instanceof JComboBox) {
 			datePane.setVisible(false); // 보여지는 패널을 숨킨다.
 			datePane.removeAll(); // 라벨 지우기
 			day((Integer) yearCombo.getSelectedItem(), (Integer) monthCombo.getSelectedItem());
+			
 			datePane.setVisible(true); // 패널 재출력
+			
 		} else if (eventObj instanceof JButton) {
 			JButton eventBtn = (JButton) eventObj;
 			int yy = (Integer) yearCombo.getSelectedItem();
@@ -283,6 +331,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 				jlb1.setHorizontalAlignment(SwingConstants.CENTER);
 
 			}
+			datePane.setBackground(Color.white);
 			jbt.addMouseListener(new MouseAdapter() {
 
 				@Override
@@ -303,6 +352,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 			});
 			cal.set(year, month - 1, day);
 			int Week = cal.get(Calendar.DAY_OF_WEEK);
+		
 			if (Week == 1) {
 				jbt.setForeground(Color.red);
 			} else if (Week == 7) {
