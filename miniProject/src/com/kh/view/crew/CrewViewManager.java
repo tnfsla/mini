@@ -341,7 +341,10 @@ public class CrewViewManager {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				main.convertPanel("crew_main");
+				if (main != null)
+					main.convertPanel("main");
+				else
+					convertPanel("crew_main");
 				updateCrewJoinState();
 			}
 		});
