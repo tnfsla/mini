@@ -20,8 +20,8 @@ import javax.swing.JTextField;
 public class CIMDesign {
 
 	private JFrame frame;
-	private JTextField textField;
 	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 
 	/**
 	 * Launch the application.
@@ -58,7 +58,7 @@ public class CIMDesign {
 		frame.getContentPane().setLayout(null);
 		
 		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 	
 		
 		
@@ -84,26 +84,21 @@ public class CIMDesign {
 				}
 			
 		});
-		btnNewButton.setBounds(146, 296, 70, 34);
-		frame.add(btnNewButton);
-		
-		textField = new JTextField();
-		textField.setBounds(136, 216, 116, 24);
-		frame.add(textField);
-		textField.setColumns(10);
+		btnNewButton.setBounds(129, 334, 70, 34);
+		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Login : ");
-		lblNewLabel.setBounds(86, 204, 166, 49);
-		frame.add(lblNewLabel);
+		lblNewLabel.setBounds(56, 256, 51, 24);
+		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("PW : ");
 		JPasswordField txtPass = new JPasswordField(10);
-		lblNewLabel_1.setBounds(97, 254, 62, 18);
-		frame.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(68, 293, 37, 18);
+		frame.getContentPane().add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(136, 251, 116, 24);
-		frame.add(passwordField);
+		passwordField.setBounds(128, 287, 127, 35);
+		frame.getContentPane().add(passwordField);
 		
 		JButton btnNewButton_1 = new JButton("회원가입");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -112,7 +107,11 @@ public class CIMDesign {
 			}
 		});
 		btnNewButton_1.setBounds(111, 514, 105, 27);
-		frame.add(btnNewButton_1);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		passwordField_1 = new JPasswordField();
+		passwordField_1.setBounds(128, 248, 127, 35);
+		frame.getContentPane().add(passwordField_1);
 	}
 }
 class ImagePanel extends JPanel{

@@ -16,16 +16,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class UserJoin {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField name;
+	private JTextField id;
+	private JTextField pw;
+	private JTextField age;
+	private JTextField Height;
+	private JTextField Weight;
+	private JTextField txty;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -62,87 +68,78 @@ public class UserJoin {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		ImagePanel panel = new ImagePanel(new ImageIcon("./image/UserJoinPage.png").getImage());
+		ImagePanel panel = new ImagePanel(new ImageIcon("./image/UserJoinPage.jpg").getImage());
 		frame.getContentPane().add(panel);
-
 		
-		File f = new File("./resources/UserJoinpage.jpg");
-		System.out.println(f.exists()?"Exists":"doesnt exists");// 파일 경로 찾기 방법.
+		JTextField textfield = new JTextField();
 		
-		JLabel lblNewLabel = new JLabel("  Name:");
-		lblNewLabel.setBounds(33, 146, 62, 18);
-		frame.getContentPane().add(lblNewLabel);
+		name = new JTextField();
+		name.setBounds(101, 142, 150, 24);
+		frame.getContentPane().add(name);
+		name.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("  ID :");
-		lblNewLabel_1.setBounds(45, 187, 34, 18);
-		frame.getContentPane().add(lblNewLabel_1);
+		id = new JTextField();
+		id.setBounds(101, 190, 150, 24);
+		frame.getContentPane().add(id);
+		id.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("PWS:");
-		lblNewLabel_2.setBounds(45, 230, 50, 18);
-		frame.getContentPane().add(lblNewLabel_2);
+		pw = new JTextField();
+		pw.setBounds(101, 237, 150, 24);
+		frame.getContentPane().add(pw);
+		pw.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Age :");
-		lblNewLabel_3.setBounds(50, 273, 50, 18);
-		frame.getContentPane().add(lblNewLabel_3);
+		age = new JTextField();
+		age.setBounds(101, 282, 150, 24);
+		frame.getContentPane().add(age);
+		age.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("성별 (M / F)");
-		lblNewLabel_4.setBounds(121, 320, 93, 18);
-		frame.getContentPane().add(lblNewLabel_4);
+		Height = new JTextField();
+		Height.setBounds(101, 406, 150, 24);
+		frame.getContentPane().add(Height);
+		Height.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(101, 144, 131, 24);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		Weight = new JTextField();
+		Weight.setBounds(101, 477, 150, 24);
+		frame.getContentPane().add(Weight);
+		Weight.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(101, 185, 131, 24);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(101, 228, 131, 24);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
-		
-		textField_3 = new JTextField();
-		textField_3.setBounds(101, 270, 131, 24);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
-		
-		textField_4 = new JTextField();
-		textField_4.setBounds(101, 425, 131, 24);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
-		
-		textField_5 = new JTextField();
-		textField_5.setBounds(101, 477, 131, 24);
-		frame.getContentPane().add(textField_5);
-		textField_5.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("회원 정보를 입력하세요");
 		lblNewLabel_7.setFont(new Font("굴림", Font.PLAIN, 18));
 		lblNewLabel_7.setBounds(79, 74, 209, 36);
 		frame.getContentPane().add(lblNewLabel_7);
 		
-		JButton btnNewButton_2 = new JButton("확인");
-		btnNewButton_2.setBounds(121, 513, 93, 27);
-		frame.getContentPane().add(btnNewButton_2);
+		JCheckBox chckbxNewCheckBox_M = new JCheckBox("남자");
+		chckbxNewCheckBox_M.setBounds(103, 343, 56, 23);
+		frame.getContentPane().add(chckbxNewCheckBox_M);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("남(M)");
-		chckbxNewCheckBox.setBounds(94, 369, 73, 27);
-		frame.getContentPane().add(chckbxNewCheckBox);
+		JCheckBox chckbxNewCheckBox_F = new JCheckBox("여자");
+		chckbxNewCheckBox_F.setBounds(187, 343, 64, 23);
+		frame.getContentPane().add(chckbxNewCheckBox_F);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("여(F)");
-		chckbxNewCheckBox_1.setBounds(191, 369, 82, 27);
-		frame.getContentPane().add(chckbxNewCheckBox_1);
+		txty = new JTextField();
+		txty.setText("성 별 (Y / N)");
+		txty.setBounds(111, 316, 116, 21);
+		frame.getContentPane().add(txty);
+		txty.setColumns(10);
 		
-		JButton btnNewButton = new JButton("중복확인");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnNewButton_1 = new JButton("가입 완료");
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				frame.getContentPane().add(textfield, BorderLayout.CENTER);
+				
+				
+				
+				System.out.println("가입완료되었습니다 ");
 			}
 		});
+		btnNewButton_1.setBounds(130, 511, 97, 23);
+		frame.getContentPane().add(btnNewButton_1);
 		
-		btnNewButton.setBounds(244, 183, 89, 27);
+		btnNewButton = new JButton("중복확인");
+		btnNewButton.setBounds(248, 189, 90, 24);
 		frame.getContentPane().add(btnNewButton);
 	}
 }
