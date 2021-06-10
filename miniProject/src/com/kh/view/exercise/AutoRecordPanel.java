@@ -15,11 +15,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.kh.controller.exercise.AutoRecordController;
+
 public class AutoRecordPanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
+	private AutoRecordController autoreRecordController;
+	
 	public AutoRecordPanel() {
 
 		ImageIcon ss1 = new ImageIcon("./image/star1.png");
