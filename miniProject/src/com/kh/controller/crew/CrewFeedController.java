@@ -10,8 +10,14 @@ public class CrewFeedController {
 
 	private CrewDao crewDao;
 
+	private CrewFeedCreateController crewFeedCreateController;
+	private CrewFeedSelectController crewFeedSelectController;
+	
 	public CrewFeedController(CrewDao crewDao) {
 		this.crewDao = crewDao;
+		
+		crewFeedCreateController = new CrewFeedCreateController();
+		crewFeedSelectController = new CrewFeedSelectController();
 	}
 
 	// 피드 생성
@@ -65,5 +71,13 @@ public class CrewFeedController {
 	// 해당 피드에 댓글 추가
 	public void createComment(Feed feed, String userId, Calendar date, String comment) {
 		feed.addComment(userId, date, comment);
+	}
+	
+	public CrewFeedCreateController getCrewFeedCreateController() {
+		return crewFeedCreateController;
+	}
+	
+	public CrewFeedSelectController getCrewFeedSelectController() {
+		return crewFeedSelectController;
 	}
 }
