@@ -43,7 +43,6 @@ public class testRun {
 
       
       AdminViewManager avm = new AdminViewManager(null, user);
-      t1.ts = avm.ts;
       
       t1.start();
       

@@ -2,6 +2,8 @@ package com.kh.controller.crew;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Feed;
@@ -12,10 +14,10 @@ public class CrewFeedController {
 
 	private CrewFeedCreateController crewFeedCreateController;
 	private CrewFeedSelectController crewFeedSelectController;
-	
+
 	public CrewFeedController(CrewDao crewDao) {
 		this.crewDao = crewDao;
-		
+
 		crewFeedCreateController = new CrewFeedCreateController();
 		crewFeedSelectController = new CrewFeedSelectController();
 	}
@@ -62,22 +64,33 @@ public class CrewFeedController {
 
 		feedList.remove(feed);
 	}
-	
+
 	// 해당 피드에 좋아요 추가
 	public void addLike(Feed feed, String userId) {
 		feed.addLike(userId);
 	}
-	
+
 	// 해당 피드에 댓글 추가
 	public void createComment(Feed feed, String userId, Calendar date, String comment) {
 		feed.addComment(userId, date, comment);
 	}
-	
+
 	public CrewFeedCreateController getCrewFeedCreateController() {
 		return crewFeedCreateController;
 	}
-	
+
 	public CrewFeedSelectController getCrewFeedSelectController() {
 		return crewFeedSelectController;
+	}
+
+	public void sortFeedDateDES(ArrayList<Feed> feedList) {
+		Collections.sort(feedList, new Comparator<Feed>() {
+
+			@Override
+			public int compare(Feed o1, Feed o2) {
+				return (int) (o2.getDate().getTimeInMillis() / 1000) - (int) (o1.getDate().getTimeInMillis() / 1000);
+			}
+
+		});
 	}
 }

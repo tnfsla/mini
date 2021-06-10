@@ -1,8 +1,11 @@
 package com.kh.model.vo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public abstract class Message {
+public abstract class Message implements Serializable {
+	private static final long serialVersionUID = -1822555066138501585L;
+
 	private String userId; // 작성한 유저 아이디
 	private Calendar date; // 작성 날짜
 	private String contents; // 피드 내용

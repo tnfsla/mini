@@ -37,6 +37,8 @@ public class CrewViewManager {
 	private CrewPanel crewPanel; // 특정 크루 page
 	private CrewRankPanel rankPanel; // 특정 크루 랭킹 page
 	private CrewFeedPanel feedPanel; // 특정 크루 피드 page
+	private CrewFeedCreatePanel feedCreatePanel; // 특정 크루 피드 작성 page
+	private CrewFeedSelectPanel feedSelectPanel; // 특정 크루 특정 피드 선택 page
 
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
@@ -115,6 +117,8 @@ public class CrewViewManager {
 		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
 		feedPanel = new CrewFeedPanel(this, controllerManager.getCrewController().getCrewFeedController());
+		feedCreatePanel = new CrewFeedCreatePanel(this, controllerManager.getCrewController().getCrewFeedController().getCrewFeedCreateController());
+		feedSelectPanel = new CrewFeedSelectPanel(this, controllerManager.getCrewController().getCrewFeedController().getCrewFeedSelectController());
 
 		if (main == null)
 			panelMap = new LinkedHashMap<String, JPanel>();
@@ -126,6 +130,8 @@ public class CrewViewManager {
 		panelMap.put("crew_crew", crewPanel);
 		panelMap.put("crew_rank", rankPanel);
 		panelMap.put("crew_feed", feedPanel);
+		panelMap.put("crew_feed_create", feedCreatePanel);
+		panelMap.put("crew_feed_select", feedSelectPanel);
 	}
 
 	// 패널 전환 메소드
@@ -415,6 +421,10 @@ public class CrewViewManager {
 		return feedPanel;
 	}
 
+	public CrewFeedSelectPanel getFeedSelectPanel() {
+		return feedSelectPanel;
+	}
+	
 	public CrewControllerManager getControllerManager() {
 		return controllerManager;
 	}

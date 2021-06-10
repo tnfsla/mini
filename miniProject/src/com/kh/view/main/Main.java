@@ -95,7 +95,7 @@ public class Main {
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", pwdChangeView);
 
-
+		mainPanel.setsTime(adminManager.getEventSetting().getsTimeI());
 	}
 
 	public void convertPanel(String panelName) {
