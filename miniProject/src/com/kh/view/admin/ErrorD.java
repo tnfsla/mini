@@ -58,7 +58,8 @@ public class ErrorD extends JDialog {
 		lblNewLabel.setBounds(32, 79, 367, 55);
 		contentPanel.add(lblNewLabel);
 		{
-			JLabel lblNewLabel_1 = new JLabel("설정 날짜 : " + Long.toString(eventSetting.getsTimeI()));
+			JLabel lblNewLabel_1 = new JLabel("설정 날짜 : " +Long.toString(eventSetting.getsTimeI()));
+
 			lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 			lblNewLabel_1.setBounds(32, 127, 367, 55);
 			contentPanel.add(lblNewLabel_1);
