@@ -252,13 +252,13 @@ public class AdminViewManager {
 	public AdminViewManager(User user) {
 		this.user = user;
 		ts = new Bridge();
-		run();
 		ts.setSharedLabel(lbltest);
 	}
 
 	public AdminViewManager(Main main, User user) {
 		this(user);
 		this.main = main;
+		run();
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
@@ -267,12 +267,15 @@ public class AdminViewManager {
 		eventSetting = new EventSettingP(this);
 		pendingApproval = new PendingApprovalP(this, crew, crewList);
 
-		panelMap = new LinkedHashMap<String, JPanel>();
+		if (main != null)
+			panelMap = main.getPanelMap();
+		else
+			panelMap = new LinkedHashMap<String, JPanel>();
 		// frameMap에 crew에서 쓰이는 패널들 다 넣어둠
-		panelMap.put("main", mainPanel);
-		panelMap.put("list", crewList);
-		panelMap.put("eventSetting", eventSetting);
-		panelMap.put("pendingApproval", pendingApproval);
+		panelMap.put("admin_main", mainPanel);
+		panelMap.put("admin_list", crewList);
+		panelMap.put("admin_eventSetting", eventSetting);
+		panelMap.put("admin_pendingApproval", pendingApproval);
 	}
 
 	// 패널 전환 메소드
@@ -311,7 +314,7 @@ public class AdminViewManager {
 		btnNewButton.setBounds(27, 83, 286, 96);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("eventSetting");
+				convertPanel("admin_eventSetting");
 			}
 		});
 		mainPanel.add(btnNewButton);
@@ -328,7 +331,7 @@ public class AdminViewManager {
 					EventEndAlertD dialog = new EventEndAlertD(eventSetting);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					
+
 				} else {
 					ErrorD dialog1 = new ErrorD(eventSetting);
 					dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -344,7 +347,7 @@ public class AdminViewManager {
 		btnNewButton_1_1.setBounds(27, 295, 286, 96);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("pendingApproval"); // 크루 만들기 page로
+				convertPanel("admin_pendingApproval"); // 크루 만들기 page로
 			}
 		});
 		mainPanel.add(btnNewButton_1_1);//
@@ -352,7 +355,7 @@ public class AdminViewManager {
 		JButton btnNewButton_1_1_1 = new JButton("전체 크루 명단");
 		btnNewButton_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				convertPanel("list");
+				convertPanel("admin_list");
 			}
 		});
 		btnNewButton_1_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
@@ -376,7 +379,7 @@ public class AdminViewManager {
 		lbltest = new JLabel("New label");
 		lbltest.setBounds(12, 527, 301, 37);
 		mainPanel.add(lbltest);
-		
+
 		JLabel lblHome = new JLabel("Home");
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHome.setBounds(150, 561, 60, 29);
@@ -429,7 +432,7 @@ public class AdminViewManager {
 	public Bridge getTs() {
 		return ts;
 	}
-	
+
 	public JPanel getMainPanel() {
 		return mainPanel;
 	}

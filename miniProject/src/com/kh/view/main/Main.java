@@ -58,6 +58,7 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		panelMap = new LinkedHashMap<String, JPanel>();
 
 		initialize();
 		initPanel();
@@ -65,7 +66,6 @@ public class Main {
 
 	// 각 파트별 Panel 객체 생성 후 panelMap의 추가
 	public void initPanel() {
-		panelMap = new LinkedHashMap<String, JPanel>();
 
 		loginView = new LoginMainView(this, user); // 매개변수로 들어간 user가 추후에 객체가 생성되게 됨
 
@@ -125,5 +125,9 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
+	}
+	
+	public Map<String, JPanel> getPanelMap() {
+		return panelMap;
 	}
 }
