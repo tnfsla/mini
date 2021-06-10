@@ -9,10 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import com.kh.controller.exercise.RecordMainController;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 
 public class RecordMainPanel extends JPanel {
+	
+	private RecordMainController recordMainController;
 
 	private User user;
 	private Main main;
