@@ -25,7 +25,9 @@ public class MainPanel extends JPanel {
 	JLabel lblEvent;
 	private long sTime = 0;
 	private long dTimeI = 0;
-	private AdminViewManager avm;
+
+	private int eventGoal;
+	private String eventFlag;
 
 	public void ThreadTime() {
 		t1 = new Thread() {
@@ -39,8 +41,9 @@ public class MainPanel extends JPanel {
 								Locale.KOREA);
 						String dTime1 = formatter1.format(systemTime);
 						dTimeI = Long.parseLong(dTime);
-
 						sTime = main.getsTimeI();
+						eventGoal = main.getEventGoal();
+						eventFlag = main.getEventFlag();
 
 						lblTime.setText(dTime1);
 						lblTime.setBounds(42, 500, 280, 20);
@@ -52,11 +55,12 @@ public class MainPanel extends JPanel {
 							lblEvent.setText("Event가 진행중이지 않습니다.");
 							lblEvent.setBounds(42, 71, 200, 40);
 						} else {
-							lblEvent.setText("Event가 진행중입니다.");
+							lblEvent.setText("미션 "+eventGoal+eventFlag+" 달리기가 진행중입니다.");
 							lblEvent.setBounds(42, 71, 200, 40);
 						}
 						Thread.sleep(1000);
-						System.out.println(sTime);
+						
+//						System.out.println(sTime);
 						System.out.println(dTimeI);
 
 					}
@@ -77,11 +81,11 @@ public class MainPanel extends JPanel {
 		initPanel();
 	}
 
-	public MainPanel(Main main, AdminViewManager adminManager) {
-		this.main = main;
-		this.avm = adminManager;
-		initPanel();
-	}
+//	public MainPanel(Main main, AdminViewManager adminManager) {
+//		this.main = main;
+//		this.avm = adminManager;
+//		initPanel();
+//	}
 
 	public void initPanel() {
 
@@ -158,7 +162,6 @@ public class MainPanel extends JPanel {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.convertPanel("admin");
-				System.out.println("amin버튼 눌렀을떄 : " + sTime);
 			}
 		});
 		btnNewButton_2.setBounds(185, 24, 97, 23);

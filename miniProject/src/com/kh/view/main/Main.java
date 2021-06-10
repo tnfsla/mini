@@ -31,6 +31,9 @@ public class Main {
 	private CrewViewManager crewManager; // Crew Part 시작 Panel
 	private PasswordChangeView pwdChangeView; // Update Part 시작 Panel
 	private long sTimeI;
+	private int eventGoal;
+	private String eventFlag;
+	
 
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
@@ -84,7 +87,7 @@ public class Main {
 
 
 		adminManager = new AdminViewManager(this, user); // loginView에서
-		mainPanel = new MainPanel(this, adminManager);
+		mainPanel = new MainPanel(this);
 		recordMain = new RecordMainPanel(this, user); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this, user);
 		crewManager = new CrewViewManager(this, user);
@@ -143,6 +146,21 @@ public class Main {
 		this.sTimeI = sTimeI;
 	}
 
+	public int getEventGoal() {
+		return adminManager.getEventSetting().getEventGoal();
+	}
+
+	public void setEventGoal(int eventGoal) {
+		this.eventGoal = eventGoal;
+	}
+
+	public String getEventFlag() {
+		return adminManager.getEventSetting().getEventFlag();
+	}
+
+	public void setEventFlag(String eventFlag) {
+		this.eventFlag = eventFlag;
+	}
 
 
 	
