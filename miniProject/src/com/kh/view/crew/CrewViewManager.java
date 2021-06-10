@@ -37,6 +37,8 @@ public class CrewViewManager {
 	private CrewPanel crewPanel; // 특정 크루 page
 	private CrewRankPanel rankPanel; // 특정 크루 랭킹 page
 	private CrewFeedPanel feedPanel; // 특정 크루 피드 page
+	private CrewFeedCreatePanel feedCreatePanel; // 특정 크루 피드 작성 page
+	private CrewFeedSelectPanel feedSelectPanel; // 특정 크루 특정 피드 선택 page
 
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
@@ -68,6 +70,12 @@ public class CrewViewManager {
 
 	public CrewViewManager(User user) {
 		this.user = user;
+	}
+
+	public CrewViewManager(Main main, User user) {
+		this(user);
+		this.main = main;
+
 		initialize();
 		initPanel();
 
@@ -75,11 +83,6 @@ public class CrewViewManager {
 		setPanel();
 
 		updateCrewJoinState(); // 크루 가입 상태에 따라 처리하는 메소드
-	}
-
-	public CrewViewManager(Main main, User user) {
-		this(user);
-		this.main = main;
 	}
 
 	// 읽어온 크루 정보로 페널 세팅하기
@@ -114,14 +117,21 @@ public class CrewViewManager {
 		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
 		rankPanel = new CrewRankPanel(this, controllerManager.getCrewController().getCrewRankController());
 		feedPanel = new CrewFeedPanel(this, controllerManager.getCrewController().getCrewFeedController());
+		feedCreatePanel = new CrewFeedCreatePanel(this, controllerManager.getCrewController().getCrewFeedController().getCrewFeedCreateController());
+		feedSelectPanel = new CrewFeedSelectPanel(this, controllerManager.getCrewController().getCrewFeedController().getCrewFeedSelectController());
 
-		panelMap = new LinkedHashMap<String, JPanel>();
+		if (main == null)
+			panelMap = new LinkedHashMap<String, JPanel>();
+		else
+			panelMap = main.getPanelMap();
 		// frameMap에 crew에서 쓰이는 frame들 다 넣어둠
-		panelMap.put("main", mainPanel);
-		panelMap.put("create", createPanel);
-		panelMap.put("crew", crewPanel);
-		panelMap.put("rank", rankPanel);
-		panelMap.put("feed", feedPanel);
+		panelMap.put("crew_main", mainPanel);
+		panelMap.put("crew_create", createPanel);
+		panelMap.put("crew_crew", crewPanel);
+		panelMap.put("crew_rank", rankPanel);
+		panelMap.put("crew_feed", feedPanel);
+		panelMap.put("crew_feed_create", feedCreatePanel);
+		panelMap.put("crew_feed_select", feedSelectPanel);
 	}
 
 	// 패널 전환 메소드
@@ -188,7 +198,7 @@ public class CrewViewManager {
 		System.out.println("현재 유저 크루 가입 상태");
 		crewPanel.setCrew(controllerManager.selectCrew(user.getCrewName()));
 		System.out.println("크루 이동");
-		convertPanel("crew");
+		convertPanel("crew_crew");
 	}
 
 	private void initialize() {
@@ -204,15 +214,15 @@ public class CrewViewManager {
 		btnCreatePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createPanel.initPanel();
-				convertPanel("create"); // 크루 만들기 page로
+				convertPanel("crew_create"); // 크루 만들기 page로
 			}
 		});
 		btnCreatePage.setBounds(25, 60, 310, 100);
 		mainPanel.add(btnCreatePage);
 
-		JLabel lblNewLabel = new JLabel("-心BOX 크루 추천");
-		lblNewLabel.setBounds(30, 200, 110, 50);
-		mainPanel.add(lblNewLabel);
+		JLabel lblCrewLabel = new JLabel("-心BOX 크루 추천");
+		lblCrewLabel.setBounds(30, 200, 110, 50);
+		mainPanel.add(lblCrewLabel);
 
 		JPanel crewListPanel = new JPanel();
 		crewListPanel.setBorder(new EmptyBorder(30, 15, 30, 15));
@@ -249,7 +259,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
-					convertPanel("crew");
+					convertPanel("crew_crew");
 				}
 			}
 		});
@@ -286,7 +296,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName2.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
-					convertPanel("crew");
+					convertPanel("crew_crew");
 				}
 			}
 		});
@@ -321,7 +331,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName3.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
-					convertPanel("crew");
+					convertPanel("crew_crew");
 				}
 			}
 		});
@@ -337,7 +347,10 @@ public class CrewViewManager {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				main.convertPanel("main");
+				if (main != null)
+					main.convertPanel("main");
+				else
+					convertPanel("crew_main");
 				updateCrewJoinState();
 			}
 		});
@@ -408,6 +421,10 @@ public class CrewViewManager {
 		return feedPanel;
 	}
 
+	public CrewFeedSelectPanel getFeedSelectPanel() {
+		return feedSelectPanel;
+	}
+	
 	public CrewControllerManager getControllerManager() {
 		return controllerManager;
 	}
@@ -418,7 +435,7 @@ public class CrewViewManager {
 //		User user = new User("test", "1234", "최용석", 20, 100, 50, '남', false); // 크루 가입한 유저
 
 		// 테스트 용
-		CrewViewManager crewViewManager = new CrewViewManager(user);
+		CrewViewManager crewViewManager = new CrewViewManager(null, user);
 
 		JFrame frame = new JFrame();
 
@@ -426,7 +443,7 @@ public class CrewViewManager {
 		frame.getContentPane().setLayout(null);
 		crewViewManager.addPanels(frame);
 //				frame.pack(); // 이거 안먹힘
-		crewViewManager.convertPanel("main");
+		crewViewManager.convertPanel("crew_main");
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

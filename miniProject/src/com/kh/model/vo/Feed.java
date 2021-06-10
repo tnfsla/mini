@@ -53,7 +53,7 @@ public class Feed extends Message {
 		return likeUserList.size();
 	}
 
-	public int getCommentCount(Feed feed) {
-		return feed.getCommentList().size();
+	public int getCommentCount() {
+		return commentList.size();
 	}
 }

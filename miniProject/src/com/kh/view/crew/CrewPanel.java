@@ -145,7 +145,7 @@ public class CrewPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				crewManager.getRankPanel().setRank(crew);
-				crewManager.convertPanel("rank");
+				crewManager.convertPanel("crew_rank");
 				System.out.println("랭킹 이동");
 			}
 		});
@@ -172,7 +172,7 @@ public class CrewPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				crewManager.getFeedPanel().setFeed(crew);
-				crewManager.convertPanel("feed");
+				crewManager.convertPanel("crew_feed");
 				System.out.println("피드 이동");
 			}
 		});
@@ -249,7 +249,7 @@ public class CrewPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
-				crewManager.convertPanel("main");
+				crewManager.convertPanel("crew_main");
 				crewManager.updateCrewJoinState();
 			}
 		});
