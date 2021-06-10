@@ -23,7 +23,7 @@ public class MainPanel extends JPanel {
 	private Thread t1;
 	JLabel lblTime;
 	JLabel lblEvent;
-	private double sTime;
+	private long sTime = 0;
 	private AdminViewManager avm;
 
 	public void ThreadTime() {
@@ -43,11 +43,10 @@ public class MainPanel extends JPanel {
 
 						lblTime.setText(dTime1);
 						lblTime.setBounds(42, 500, 280, 20);
-						add(lblTime);
+					
 
 						lblEvent.setText("Event가 진행중이지 않습니다.");
 						lblEvent.setBounds(42, 71, 57, 15);
-						add(lblEvent);
 
 						sleep(1000);
 
@@ -76,7 +75,6 @@ public class MainPanel extends JPanel {
 	}
 
 	public void initPanel() {
-		sTime = avm.getEventSetting().getsTimeI();
 
 		setLayout(null);
 		setBounds(0, 0, 360, 600);
@@ -138,6 +136,10 @@ public class MainPanel extends JPanel {
 		lblEvent = new JLabel("event");
 
 		lblTime = new JLabel("time");
+		
+		add(lblTime);
+		add(lblEvent);
+
 
 		JLabel label = new JLabel("러닝 프로그램");
 		label.setFont(new Font("맑은 고딕", Font.BOLD, 16));
@@ -162,4 +164,14 @@ public class MainPanel extends JPanel {
 		btnNewButton_3.setBounds(185, 67, 97, 23);
 		add(btnNewButton_3);
 	}
+
+	public long getsTime() {
+		return sTime;
+	}
+
+	public void setsTime(long sTime) {
+		this.sTime = sTime;
+	}
+	
+	
 }

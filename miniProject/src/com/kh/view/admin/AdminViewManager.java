@@ -230,7 +230,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import com.kh.controller.admin.Bridge;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
@@ -245,6 +244,8 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+	private long sTimeI;
+	private long dTimeI;
 
 	public AdminViewManager(User user) {
 		this.user = user;
@@ -321,12 +322,23 @@ public class AdminViewManager {
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(eventSetting.getsTimeI());
-				System.out.println(eventSetting.getdTimeI());
-				if (eventSetting.getsTimeI() != 0 && eventSetting.getsTimeI() <= eventSetting.getdTimeI()) {
-					EventEndAlertD dialog = new EventEndAlertD(eventSetting);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
+				
+				long sTime2 = getEventSetting().getsTimeI() / 1000000;
+				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
+				
+				long dTime2 = getEventSetting().getdTimeI() / 1000000;
+				long dTime3 = getEventSetting().getdTimeI() - (getEventSetting().getdTimeI() / 1000000) * 1000000;
+
+				if (sTime2 != 0 && sTime2 >= dTime2) {
+					if (sTime3 >= dTime3) {
+						EventEndAlertD dialog = new EventEndAlertD(eventSetting);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					}else {
+						ErrorD dialog1 = new ErrorD(eventSetting);
+						dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog1.setVisible(true);
+					}
 
 				} else {
 					ErrorD dialog1 = new ErrorD(eventSetting);
@@ -424,6 +436,21 @@ public class AdminViewManager {
 	public void setEventSetting(EventSettingP eventSetting) {
 		this.eventSetting = eventSetting;
 	}
-	
-	
+
+	public long getsTimeI() {
+		return sTimeI;
+	}
+
+	public void setsTimeI(long sTimeI) {
+		this.sTimeI = sTimeI;
+	}
+
+	public long getdTimeI() {
+		return dTimeI;
+	}
+
+	public void setdTimeI(long dTimeI) {
+		this.dTimeI = dTimeI;
+	}
+
 }

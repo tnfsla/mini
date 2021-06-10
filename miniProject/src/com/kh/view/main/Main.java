@@ -94,6 +94,8 @@ public class Main {
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", pwdChangeView);
+		
+		mainPanel.setsTime(adminManager.getEventSetting().getsTimeI());
 
 
 	}
@@ -130,15 +132,6 @@ public class Main {
 	public Map<String, JPanel> getPanelMap() {
 		return panelMap;
 	}
-
-	public AdminViewManager getAdminManager() {
-		return adminManager;
-	}
-
-	public void setAdminManager(AdminViewManager adminManager) {
-		this.adminManager = adminManager;
-	}
-
 
 	
 }
