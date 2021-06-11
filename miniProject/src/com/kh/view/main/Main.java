@@ -13,6 +13,7 @@ import com.kh.view.crew.CrewViewManager;
 import com.kh.view.exercise.RecordMainPanel;
 import com.kh.view.login.LoginMainView;
 import com.kh.view.result.ResultMainView;
+import com.kh.view.update.EditViewManager;
 import com.kh.view.update.PasswordChangeView;
 
 public class Main {
@@ -29,7 +30,8 @@ public class Main {
 	private RecordMainPanel recordMain; // Record Part 시작 Panel
 	private ResultMainView resultView; // Result Part 시작 Panel
 	private CrewViewManager crewManager; // Crew Part 시작 Panel
-	private PasswordChangeView pwdChangeView; // Update Part 시작 Panel
+//	private PasswordChangeView pwdChangeView; // Update Part 시작 Panel
+	private EditViewManager editView;
 	private long sTimeI;
 	private int eventGoal;
 	private String eventFlag;
@@ -69,6 +71,7 @@ public class Main {
 		loginView = new LoginMainView(this);
 		adminManager = new AdminViewManager(this); // loginView에서
 		mainPanel = new MainPanel(this);
+
 		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this);
 		crewManager = new CrewViewManager(this);
@@ -79,8 +82,8 @@ public class Main {
 		panelMap.put("record", recordMain);
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
-		panelMap.put("update", pwdChangeView);
-
+		panelMap.put("update", editView.getEditMain());
+	
 		sTimeI = adminManager.getEventSetting().getsTimeI();
 		System.out.println("sTimeI : " + sTimeI);
 

@@ -354,6 +354,7 @@ public class AdminViewManager {
 		btnNewButton_1_1.setBounds(27, 295, 286, 96);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loadCrewList();
 				convertPanel("admin_pendingApproval"); // 크루 만들기 page로
 			}
 		});
@@ -362,6 +363,7 @@ public class AdminViewManager {
 		JButton btnNewButton_1_1_1 = new JButton("전체 크루 명단");
 		btnNewButton_1_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loadCrewList();
 				convertPanel("admin_list");
 			}
 		});

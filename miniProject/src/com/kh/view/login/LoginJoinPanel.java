@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,10 +23,9 @@ public class LoginJoinPanel extends JPanel {
 
 	private JoinController joinController;
 
-	private Main main;
+	private User user;
 
-	// Panel 전환을 위한 Map
-	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+	private Main main;
 
 	private JTextField textField;
 	private JTextField textField_1;
@@ -41,17 +39,14 @@ public class LoginJoinPanel extends JPanel {
 		initialize();
 	}
 
-	public LoginJoinPanel(Main main) {
+	public LoginJoinPanel(Main main, User user) {
 		this();
 		this.main = main;
-
-		panelMap = main.getPanelMap();
-
-		panelMap.put("login_join", this);
+		this.user = user;
 	}
 
-	public LoginJoinPanel(Main main, UserDao userDao) {
-		this(main);
+	public LoginJoinPanel(Main main, User user, UserDao userDao) {
+		this(main, user);
 		joinController = new JoinController(userDao);
 	}
 

@@ -24,10 +24,11 @@ public class PasswordChangeView extends JPanel {
 	private JTextField textField_1;
 	protected User user;
 	private PasswordChangeController passwordchangeController;
+	private EditViewManager viewManager;
 	/**
 	 * Create the panel.
 	 */
-	public PasswordChangeView() {
+	public PasswordChangeView(EditViewManager viewManager) {
 		
 		passwordchangeController = new PasswordChangeController();
 		
@@ -82,6 +83,7 @@ public class PasswordChangeView extends JPanel {
 		add(lblHome);
 	}
 	
+
 	public PasswordChangeView(Main main) {
 		this();
 		this.main = main;
@@ -91,6 +93,7 @@ public class PasswordChangeView extends JPanel {
 		this.user = user;
 	}
 	
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 
@@ -104,4 +107,5 @@ public class PasswordChangeView extends JPanel {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 	}
+
 }
