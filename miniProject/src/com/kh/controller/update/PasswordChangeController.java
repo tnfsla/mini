@@ -4,12 +4,12 @@ import com.kh.model.vo.User;
 
 public class PasswordChangeController {
 
-	public void newPassword(User user, String newPassword) {
+   public void newPassword(User user, String newPassword) {
 
-		if (user.getPw().equals(newPassword)) {
+      if (user.getPw().equals(newPassword)) {
 
-		}
+      }
 
-	}
+   }
 
 }

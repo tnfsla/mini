@@ -17,7 +17,9 @@ public class User extends SystemUser implements Serializable {
 	private char gender;
 	private boolean hasBedge; // 미션 달성 여부
 	private String crewName; // 크루 가입 여부 가입시 가입한 크루이름, 미가입시 null
-
+	private double prevHeight;
+	private double prevWeight;
+	
 	private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
 	public User(String id, String pw, String name, int age, double height, double weight,
@@ -95,6 +97,8 @@ public class User extends SystemUser implements Serializable {
 	public void setExercises(ArrayList<Exercise> exercises) {
 		this.exercises = exercises;
 	}
+	
+	
 
 	// 운동 기록 추가 메소드
 	public void addExercise(Exercise exercise) {
@@ -105,6 +109,22 @@ public class User extends SystemUser implements Serializable {
 	public String getId() {
 		// TODO Auto-generated method stub
 		return super.getId();
+	}
+
+	public double getPrevHeight() {
+		return prevHeight;
+	}
+
+	public void setPrevHeight(double prevHeight) {
+		this.prevHeight = prevHeight;
+	}
+
+	public double getPrevWeight() {
+		return prevWeight;
+	}
+
+	public void setPrevWeight(double prevWeight) {
+		this.prevWeight = prevWeight;
 	}
 	
 	
