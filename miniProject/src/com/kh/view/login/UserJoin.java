@@ -94,12 +94,12 @@ public class UserJoin {
 		age.setColumns(10);
 		
 		Height = new JTextField();
-		Height.setBounds(101, 406, 150, 24);
+		Height.setBounds(101, 412, 150, 24);
 		frame.getContentPane().add(Height);
 		Height.setColumns(10);
 		
 		Weight = new JTextField();
-		Weight.setBounds(101, 477, 150, 24);
+		Weight.setBounds(101, 476, 150, 24);
 		frame.getContentPane().add(Weight);
 		Weight.setColumns(10);
 		
