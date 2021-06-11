@@ -61,7 +61,9 @@ public class MainPanel extends JPanel {
 						Thread.sleep(1000);
 						
 //						System.out.println(sTime);
+						if(dTimeI%10==0) {
 						System.out.println(dTimeI);
+						}
 
 					}
 				} catch (Exception e) {
