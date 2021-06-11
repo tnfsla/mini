@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Random;
 
+import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
 
 // User 정보들을 다루게 되는 DAO
@@ -96,6 +99,36 @@ public class UserDao {
 		userDao.getUserList().add(new User("c2", "1234", "최선호", 20, 100, 50, '여', false));
 		userDao.getUserList().add(new User("u1", "1234", "유기용", 20, 100, 50, '남', false));
 		userDao.getUserList().add(new User("runday", "1234", "런데이", 99, 999, 99, '남', false));
+
+		ArrayList<Exercise> exercises = new ArrayList<Exercise>();
+		Calendar cal = Calendar.getInstance();
+		Random random = new Random();
+
+		for (User user : userDao.getUserList()) {
+			user.setCrewName("KH");
+
+			if (user.getName().equals("런데이"))
+				user.setCrewName("런데이");
+
+			exercises = new ArrayList<Exercise>();
+
+			cal = Calendar.getInstance();
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
+			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
+					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+
+			cal = Calendar.getInstance();
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
+			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
+					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+
+			cal = Calendar.getInstance();
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
+			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
+					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
+
+			user.setExercises(exercises);
+		}
 
 		userDao.saveUserList();
 
