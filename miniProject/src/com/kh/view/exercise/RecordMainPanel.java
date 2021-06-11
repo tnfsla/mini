@@ -94,7 +94,15 @@ public class RecordMainPanel extends JPanel {
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		 this.user = user;
+	      
+	      updateUser();
 	}
+	
+	   public void updateUser() {
+		      autoRecordPanel.setUser(user);
+		      inputRecordPanel.setUser(user);
+		      stopWatchPanel.setUser(user);
+		   }
 
 }
