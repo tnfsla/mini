@@ -30,8 +30,7 @@ public class Main {
 	private RecordMainPanel recordMain; // Record Part 시작 Panel
 	private ResultMainView resultView; // Result Part 시작 Panel
 	private CrewViewManager crewManager; // Crew Part 시작 Panel
-//	private PasswordChangeView pwdChangeView; // Update Part 시작 Panel
-	private EditViewManager editView;
+	private EditViewManager editView; // Update Part 시작 Panel
 	private long sTimeI;
 	private int eventGoal;
 	private String eventFlag;
@@ -55,9 +54,6 @@ public class Main {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Main() {
 		panelMap = new LinkedHashMap<String, JPanel>();
 
@@ -70,12 +66,12 @@ public class Main {
 
 		loginView = new LoginMainView(this);
 		adminManager = new AdminViewManager(this); // loginView에서
+		editView = new EditViewManager(this);
 		mainPanel = new MainPanel(this);
 
 		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this);
 		crewManager = new CrewViewManager(this);
-		pwdChangeView = new PasswordChangeView(this);
 
 		panelMap.put("main", mainPanel);
 		panelMap.put("admin", adminManager.getMainPanel());
@@ -101,7 +97,7 @@ public class Main {
 		recordMain.setUser(user);
 		resultView.setUser(user);
 		crewManager.setUser(user);
-		pwdChangeView.setUser(user);
+		editView.setUser(user);
 	}
 
 	public void convertPanel(String panelName) {
