@@ -7,4 +7,11 @@ public class LoginController {
 
 	private UserDao userDao;
 	
+	public LoginController() {
+		userDao = new UserDao();
+	}
+	
+	public UserDao getUserDao() {
+		return userDao;
+	}
 }

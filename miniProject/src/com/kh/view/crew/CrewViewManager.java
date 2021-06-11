@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -225,16 +227,19 @@ public class CrewViewManager {
 		mainPanel.add(lblCrewLabel);
 
 		JPanel crewListPanel = new JPanel();
+		crewListPanel.setBackground(new Color(215, 255, 241));
 		crewListPanel.setBorder(new EmptyBorder(30, 15, 30, 15));
 		crewListPanel.setBounds(25, 270, 310, 270);
 		mainPanel.add(crewListPanel);
 		crewListPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel crewItemPanel1 = new JPanel();
+		crewItemPanel1.setBackground(new Color(215, 255, 241));
 		crewListPanel.add(crewItemPanel1);
 		crewItemPanel1.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 280, 55);
 		crewItemPanel1.add(panel);
 		panel.setLayout(null);
@@ -270,10 +275,12 @@ public class CrewViewManager {
 		btnCrewPage1.setHorizontalAlignment(SwingConstants.LEFT);
 
 		JPanel crewItemPanel2 = new JPanel();
+		crewItemPanel2.setBackground(new Color(215, 255, 241));
 		crewItemPanel2.setLayout(null);
 		crewListPanel.add(crewItemPanel2);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(Color.WHITE);
 		panel_1.setLayout(null);
 		panel_1.setBounds(0, 0, 280, 55);
 		crewItemPanel2.add(panel_1);
@@ -307,10 +314,12 @@ public class CrewViewManager {
 		panel_1.add(btnCrewPage2);
 
 		JPanel crewItemPanel3 = new JPanel();
+		crewItemPanel3.setBackground(new Color(215, 255, 241));
 		crewItemPanel3.setLayout(null);
 		crewListPanel.add(crewItemPanel3);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
 		panel_2.setLayout(null);
 		panel_2.setBounds(0, 0, 280, 55);
 		crewItemPanel3.add(panel_2);
@@ -344,7 +353,7 @@ public class CrewViewManager {
 		panel_2.add(btnCrewPage3);
 
 		JPanel footerPanel = new JPanel();
-		footerPanel.setBackground(Color.LIGHT_GRAY);
+		footerPanel.setBackground(new Color(140, 215, 144));
 		footerPanel.setBounds(0, 561, 360, 29);
 		mainPanel.add(footerPanel);
 

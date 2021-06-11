@@ -5,11 +5,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,9 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.kh.controller.login.LoginController;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import javax.swing.SwingConstants;
 
 public class LoginMainView extends JPanel {
 
@@ -33,41 +31,31 @@ public class LoginMainView extends JPanel {
 
 	private Main main;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JFrame window = new JFrame();
-					LoginMainView loginView = new LoginMainView();
-					window.setBounds(100, 100, 360, 600);
-					window.getContentPane().add(loginView);
-					window.setVisible(true);
-					window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private LoginJoinPanel joinPanel;
 
-	/**
-	 * Create the application.
-	 */
+	private LoginController loginController;
+
+	// Panel 전환을 위한 Map
+	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+
 	public LoginMainView() {
 		initialize();
 
+		loginController = new LoginController();
+		
+		panelMap = main.getPanelMap();
+		
+		// map 생성 후
+		// 해당 panel들 map에 추가
+		panelMap.put("login", this);
 	}
 
 	public LoginMainView(User user) {
 		this();
 		this.user = user;
-		
+
 		this.user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
 	}
-
 
 	public LoginMainView(Main main, User user) {
 		this(user);
@@ -76,20 +64,78 @@ public class LoginMainView extends JPanel {
 		updateUser();
 	}
 
+	public void initPanel() {
+		joinPanel = new LoginJoinPanel(main, user, loginController.getUserDao());
+	}
+
 	// login 성공시 해당 user를 다른 part의 넣어 패널을 생성하기 위한 메소드
 	public void updateUser() {
 		main.lazeInitPanel(user);
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
+		JPasswordField txtPass = new JPasswordField(10);
+
+		// 테스트 용
+//		JLabel lblHome = new JLabel("Home");
+//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblHome.setBounds(150, 561, 60, 29);
+//		lblHome.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				System.out.println("메인 페이지로 이동");
+//				main.convertPanel("main");
+//			}
+//		});
+//		add(lblHome);
+
+		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
+		panel.setSize(getSize());
+		add(panel);
+
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setBounds(142, 181, 57, 15);
+		panel.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setBounds(142, 481, 57, 15);
+		panel.add(lblNewLabel_3);
+
+		JButton btnNewButton_1 = new JButton("회원가입");
+		btnNewButton_1.setBounds(124, 514, 105, 27);
+		panel.add(btnNewButton_1);
+
+		JButton btnNewButton_2 = new JButton("관리자 버튼");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_2.setBounds(251, 10, 97, 23);
+		panel.add(btnNewButton_2);
+
+		passwordField = new JPasswordField();
+		passwordField.setBounds(142, 250, 116, 24);
+		panel.add(passwordField);
+
+		JLabel lblNewLabel_1 = new JLabel("PW : ");
+		lblNewLabel_1.setBounds(78, 252, 62, 18);
+		panel.add(lblNewLabel_1);
+
+		JLabel lblNewLabel = new JLabel("Login : ");
+		lblNewLabel.setBounds(63, 205, 166, 49);
+		panel.add(lblNewLabel);
+
+		textField = new JTextField();
+		textField.setBounds(142, 216, 116, 24);
+		panel.add(textField);
+		textField.setColumns(10);
 
 		JButton btnNewButton = new JButton("확인");
+		btnNewButton.setBounds(142, 296, 70, 34);
+		panel.add(btnNewButton);
 		btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -109,51 +155,33 @@ public class LoginMainView extends JPanel {
 			}
 
 		});
-		btnNewButton.setBounds(146, 296, 70, 34);
-		add(btnNewButton);
-
-		textField = new JTextField();
-		textField.setBounds(136, 216, 116, 24);
-		add(textField);
-		textField.setColumns(10);
-
-		JLabel lblNewLabel = new JLabel("Login : ");
-		lblNewLabel.setBounds(86, 204, 166, 49);
-		add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("PW : ");
-		JPasswordField txtPass = new JPasswordField(10);
-		lblNewLabel_1.setBounds(97, 254, 62, 18);
-		add(lblNewLabel_1);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(136, 251, 116, 24);
-		add(passwordField);
-
-		JButton btnNewButton_1 = new JButton("회원가입");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 			}
 		});
-		btnNewButton_1.setBounds(111, 514, 105, 27);
-		add(btnNewButton_1);
-		
-		JLabel lblHome = new JLabel("Home");
-		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHome.setBounds(150, 561, 60, 29);
-		lblHome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("메인 페이지로 이동");
-				main.convertPanel("main");
+
+	}
+
+	public LoginController getLoginController() {
+		return loginController;
+	}
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JFrame window = new JFrame();
+					LoginMainView loginView = new LoginMainView();
+					window.setBounds(100, 100, 360, 600);
+					window.getContentPane().add(loginView);
+					window.setVisible(true);
+					window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
-		add(lblHome);
-		
-				ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
-				panel.setSize(getSize());
-				add(panel);
 	}
 }
 
