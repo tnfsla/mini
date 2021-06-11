@@ -62,7 +62,7 @@ public class MainPanel extends JPanel {
 
 //						System.out.println(sTime);
 						if (dTimeI % 10 == 0) {
-							System.out.println(dTimeI);
+							System.out.println("\t\t\t\t\t time : " + dTimeI);
 						}
 
 					}
@@ -172,7 +172,6 @@ public class MainPanel extends JPanel {
 		btnNewButton_3.setBounds(185, 67, 97, 23);
 		add(btnNewButton_3);
 
-
 	}
 
 	public long getsTime() {
@@ -182,7 +181,7 @@ public class MainPanel extends JPanel {
 	public void setsTime(long sTime) {
 		this.sTime = sTime;
 	}
-	
+
 //	public void updateUser() {
 //		double tSum = 0;
 //		double dSum = 0.0;
@@ -224,7 +223,7 @@ public class MainPanel extends JPanel {
 
 	public void setUser(User user) {
 		this.user = user;
-		
+
 //		updateUser();
 	}
 }

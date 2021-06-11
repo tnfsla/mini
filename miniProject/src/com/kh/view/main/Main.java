@@ -81,13 +81,15 @@ public class Main {
 		panelMap.put("update", editView.getEditMain());
 	
 		sTimeI = adminManager.getEventSetting().getsTimeI();
-		System.out.println("sTimeI : " + sTimeI);
+//		System.out.println("sTimeI : " + sTimeI);
 
 		addPanels(frame);
 
-		loginView.loginUser();
+		// test
+//		loginView.loginUser();
+//		convertPanel("main");
 		
-		convertPanel("main");
+		convertPanel("login");
 	}
 
 	// 로그인된 user 객체 각 파트에 update
@@ -158,4 +160,7 @@ public class Main {
 		this.eventFlag = eventFlag;
 	}
 
+	public LoginMainView getLoginView() {
+		return loginView;
+	}
 }

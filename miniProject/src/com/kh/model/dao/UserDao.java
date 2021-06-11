@@ -25,7 +25,7 @@ public class UserDao {
 	// 유저 정보들을 객체 형태로 저장
 	public void saveUserList() {
 
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("resources/userList.dat"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/userList.dat"))) {
 
 			for (int i = 0; i < userList.size(); i++) {
 				oos.writeObject(userList.get(i));
@@ -38,23 +38,23 @@ public class UserDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		System.out.println("유저 리스트 저장 완료");
 	}
 
 	// 유저 정보들을 객체 형태로 읽어오기
 	public void loadUserList() {
 
-		ArrayList<User> userList = new ArrayList<User>();
+		userList.clear();
 
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./resources/userList.dat"))) {
-			int i = 0;
+
 			while (true) {
 				userList.add((User) ois.readObject());
-
-				System.out.println(userList.get(i));
-				i++;
 			}
-		} catch (EOFException e) {
 
+		} catch (EOFException e) {
+			System.out.println("유저 리스트 읽기 완료");
 			return;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -78,6 +78,32 @@ public class UserDao {
 			}
 		}
 
+		System.out.println("유저 검색 불가");
 		return null;
+	}
+
+	public ArrayList<User> getUserList() {
+		return userList;
+	}
+
+	public static void main(String[] args) {
+		// UserDao 만들어 저장
+
+		UserDao userDao = new UserDao();
+		userDao.getUserList().add(new User("c1", "1234", "최용석", 20, 100, 50, '남', false));
+		userDao.getUserList().add(new User("m1", "1234", "문대훈", 20, 100, 50, '남', false));
+		userDao.getUserList().add(new User("s1", "1234", "서민지", 20, 100, 50, '여', false));
+		userDao.getUserList().add(new User("c2", "1234", "최선호", 20, 100, 50, '여', false));
+		userDao.getUserList().add(new User("u1", "1234", "유기용", 20, 100, 50, '남', false));
+		userDao.getUserList().add(new User("runday", "1234", "런데이", 99, 999, 99, '남', false));
+
+		userDao.saveUserList();
+
+//		userDao.loadUserList();
+
+		for (User user : userDao.getUserList()) {
+			System.out.println(user);
+		}
+
 	}
 }

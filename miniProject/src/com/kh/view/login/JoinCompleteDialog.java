@@ -1,58 +1,59 @@
 package com.kh.view.login;
 
-import java.awt.EventQueue;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class JoinCompleteDialog {
+public class JoinCompleteDialog extends JDialog {
 
-	private JFrame frame;
+	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JoinCompleteDialog window = new JoinCompleteDialog();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			JoinCompleteDialog dialog = new JoinCompleteDialog();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Create the application.
+	 * Create the dialog.
 	 */
 	public JoinCompleteDialog() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 300, 142);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setBounds(100, 100, 300, 142);
+		getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("확인");
-		btnNewButton.setBounds(85, 63, 108, 40);
-		frame.getContentPane().add(btnNewButton);
+		JButton btnConfirm = new JButton("확인");
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnConfirm.setFont(new Font("굴림", Font.PLAIN, 16));
+		btnConfirm.setBounds(87, 60, 108, 40);
+		getContentPane().add(btnConfirm);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("굴림", Font.PLAIN, 16));
 		textField.setHorizontalAlignment(SwingConstants.CENTER);
 		textField.setText("회원가입이 완료되었습니다.");
 		textField.setBounds(28, 10, 225, 40);
-		frame.getContentPane().add(textField);
+		getContentPane().add(textField);
 		textField.setColumns(10);
 	}
 
