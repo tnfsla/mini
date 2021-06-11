@@ -24,10 +24,11 @@ public class PasswordChangeView extends JPanel {
 	private JTextField textField_1;
 	protected User user;
 	private PasswordChangeController passwordchangeController;
+	private EditViewManager viewManager;
 	/**
 	 * Create the panel.
 	 */
-	public PasswordChangeView() {
+	public PasswordChangeView(EditViewManager viewManager) {
 		
 		passwordchangeController = new PasswordChangeController();
 		
@@ -94,7 +95,7 @@ public class PasswordChangeView extends JPanel {
 		frame.setBounds(100, 100, 360, 600);
 
 		frame.setVisible(true);
-		PasswordChangeView cmain = new PasswordChangeView();
+		PasswordChangeView cmain = new PasswordChangeView(this);
 		frame.getContentPane().setLayout(null);
 		frame.getContentPane().add(cmain);
 		
