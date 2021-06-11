@@ -205,7 +205,7 @@ public class CrewViewManager {
 
 		mainPanel = new JPanel();
 		mainPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		mainPanel.setBackground(Color.GRAY);
+		mainPanel.setBackground(Color.WHITE);
 		mainPanel.setBounds(0, 0, 360, 600);
 		mainPanel.setLayout(null);
 
