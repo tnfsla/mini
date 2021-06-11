@@ -13,15 +13,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.login.LoginController;
+import com.kh.model.vo.SystemUser;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import javax.swing.SwingConstants;
 
 public class LoginMainView extends JPanel {
 
@@ -70,9 +70,9 @@ public class LoginMainView extends JPanel {
 	public void loginUser() {
 		if (user == null)
 			user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
-		
+
 		System.out.println("로그인 유저 : " + user);
-		
+
 		main.updateUser(user);
 	}
 
@@ -140,20 +140,20 @@ public class LoginMainView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String id = textFieldId.getText();
 				String password = String.valueOf(passwordFieldPwd.getPassword());
-				
+
 				user = loginController.selectUser(id, password);
-				
+
 				// login 성공
 				if (user != null) {
 					System.out.println("로그인 성공");
 					loginUser();
-					
+
 					if (user.isAdminFlag() == false) {
 						main.convertPanel("main"); // 일반 유저인 경우 main page로
 					} else {
 						main.convertPanel("admin"); // admin인 경우 admin page로
 					}
-					
+
 				} else { // login 실패
 					System.out.println("로그인 실패");
 				}
@@ -174,6 +174,9 @@ public class LoginMainView extends JPanel {
 		// 회원가입부분 보이지 않게 수정
 		lblJoin.setVisible(false);
 		btnJoin.setVisible(false);
+		
+		// id admin id로 자동 세팅
+		textFieldId.setText(loginController.getAdmin().getId());
 	}
 
 	public LoginController getLoginController() {

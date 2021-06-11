@@ -25,7 +25,12 @@ public class LoginController {
 
 	// userDao에 있는 userList로 부터 id와 password가 같은 user를 찾아서 return
 	public User selectUser(String id, String password) {
-
+		
+		if (admin.getId().equals(id) && admin.getPw().equals(password)) {
+			System.out.println("관리자 로그인");
+			return new User(admin);
+		}
+		
 		for (User user : userDao.getUserList()) {
 			if (user.getId().equals(id) && user.getPw().equals(password)) {
 				return user;

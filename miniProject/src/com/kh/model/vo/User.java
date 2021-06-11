@@ -31,6 +31,10 @@ public class User extends SystemUser implements Serializable {
 		this.crewName = null;
 	}
 
+	public User(SystemUser admin) {
+		super(admin.getId(), admin.getPw(), true);
+	}
+
 	public String getName() {
 		return name;
 	}
