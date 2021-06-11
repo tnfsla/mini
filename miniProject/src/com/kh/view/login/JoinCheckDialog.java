@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextField;
 
 public class JoinCheckDialog extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -31,23 +31,20 @@ public class JoinCheckDialog extends JDialog {
 	 * Create the dialog.
 	 */
 	public JoinCheckDialog() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 300, 142);
 		getContentPane().setLayout(null);
-		contentPanel.setBounds(86, 36, 277, 82);
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel);
-		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JLabel lblNewLabel = new JLabel("New label");
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			contentPanel.add(lblNewLabel, BorderLayout.CENTER);
+			textField = new JTextField();
+			textField.setHorizontalAlignment(SwingConstants.CENTER);
+			textField.setText("사용가능한 아이디 입니다.");
+			textField.setBounds(56, 10, 177, 22);
+			getContentPane().add(textField);
+			textField.setColumns(10);
 		}
-		{
-			JButton okButton = new JButton("OK");
-			okButton.setActionCommand("OK");
-			okButton.setBounds(136, 193, 170, 37);
-			getContentPane().add(okButton);
-		}
+		
+		JButton btnNewButton = new JButton("확인");
+		btnNewButton.setBounds(87, 63, 108, 40);
+		getContentPane().add(btnNewButton);
 	}
 
 }
