@@ -39,14 +39,13 @@ public class LoginJoinPanel extends JPanel {
 		initialize();
 	}
 
-	public LoginJoinPanel(Main main, User user) {
+	public LoginJoinPanel(Main main) {
 		this();
 		this.main = main;
-		this.user = user;
 	}
 
-	public LoginJoinPanel(Main main, User user, UserDao userDao) {
-		this(main, user);
+	public LoginJoinPanel(Main main, UserDao userDao) {
+		this(main);
 		joinController = new JoinController(userDao);
 	}
 
