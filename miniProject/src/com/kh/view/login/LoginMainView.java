@@ -21,7 +21,7 @@ public class LoginMainView {
 
 	private JFrame frame;
 	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -108,9 +108,9 @@ public class LoginMainView {
 		btnNewButton_1.setBounds(111, 514, 105, 27);
 		frame.getContentPane().add(btnNewButton_1);
 		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(128, 248, 127, 35);
-		frame.getContentPane().add(passwordField_1);
+		textField = new JTextField();
+		textField.setBounds(128, 248, 127, 35);
+		frame.getContentPane().add(textField);
 	}
 }
 class ImagePanel extends JPanel{
