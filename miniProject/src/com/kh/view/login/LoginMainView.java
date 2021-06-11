@@ -75,7 +75,6 @@ public class LoginMainView {
 						JOptionPane.showMessageDialog(null, "인증되었습니다");
 						//로그인 성공이 되었을때 
 						
-						
 						//메인 페이지로 이동
 					}else {
 						JOptionPane.showConfirmDialog(null, "다시 확인하십시오");
