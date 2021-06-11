@@ -25,7 +25,7 @@ public class UserDao {
 	// 유저 정보들을 객체 형태로 저장
 	public void saveUserList() {
 
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("User.txt"))) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("resources/userList.dat"))) {
 
 			for (int i = 0; i < userList.size(); i++) {
 				oos.writeObject(userList.get(i));
@@ -45,7 +45,7 @@ public class UserDao {
 
 		ArrayList<User> userList = new ArrayList<User>();
 
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("User.txt"))) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./resources/userList.dat"))) {
 			int i = 0;
 			while (true) {
 				userList.add((User) ois.readObject());
@@ -70,9 +70,14 @@ public class UserDao {
 
 	// id와 password로부터 UserList에서 User를 찾아 반환
 	// 못찾으면 return null
-	public  User selectUser(String id, String pwd) {
-	
-		
+	public User selectUser(String id, String pwd) {
+
+		for (User user : userList) {
+			if (user.getId().equals(id) && user.getPw().equals(pwd)) {
+				return user;
+			}
+		}
+
 		return null;
 	}
 }
