@@ -42,35 +42,31 @@ public class LoginMainView extends JPanel {
 		initialize();
 
 		loginController = new LoginController();
-		
-		panelMap = main.getPanelMap();
-		
-		// map 생성 후
-		// 해당 panel들 map에 추가
-		panelMap.put("login", this);
 	}
 
-	public LoginMainView(User user) {
+	public LoginMainView(Main main) {
 		this();
-		this.user = user;
 
-		this.user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
-	}
-
-	public LoginMainView(Main main, User user) {
-		this(user);
 		this.main = main;
 
-		updateUser();
+		panelMap = main.getPanelMap();
+
+		initPanel();
 	}
 
 	public void initPanel() {
-		joinPanel = new LoginJoinPanel(main, user, loginController.getUserDao());
+		// 해당 panel들 map에 추가
+		panelMap.put("login", this);
+
+		joinPanel = new LoginJoinPanel(main, loginController.getUserDao());
+
+		// 해당 panel들 map에 추가
+		panelMap.put("login_join", joinPanel);
 	}
 
-	// login 성공시 해당 user를 다른 part의 넣어 패널을 생성하기 위한 메소드
-	public void updateUser() {
-		main.lazeInitPanel(user);
+	public void loginUser() {
+		User user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
+		main.updateUser(user);
 	}
 
 	private void initialize() {

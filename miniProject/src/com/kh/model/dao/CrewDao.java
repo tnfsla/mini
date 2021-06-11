@@ -25,19 +25,11 @@ public class CrewDao {
 
 	public CrewDao() {
 		crewList = new ArrayList<Crew>();
-
-	}
-
-	public CrewDao(User user) {
-		this();
-//		loadCrewList(); // 저장된 크루 리스트 읽어오기 중복으로 읽어오게됨 빼버리기
-
-		updateUser(user);
 	}
 
 	// 로그인 또는 회원가입을 하여 객체 생성된 유저를 crew의 UserList에 해당 유저가 있다면
 	// 객체가 2개가 되므로 같은 객체로 유지할 수 있도록 바꿔주기
-	private void updateUser(User user) {
+	public void updateUser(User user) {
 		// 미가입 상태이면 업데이트 제외
 		if (user.getCrewName() == null) {
 			return;
@@ -332,7 +324,7 @@ public class CrewDao {
 
 		User user = new User("k1", "1234", "김태훈", 31, 170, 85, '남', false);
 
-		CrewDao dao = new CrewDao(user);
+		CrewDao dao = new CrewDao();
 
 		createTest(cal, random, exercises, user, dao);
 		dao.saveCrewList();

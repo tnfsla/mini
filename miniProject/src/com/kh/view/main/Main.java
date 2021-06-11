@@ -33,14 +33,9 @@ public class Main {
 	private long sTimeI;
 	private int eventGoal;
 	private String eventFlag;
-	
 
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-
-	/////////////////////////////////////
-	User user = null; // 로그인시 접속하게 되는 사용자, 로그인이 되기 전까진 null 상태
-	// 로그인 후 User 객체를 넣게 됨
 
 	/////////////////////////////////////
 
@@ -71,23 +66,13 @@ public class Main {
 	// 각 파트별 Panel 객체 생성 후 panelMap의 추가
 	public void initPanel() {
 
-		loginView = new LoginMainView(this, user); // 매개변수로 들어간 user가 추후에 객체가 생성되게 됨
-		
-		addPanels(frame);
-		
-		convertPanel("main");
-	}
-
-	// 바로 new로 객체 생성하지 않고 로그인에서 user 객체가 생성이 되면 호출
-	public void lazeInitPanel(User user) {
-
-
-		adminManager = new AdminViewManager(this, user); // loginView에서
+		loginView = new LoginMainView(this);
+		adminManager = new AdminViewManager(this); // loginView에서
 		mainPanel = new MainPanel(this);
-		recordMain = new RecordMainPanel(this, user); // 추후 user가 들어가야함
-		resultView = new ResultMainView(this, user);
-		crewManager = new CrewViewManager(this, user);
-		pwdChangeView = new PasswordChangeView(this, user);
+		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
+		resultView = new ResultMainView(this);
+		crewManager = new CrewViewManager(this);
+		pwdChangeView = new PasswordChangeView(this);
 
 		panelMap.put("main", mainPanel);
 		panelMap.put("admin", adminManager.getMainPanel());
@@ -95,10 +80,25 @@ public class Main {
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", pwdChangeView);
-		
-		sTimeI = adminManager.getEventSetting().getsTimeI();
-		System.out.println("sTimeI : "+sTimeI);
 
+		sTimeI = adminManager.getEventSetting().getsTimeI();
+		System.out.println("sTimeI : " + sTimeI);
+
+		addPanels(frame);
+
+		loginView.loginUser();
+		
+		convertPanel("main");
+	}
+
+	// 로그인된 user 객체 각 파트에 update
+	public void updateUser(User user) {
+		// main도 user 안써서 미진행
+		// admin은 안써서 미진행
+		recordMain.setUser(user);
+		resultView.setUser(user);
+		crewManager.setUser(user);
+		pwdChangeView.setUser(user);
 	}
 
 	public void convertPanel(String panelName) {
@@ -129,7 +129,7 @@ public class Main {
 		frame.getContentPane().setLayout(null);
 
 	}
-	
+
 	public Map<String, JPanel> getPanelMap() {
 		return panelMap;
 	}
@@ -158,6 +158,4 @@ public class Main {
 		this.eventFlag = eventFlag;
 	}
 
-
-	
 }

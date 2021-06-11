@@ -82,9 +82,12 @@ public class PasswordChangeView extends JPanel {
 		add(lblHome);
 	}
 	
-	public PasswordChangeView(Main main, User user) {
+	public PasswordChangeView(Main main) {
 		this();
 		this.main = main;
+	}
+	
+	public void setUser(User user) {
 		this.user = user;
 	}
 	
@@ -100,7 +103,5 @@ public class PasswordChangeView extends JPanel {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		
-		
 	}
 }

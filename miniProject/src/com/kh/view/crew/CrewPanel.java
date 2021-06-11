@@ -47,6 +47,8 @@ public class CrewPanel extends JPanel {
 
 	private JLabel lblCrewFeedCount;
 
+	private JButton btnJoinCrew;
+
 	public CrewPanel(CrewViewManager crewManager, CrewController crewController) {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		this.crewManager = crewManager;
@@ -74,9 +76,6 @@ public class CrewPanel extends JPanel {
 
 	// panel 초기 설정 crewManager, crewController 설정 후에 호출해야해서 initialize 메소드로 따로 뺌
 	private void initialize() {
-		isJoinCrew = crewManager.getUser().getCrewName() == null ? false : true; // user의 크루네임이 null이면 미가입이라 false 아니면
-																					// true
-
 		setBackground(Color.LIGHT_GRAY);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
@@ -96,7 +95,7 @@ public class CrewPanel extends JPanel {
 		lblCrewName.setBounds(41, 10, 113, 33);
 		panelCrewName.add(lblCrewName);
 
-		JButton btnJoinCrew = new JButton("가입하기");
+		btnJoinCrew = new JButton("가입하기");
 		btnJoinCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CrewJoinDialog dialog = new CrewJoinDialog(crewManager.getCrewPanel());
@@ -125,7 +124,7 @@ public class CrewPanel extends JPanel {
 			}
 		});
 		btnJoinCrew.setBounds(227, 15, 97, 23);
-		btnJoinCrew.setVisible(!isJoinCrew); // 가입 상태에 따라 버튼 보이기 상태 바꾸기
+
 		panelCrewName.add(btnJoinCrew);
 
 		textAreaCrewContent = new JTextArea();
@@ -221,7 +220,7 @@ public class CrewPanel extends JPanel {
 		textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
 		textAreaNotJoinCrewInfo.setEditable(false);
 		textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
-		textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
+
 		panelShortInfo.add(textAreaNotJoinCrewInfo);
 
 		JPanel panelCrewInfoDistance = new JPanel();
@@ -269,4 +268,12 @@ public class CrewPanel extends JPanel {
 
 	}
 
+	public void updateJoinState() {
+		isJoinCrew = crewManager.getUser().getCrewName() == null ? false : true; // user의 크루네임이 null이면 미가입이라 false 아니면
+																					// true
+
+		btnJoinCrew.setVisible(!isJoinCrew); // 가입 상태에 따라 버튼 보이기 상태 바꾸기
+
+		textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
+	}
 }

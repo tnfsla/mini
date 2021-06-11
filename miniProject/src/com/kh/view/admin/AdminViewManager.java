@@ -238,7 +238,6 @@ import com.kh.view.main.Main;
 
 public class AdminViewManager {
 
-	private User user;
 	private Main main;
 	private JPanel mainPanel; // 메인 - 시작 page
 	private ArrayList<Crew> crew;
@@ -248,13 +247,7 @@ public class AdminViewManager {
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 	private long sTime1 =0;
 
-	public AdminViewManager(User user) {
-		this.user = user;
-		run();
-	}
-
-	public AdminViewManager(Main main, User user) {
-		this(user);
+	public AdminViewManager(Main main) {
 		this.main = main;
 		run();
 	}
