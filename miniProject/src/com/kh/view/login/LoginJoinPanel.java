@@ -194,4 +194,3 @@ public class LoginJoinPanel extends JPanel {
 		});
 	}
 }
-

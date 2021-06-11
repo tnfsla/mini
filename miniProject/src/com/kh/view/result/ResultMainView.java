@@ -28,24 +28,6 @@ import com.kh.view.main.Main;
 
 public class ResultMainView extends JPanel implements ActionListener {
 	private Main main;
-	private User user;
-
-	public ResultMainView() {
-		setLayout(new BorderLayout());
-
-	}
-
-	public ResultMainView(User user) {
-		this();
-		this.user = user;
-	}
-
-	public ResultMainView(Main main, User user) {
-		this(user);
-		this.main = main;
-
-		CalendarMain(); // resultView의 경우 CalendarMain 메소드를 호출해야 UI 생성 (다른 클래스의 initialize와 같음)
-	}
 
 	private JFrame frame;
 	ResultController rc = new ResultController();
@@ -80,27 +62,42 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	private JLabel selDate;
 	private JLabel dateexercise;
-	private JPanel footerPanel;
 	private JLabel lblHome;
+
+	public ResultMainView() {
+		setLayout(new BorderLayout());
+	}
+
+	public ResultMainView(Main main) {
+		this();
+
+		this.main = main;
+
+		CalendarMain(); // resultView의 경우 CalendarMain 메소드를 호출해야 UI 생성 (다른 클래스의 initialize와 같음)
+	}
+
+	public void setUser(User user) {
+		rc.setExercises(user.getExercises()); // 유저의 운동기록 부분 resultController에 세팅
+	}
 
 	// 화면디자인
 	public void CalendarMain() {
-		
+
 		ImageIcon Home = new ImageIcon("images/home2.PNG");
 		Image HomeImg = Home.getImage();
 		Image updateHomeImg = HomeImg.getScaledInstance(360, 20, Image.SCALE_SMOOTH);
 		ImageIcon updateHome = new ImageIcon(updateHomeImg);
-		
+
 		lblHome = new JLabel(updateHome);
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		ImageIcon Left = new ImageIcon("images/left1.PNG");
 		Image HomeLeft = Left.getImage();
 		Image updateLeftImg = HomeLeft.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 		ImageIcon updateLeft = new ImageIcon(updateLeftImg);
 		btn1 = new JButton(updateLeft);
 		btn1.setBorderPainted(false);
-		btn1.setBounds(0, 0, 15 , 15);
+		btn1.setBounds(0, 0, 15, 15);
 		btn1.setBackground(Color.white);
 		ImageIcon Right = new ImageIcon("images/right1.PNG");
 		Image HomeRight = Right.getImage();
@@ -108,9 +105,9 @@ public class ResultMainView extends JPanel implements ActionListener {
 		ImageIcon updateRight = new ImageIcon(updateRightImg);
 		btn2 = new JButton(updateRight);
 		btn2.setBorderPainted(false);
-		btn2.setBounds(0, 0, 15 , 15);
+		btn2.setBounds(0, 0, 15, 15);
 		btn2.setBackground(Color.white);
-		
+
 		// 홈 버튼 추가
 //		JLabel lblHome = new JLabel("Home");
 //		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
@@ -123,18 +120,18 @@ public class ResultMainView extends JPanel implements ActionListener {
 //			}
 //		});
 //		add(lblHome);
-		
+
 		// ------년도 월 구하기------------
 		cal = Calendar.getInstance(); // 현재날짜
 		year = cal.get(Calendar.YEAR);
 		month = cal.get(Calendar.MONTH) + 1;
 		date = cal.get(Calendar.DATE);
-		
+
 		// 년
 		for (int i = year - 100; i <= year + 50; i++) {
 			yearModel.addElement(i);
 		}
-		
+
 		yearCombo.setModel(yearModel);
 		yearCombo.setSelectedItem(year);
 
@@ -148,7 +145,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 		// 월화수목금토일
 		for (int i = 0; i < titleStr.length; i++) {
 			JLabel lbl = new JLabel(titleStr[i], JLabel.CENTER);
-			
+
 			title.setBackground(Color.white);
 			if (i == 0) {
 				lbl.setForeground(Color.red);
@@ -161,9 +158,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
-		
-		
-		
+
 		// 날짜 출력
 		day(year, month);
 
@@ -174,16 +169,13 @@ public class ResultMainView extends JPanel implements ActionListener {
 		int totalKcal = rc.getTotalKcal();
 		double totalPace = rc.getTotalPace();
 
-		JLabel exercise = new JLabel("<html>총 거리 : " + totalDistance + "km<br>총 시간 : " + totalTime + "   <br>소모한 칼로리 :  "
-				+ totalKcal + "kcal<br>페이스 : " + totalPace + " </html>");
-		
+		JLabel exercise = new JLabel("<html>총 거리 : " + totalDistance + "km<br>총 시간 : " + totalTime
+				+ "   <br>소모한 칼로리 :  " + totalKcal + "kcal<br>페이스 : " + totalPace + " </html>");
 
 		selDate = new JLabel();
 
 		selDate.setBounds(108, 21, 193, 60);
 		add(selDate);
-
-
 
 		// ----------------------------
 		frame.setTitle("운동기록 확인"); //////
@@ -198,25 +190,25 @@ public class ResultMainView extends JPanel implements ActionListener {
 		pane2.add(title, "North");
 		pane2.add(datePane);
 		add(BorderLayout.SOUTH, lblHome);
-		pane3.add(exercise); // 
+		pane3.add(exercise); //
 		add(BorderLayout.NORTH, pane3); // 사용자 운동기록 통계
-		
+
 		exercise.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 
 		JPanel calendarPanel = new JPanel();
 		calendarPanel.setLayout(new BorderLayout());
 		calendarPanel.add(BorderLayout.NORTH, pane); // 달력 날짜 선택 콤보 박스
 		calendarPanel.add(BorderLayout.CENTER, pane2); // 달력 날짜들
-	 
+
 		add(BorderLayout.CENTER, calendarPanel);
-		
+
 		frame.getContentPane().add(selDate);
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
 				main.convertPanel("main");
-				
+
 			}
 		});
 		btn3.addActionListener(new ActionListener() {
@@ -240,13 +232,11 @@ public class ResultMainView extends JPanel implements ActionListener {
 		monthCombo.setBackground(Color.white);
 
 		// 각종 명령어
-		
-		
 
 		frame.setResizable(false); ///////////
 		setSize(360, 600); ///////
 
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ////////
+		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); ////////
 
 		// ----------기능구현----------
 		btn1.addActionListener(this);
@@ -257,15 +247,15 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	// 기능구현
 	public void actionPerformed(ActionEvent e) {
-		
+
 		Object eventObj = e.getSource();
 		if (eventObj instanceof JComboBox) {
 			datePane.setVisible(false); // 보여지는 패널을 숨킨다.
 			datePane.removeAll(); // 라벨 지우기
 			day((Integer) yearCombo.getSelectedItem(), (Integer) monthCombo.getSelectedItem());
-			
+
 			datePane.setVisible(true); // 패널 재출력
-			
+
 		} else if (eventObj instanceof JButton) {
 			JButton eventBtn = (JButton) eventObj;
 			int yy = (Integer) yearCombo.getSelectedItem();
@@ -352,7 +342,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 			});
 			cal.set(year, month - 1, day);
 			int Week = cal.get(Calendar.DAY_OF_WEEK);
-		
+
 			if (Week == 1) {
 				jbt.setForeground(Color.red);
 			} else if (Week == 7) {

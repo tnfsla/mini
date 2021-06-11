@@ -17,8 +17,9 @@ public class RecordMainPanel extends JPanel {
 	
 	private RecordMainController recordMainController;
 
-	private User user;
 	private Main main;
+	
+	private User user;
 	
 	public RecordMainPanel() {
 
@@ -54,9 +55,12 @@ public class RecordMainPanel extends JPanel {
 		add(lblHome);
 	}
 
-	public RecordMainPanel(Main main, User user) {
+	public RecordMainPanel(Main main) {
 		this();
 		this.main = main;
+	}
+
+	public void setUser(User user) {
 		this.user = user;
 	}
 

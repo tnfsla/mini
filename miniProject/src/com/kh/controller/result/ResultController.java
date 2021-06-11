@@ -1,6 +1,5 @@
 package com.kh.controller.result;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -12,6 +11,11 @@ public class ResultController {
 		// TODO Auto-generated constructor stub
 	}
 
+	public ResultController(ArrayList<Exercise> exericises) {
+		this();
+		this.exercises = exericises;
+	}
+	
 	ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
 	public void addExercise(Exercise ex) {

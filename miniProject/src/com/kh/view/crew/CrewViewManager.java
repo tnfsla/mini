@@ -72,10 +72,17 @@ public class CrewViewManager {
 
 	public CrewViewManager(User user) {
 		this.user = user;
+		
+		initialize();
+		initPanel();
+
+		controllerManager.loadCrewList(); // 저장된 크루 정보 읽어오기
+		setPanel();
+
+		updateCrewJoinState(); // 크루 가입 상태에 따라 처리하는 메소드
 	}
 
-	public CrewViewManager(Main main, User user) {
-		this(user);
+	public CrewViewManager(Main main) {
 		this.main = main;
 
 		initialize();
@@ -87,6 +94,11 @@ public class CrewViewManager {
 		updateCrewJoinState(); // 크루 가입 상태에 따라 처리하는 메소드
 	}
 
+	public void setUser(User user) {
+		this.user = user;
+		controllerManager.getCrewDao().updateUser(user);
+	}
+	
 	// 읽어온 크루 정보로 페널 세팅하기
 	private void setPanel() {
 		ArrayList<Crew> crewList = controllerManager.getCrewDao().getCrewList();
@@ -113,7 +125,7 @@ public class CrewViewManager {
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
 	private void initPanel() {
-		controllerManager = new CrewControllerManager(user);
+		controllerManager = new CrewControllerManager();
 
 		createPanel = new CrewCreatePanel(this, controllerManager.getCrewCreateController());
 		crewPanel = new CrewPanel(this, controllerManager.getCrewController());
@@ -164,7 +176,7 @@ public class CrewViewManager {
 	// 크루 가입 상태 세팅하기
 	public void updateCrewJoinState() {
 		// 크루 미가입 상태
-		if (user.getCrewName() == null) {
+		if (user == null || user.getCrewName() == null) {
 			System.out.println("현재 유저 크루 미가입 상태");
 
 			btnCrewCreateCancel.setVisible(false);
@@ -264,6 +276,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName1.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
+					crewPanel.updateJoinState();
 					convertPanel("crew_crew");
 				} else {
 					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
@@ -305,6 +318,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName2.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
+					crewPanel.updateJoinState();
 					convertPanel("crew_crew");
 				} else {
 					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
@@ -344,6 +358,7 @@ public class CrewViewManager {
 					Crew crew = controllerManager.selectCrew(lblCrewName3.getText());
 					crewPanel.setCrew(crew);
 					System.out.println("크루 이동 : " + crew);
+					crewPanel.updateJoinState();
 					convertPanel("crew_crew");
 				} else {
 					System.out.println("해당 페이지는 크루가 아직 존재하지 않습니다.");
@@ -452,7 +467,7 @@ public class CrewViewManager {
 //		User user = new User("test", "1234", "최용석", 20, 100, 50, '남', false); // 크루 가입한 유저
 
 		// 테스트 용
-		CrewViewManager crewViewManager = new CrewViewManager(null, user);
+		CrewViewManager crewViewManager = new CrewViewManager(user);
 
 		JFrame frame = new JFrame();
 
