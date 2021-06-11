@@ -66,13 +66,13 @@ public class Main {
 
 		loginView = new LoginMainView(this);
 		adminManager = new AdminViewManager(this); // loginView에서
-		editView = new EditViewManager(this);
 		mainPanel = new MainPanel(this);
 
 		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this);
 		crewManager = new CrewViewManager(this);
-
+		editView = new EditViewManager(this);
+		
 		panelMap.put("main", mainPanel);
 		panelMap.put("admin", adminManager.getMainPanel());
 		panelMap.put("record", recordMain);
@@ -94,6 +94,7 @@ public class Main {
 	public void updateUser(User user) {
 		// main도 user 안써서 미진행
 		// admin은 안써서 미진행
+		mainPanel.setUser(user);
 		recordMain.setUser(user);
 		resultView.setUser(user);
 		crewManager.setUser(user);

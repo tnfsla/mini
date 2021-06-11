@@ -22,15 +22,16 @@ public class PasswordChangeView extends JPanel {
 
 	private JTextField textField;
 	private JTextField textField_1;
-	protected User user;
+	private User user;
 	private PasswordChangeController passwordchangeController;
 	private EditViewManager viewManager;
 
 	/**
 	 * Create the panel.
 	 */
-	public PasswordChangeView(EditViewManager viewManager) {
+	public PasswordChangeView(EditViewManager viewManager, User user) {
 		this.viewManager = viewManager;
+		this.user = user;
 
 		if (viewManager != null)
 			this.main = viewManager.getMain();
@@ -57,19 +58,29 @@ public class PasswordChangeView extends JPanel {
 		add(lblNewLabel_1);
 
 		textField_1 = new JTextField();
-
 		textField_1.setBounds(52, 298, 219, 24);
 		add(textField_1);
 		textField_1.setColumns(10);
 
 		JButton btnNewButton = new JButton("취소");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				main.convertPanel("userMain");
+			}
+		});
 		btnNewButton.setBounds(73, 358, 79, 27);
 		add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton("확인");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				passwordchangeController.newPassword(user, textField.getText());
+//				passwordchangeController.newPassword(user, textField.getText());
+				System.out.println(viewManager.getUser().getPw());
+				if(textField.getText().equals(viewManager.getUser().getPw())){
+					viewManager.getUser().setPw(textField_1.getText());
+				}else {
+					//틀리면 어떻게 할건지, 다이얼로그를 써서 알림을 뜨게하던지 해야함
+				}
 			}
 		});
 		btnNewButton_1.setBounds(180, 358, 79, 27);
@@ -93,17 +104,17 @@ public class PasswordChangeView extends JPanel {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-
-		frame.setBounds(100, 100, 360, 600);
-
-		frame.setVisible(true);
-		PasswordChangeView cmain = new PasswordChangeView(null);
-		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(cmain);
-
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+//		JFrame frame = new JFrame();
+//
+//		frame.setBounds(100, 100, 360, 600);
+//
+//		frame.setVisible(true);
+//		PasswordChangeView cmain = new PasswordChangeView(null);
+//		frame.getContentPane().setLayout(null);
+//		frame.getContentPane().add(cmain);
+//
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setResizable(false);
 	}
 
 	public void updateUser() {

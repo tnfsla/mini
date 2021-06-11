@@ -36,7 +36,7 @@ public class EditViewManager {
 		editMain = new EditUserPanel(this);
 		userChange = new UserChange(this);
 		userMain = new UserMain(this);
-		passwordChange = new PasswordChangeView(this);
+		passwordChange = new PasswordChangeView(this,user);
 		userCompare = new UserCompare(this);
 
 		if (main != null)

@@ -38,6 +38,12 @@ public class Exercise implements Serializable {
 	public Calendar getDates() {
 		return dates;
 	}
+	
+	public long getDatesCompare() {
+		SimpleDateFormat dtf = new SimpleDateFormat("yyyyMMdd");
+		long dateCompare = Long.parseLong(dtf.format(dates));
+		return dateCompare;
+	}
 
 	public void setDates(Calendar dates) {
 		this.dates = dates;
