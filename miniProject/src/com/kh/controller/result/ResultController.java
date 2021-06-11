@@ -65,7 +65,7 @@ public class ResultController {
 		for (int i = 0; i < exercises.size(); i++) {
 			Calendar cal = exercises.get(i).getDates();
 			int year2 = cal.get(Calendar.YEAR);
-			int month2 = cal.get(Calendar.MONTH);
+			int month2 = cal.get(Calendar.MONTH) + 1;
 			int day2 = cal.get(Calendar.DATE);
 
 			if (day2 == day && month2 == month && year2 == year) {
@@ -87,17 +87,15 @@ public class ResultController {
 	}
 
 	public Exercise selectExercise(int year, int month, int day) {
-		Calendar cal = Calendar.getInstance();
-		cal.set(year, month, day);
 
 //		System.out.printf("타겟 %d %d %d\n", year, month, day);
 
 		for (int i = 0; i < exercises.size(); i++) {
-			Calendar cal2 = exercises.get(i).getDates();
+			Calendar cal = exercises.get(i).getDates();
 
-			int year2 = cal2.get(Calendar.YEAR);
-			int month2 = cal2.get(Calendar.MONTH);
-			int day2 = cal2.get(Calendar.DATE);
+			int year2 = cal.get(Calendar.YEAR);
+			int month2 = cal.get(Calendar.MONTH) + 1;
+			int day2 = cal.get(Calendar.DATE);
 
 //			System.out.printf("비교 %d %d %d\n", year2, month2, day2);
 
@@ -119,4 +117,13 @@ public class ResultController {
 		return sum;
 	}
 
+	public ArrayList<Exercise> getExercises() {
+		return exercises;
+	}
+
+	public void printExercise() {
+		for (Exercise exercise : exercises) {
+			System.out.println(exercise);
+		}
+	}
 }

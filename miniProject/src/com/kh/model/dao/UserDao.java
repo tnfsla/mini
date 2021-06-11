@@ -113,17 +113,17 @@ public class UserDao {
 			exercises = new ArrayList<Exercise>();
 
 			cal = Calendar.getInstance();
-			cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
 			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
 					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
 
 			cal = Calendar.getInstance();
-			cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
 			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
 					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
 
 			cal = Calendar.getInstance();
-			cal.set(random.nextInt(2) + 2019, random.nextInt(12) + 1, random.nextInt(27) + 1);
+			cal.set(random.nextInt(2) + 2019, random.nextInt(12), random.nextInt(27) + 1);
 			exercises.add(new Exercise(cal, 0, 0, 0, random.nextInt(7200), random.nextDouble() * 20,
 					random.nextInt(1000), random.nextDouble() * 10, random.nextInt(5) + 1));
 

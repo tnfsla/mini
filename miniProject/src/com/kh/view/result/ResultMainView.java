@@ -2,6 +2,8 @@ package com.kh.view.result;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,13 +14,20 @@ import java.awt.event.MouseEvent;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListCellRenderer;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.kh.controller.result.ResultController;
 import com.kh.model.vo.Exercise;
@@ -64,6 +73,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 	private JPanel footerPanel;
 	private JLabel lblHome;
 	private JLabel exercise;
+	private DefaultListModel exerciseModel;
 
 	public ResultMainView(Main main) {
 		this();
@@ -77,6 +87,8 @@ public class ResultMainView extends JPanel implements ActionListener {
 //		System.out.println("result update user");
 
 		rc.setExercises(user.getExercises()); // 유저의 운동기록 부분 resultController에 세팅
+
+		rc.printExercise();
 
 		updateExercise();
 	}
@@ -94,6 +106,11 @@ public class ResultMainView extends JPanel implements ActionListener {
 		datePane.removeAll(); // 라벨 지우기
 		day((Integer) yearCombo.getSelectedItem(), (Integer) monthCombo.getSelectedItem());
 
+		exerciseModel.clear();
+
+		for (Exercise exercise : rc.getExercises()) {
+			exerciseModel.addElement(exercise);
+		}
 	}
 
 	public ResultMainView() {
@@ -241,11 +258,47 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 		pane2.add(title, "North");
 		pane2.add(datePane);
-		add(lblHome, BorderLayout.SOUTH);
+
 		pane3.add(exercise); //
 		add(pane3, BorderLayout.NORTH); // 사용자 운동기록 통계
 		frame.getContentPane().setBackground(Color.WHITE);
 		exercise.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+
+		JPanel panelBottom = new JPanel();
+		panelBottom.setPreferredSize(new Dimension(360, 300));
+		panelBottom.setLayout(new BorderLayout());
+		add(panelBottom, BorderLayout.SOUTH);
+
+		JScrollPane scrollPaneExercises = new JScrollPane();
+		scrollPaneExercises.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneExercises.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPaneExercises.setPreferredSize(new Dimension(360, 200));
+
+		JList listExercise = new JList();
+
+		listExercise.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (listExercise.getSelectedIndex() != -1) {
+
+					Exercise ex = rc.getExercises().get(listExercise.getSelectedIndex());
+
+					updateSelectDate(ex);
+				}
+			}
+		});
+
+		exerciseModel = new DefaultListModel<Exercise>();
+		ExerciseRenderer exerciseRenderer = new ExerciseRenderer();
+
+		listExercise.setModel(exerciseModel);
+		listExercise.setCellRenderer(exerciseRenderer);
+
+		scrollPaneExercises.setViewportView(listExercise);
+
+		panelBottom.add(scrollPaneExercises, BorderLayout.CENTER);
+		panelBottom.add(lblHome, BorderLayout.SOUTH);
 
 		JPanel calendarPanel = new JPanel();
 		calendarPanel.setLayout(new BorderLayout());
@@ -379,14 +432,9 @@ public class ResultMainView extends JPanel implements ActionListener {
 				public void mousePressed(MouseEvent e) {
 					// TODO Auto-generated method stub
 					super.mousePressed(e);
+
 					Exercise ex = rc.selectExercise(year, month, day);
-					selDate.setFont(new Font("맑은 고딕", Font.BOLD, 17));
-					selDate.setText(String.format("%02d년 %02d월 %02d일", year, month, day));
-					dateexercise.setText("<html> 달린 거리 : " + ex.getDistance() + "km <br> 달린 시간 : "
-							+ rc.secToHHMMSS(ex.getRunTime()) + "<br> 소모한 칼로리 : " + ex.getCalorie()
-							+ "kcal<br> 평균 페이스 : " + ex.getPace() + "<br> 별점 : " + ex.getStar() + "개</html>");
-					frame.setForeground(Color.white);
-					frame.setVisible(true);
+					updateSelectDate(ex);
 
 				}
 
@@ -400,6 +448,37 @@ public class ResultMainView extends JPanel implements ActionListener {
 				jbt.setForeground(Color.BLUE);
 			}
 
+		}
+	}
+
+	protected void updateSelectDate(Exercise ex) {
+
+		Calendar cal = ex.getDates();
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DATE);
+		
+		selDate.setFont(new Font("맑은 고딕", Font.BOLD, 17));
+		selDate.setText(String.format("%02d년 %02d월 %02d일", year, month, day));
+		dateexercise.setText("<html> 달린 거리 : " + ex.getDistance() + "km <br> 달린 시간 : " + rc.secToHHMMSS(ex.getRunTime())
+				+ "<br> 소모한 칼로리 : " + ex.getCalorie() + "kcal<br> 평균 페이스 : " + ex.getPace() + "<br> 별점 : "
+				+ ex.getStar() + "개</html>");
+		frame.setForeground(Color.white);
+		frame.setVisible(true);
+	}
+
+	private class ExerciseRenderer implements ListCellRenderer {
+
+		private ResultExerciseListPanel panel;
+
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+
+			panel = new ResultExerciseListPanel();
+			panel.setExercise((Exercise) value);
+
+			return panel;
 		}
 	}
 }
