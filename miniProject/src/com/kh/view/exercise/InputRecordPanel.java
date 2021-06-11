@@ -1,9 +1,11 @@
 package com.kh.view.exercise;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,25 +15,27 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.kh.controller.exercise.InputRecordController;
+import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 
 public class InputRecordPanel extends JPanel {
-	
+
 	private InputRecordController inputRecordController;
 	private RecordMainPanel recordMainPanel;
-	
+
 	private User user;
-	
+
 	private Main main;
-	
+
 	public InputRecordPanel() {
-		
+
 		ImageIcon ss1 = new ImageIcon("./image/star1.png");
 		ImageIcon ss2 = new ImageIcon("./image/star2.png");
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
+		//setBackground(new color());
 
 		// 시간 입력
 
@@ -136,7 +140,7 @@ public class InputRecordPanel extends JPanel {
 		kcal1.setSize(100, 30);
 		add(kcal1);
 
-		JLabel kcalf = new JLabel("0 kcal");
+		JLabel kcalf = new JLabel("0");
 		kcalf.setHorizontalAlignment(SwingConstants.CENTER);
 		kcalf.setLocation(200, 270);
 		kcalf.setSize(100, 30);
@@ -164,7 +168,7 @@ public class InputRecordPanel extends JPanel {
 				String kcf = Integer.toString(kc);
 
 				pacef.setText(fp); // 페이스값을 보여주기
-				kcalf.setText(kcf + " kcal"); // 칼로리값 보여주기
+				kcalf.setText(kcf); // 칼로리값 보여주기
 
 			}
 		});
@@ -173,6 +177,11 @@ public class InputRecordPanel extends JPanel {
 		star1.setLocation(50, 350);
 		star1.setSize(80, 30);
 		add(star1);
+
+		JLabel starf = new JLabel();
+		starf.setLocation(114, 350);
+		starf.setSize(41, 30);
+		add(starf);
 
 		JButton s1 = new JButton();
 		s1.setIcon(ss1);
@@ -207,6 +216,7 @@ public class InputRecordPanel extends JPanel {
 				s3.setIcon(ss1);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				starf.setText("1");
 			}
 		});
 		s2.addMouseListener(new MouseAdapter() {
@@ -217,6 +227,7 @@ public class InputRecordPanel extends JPanel {
 				s3.setIcon(ss1);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				starf.setText("2");
 			}
 		});
 		s3.addMouseListener(new MouseAdapter() {
@@ -227,6 +238,7 @@ public class InputRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				starf.setText("3");
 			}
 		});
 		s4.addMouseListener(new MouseAdapter() {
@@ -237,6 +249,7 @@ public class InputRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss2);
 				s5.setIcon(ss1);
+				starf.setText("4");
 			}
 		});
 		s5.addMouseListener(new MouseAdapter() {
@@ -247,7 +260,7 @@ public class InputRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss2);
 				s5.setIcon(ss2);
-
+				starf.setText("5");
 			}
 		});
 
@@ -256,29 +269,26 @@ public class InputRecordPanel extends JPanel {
 		save.setLocation(145, 480);
 		save.setSize(70, 40);
 		add(save);
-		
+
 		save.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				// 사용자가 입력한 시간 거리 가져오기
-				String h1 = h.getText();
-				String m1 = m.getText();
-				String s1 = s.getText();
-				String kmm = km3.getText();
+				Calendar dates = Calendar.getInstance();
 
-				// 사용자가 입력한 값을 계산하기 위해 형변환
-				int hi = Integer.parseInt(h1);
-				int mi = Integer.parseInt(m1);
-				int si = Integer.parseInt(s1);
-				double ki = Double.valueOf(kmm).doubleValue();
+				int runHour = Integer.parseInt(h.getText());
+				int runMin = Integer.parseInt(m.getText());
+				int runSec = Integer.parseInt(s.getText());
+				long runTime = (runHour * 3600) + (runMin * 60) + runSec;
+				double distance = Double.valueOf(km2.getText()).doubleValue();
+				double calorie = Double.valueOf(kcalf.getText()).doubleValue();
+				double pace = Double.valueOf(pacef.getText()).doubleValue();
+				int star = Integer.parseInt(starf.getText());
+
+				user.addExercise(new Exercise(dates, runHour, runMin, runSec, runTime, distance, calorie, pace, star));
+
+				System.out.println("운동기록이 저장되었습니다.");
+				System.out.println(user.getExercises());
 				
-				long runTime = (hi*3600)+(mi*60)+si;
-				
-				
-				
-				inputRecordController.saveEx();
-				
+				main.convertPanel("main");
 			}
 		});
 
@@ -290,5 +300,8 @@ public class InputRecordPanel extends JPanel {
 		this();
 		this.main = main;
 	}
-
+	public void setUser(User user) {
+		 this.user = user;
+	      
+	}
 }

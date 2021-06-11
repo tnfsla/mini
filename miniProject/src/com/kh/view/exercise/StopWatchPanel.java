@@ -1,6 +1,7 @@
 package com.kh.view.exercise;
 
 import java.awt.Font;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -8,16 +9,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.kh.controller.exercise.StopWatchController;
+import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class StopWatchPanel extends JPanel {
+public class StopWatchPanel extends JPanel implements Runnable {
 
 	private Main main;
-
-	private StopWatchController stopWatchController;
-
-	JButton startB;
-	JButton stopB;
+	private User user;
+	// private StopWatchController stopWatchController;
 
 	JLabel hour = new JLabel("00", 2);
 	JLabel min = new JLabel("00", 2);
@@ -25,9 +26,12 @@ public class StopWatchPanel extends JPanel {
 	JLabel slash1 = new JLabel(":");
 	JLabel slash2 = new JLabel(":");
 
+	JButton startB;
+	JButton stopB;
+
 	public StopWatchPanel() {
 
-		setBounds(100, 100, 360, 600);
+		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
 		JTextArea t1 = new JTextArea(
@@ -77,11 +81,33 @@ public class StopWatchPanel extends JPanel {
 		stopB.setSize(120, 50);
 		add(stopB);
 
+//		p2.add(t1);
+//
+//		p3.add(hour);
+//		p3.add(slash1);
+//		p3.add(min);
+//		p3.add(slash2);
+//		p3.add(sec);
+//
+//		p4.add(startB);
+//		p4.add(stopB);
+
+
 	}
 
 	public StopWatchPanel(Main main) {
 		this();
 		this.main = main;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void setUser(User user) {
+		 this.user = user;
+	      
 	}
 
 }
