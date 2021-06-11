@@ -15,7 +15,7 @@ public class JoinCompleteDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JoinComplete window = new JoinComplete();
+					JoinCompleteDialog window = new JoinCompleteDialog();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class JoinCompleteDialog {
 	/**
 	 * Create the application.
 	 */
-	public JoinComplete() {
+	public JoinCompleteDialog() {
 		initialize();
 	}
 
