@@ -19,8 +19,8 @@ public class EventEndAlertD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private EventSettingP eventSetting;
-	private UserDao userDao;
-
+//	private UserDao userDao;
+	// userdao가 아니라 userdao를 담을 수 있는 arraylist를 갖고 와야함.
 	/**
 	 * Launch the application.
 	 */
