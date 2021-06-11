@@ -25,7 +25,11 @@ public class EditUserPanel extends JPanel {
 	 */
 	public EditUserPanel(EditViewManager viewManager) {
 		this.viewManager = viewManager;
+		initialize();
 
+	}
+	
+	public void initialize() {
 		controller = new EditUserController();
 
 
@@ -42,6 +46,7 @@ public class EditUserPanel extends JPanel {
 		add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {//3.버튼을 누르면 에디트 패널 꺼지고 유저체인지 패널 출력
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("userMain이동");
 				viewManager.convertPanel("userMain");
 				
 			}
@@ -62,30 +67,28 @@ public class EditUserPanel extends JPanel {
 		lblNewLabel.setBounds(52, 211, 80, 30);
 		add(lblNewLabel);
 
-		
-
 	}
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, 360, 600);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		
-		
-		EditViewManager viewManager = new EditViewManager();
-		viewManager.addPanels(frame);
-		viewManager.convertPanel("main");
-		
+//		JFrame frame = new JFrame();
+//		frame.setBounds(100, 100, 360, 600);
+//		frame.setVisible(true);
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.getContentPane().setLayout(null);
+//		frame.setResizable(false);
+//		
+//		
+//		EditViewManager viewManager = new EditViewManager();
+//		viewManager.addPanels(frame);
+//		viewManager.convertPanel("main");
+//		
 
 //		frame.getContentPane().add(cm);
 //		frame.getContentPane().add(cm.userChange);//1.프레임안에 패널이 2개
 //		frame.getContentPane().add(cm.userMain);
 //		JPanel mm = cm.userMain;
 	
-		frame.setResizable(false);
+//		frame.setResizable(false);
 		
 		
 	}

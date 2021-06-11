@@ -84,24 +84,24 @@ public class PasswordChangeView extends JPanel {
 	}
 	
 	public PasswordChangeView(Main main, User user) {
-		this();
+//		this();
 		this.main = main;
 		this.user = user;
 	}
 	
-	public static void main(String[] args) {
-		JFrame frame = new JFrame();
-
-		frame.setBounds(100, 100, 360, 600);
-
-		frame.setVisible(true);
-		PasswordChangeView cmain = new PasswordChangeView(this);
-		frame.getContentPane().setLayout(null);
-		frame.getContentPane().add(cmain);
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		
-		
-	}
+//	public static void main(String[] args) {
+//		JFrame frame = new JFrame();
+//
+//		frame.setBounds(100, 100, 360, 600);
+//
+//		frame.setVisible(true);
+//		PasswordChangeView cmain = new PasswordChangeView(this);
+//		frame.getContentPane().setLayout(null);
+//		frame.getContentPane().add(cmain);
+//		
+//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		frame.setResizable(false);
+//		
+//		
+//	}
 }
