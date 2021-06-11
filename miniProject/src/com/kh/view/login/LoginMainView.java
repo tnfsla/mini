@@ -1,4 +1,4 @@
-package 운동관리프로그램.view.login;
+package com.kh.view.login;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
