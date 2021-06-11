@@ -18,6 +18,7 @@ import com.kh.controller.login.JoinController;
 import com.kh.model.dao.UserDao;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import javax.swing.SwingConstants;
 
 public class LoginJoinPanel extends JPanel {
 
@@ -31,9 +32,9 @@ public class LoginJoinPanel extends JPanel {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JTextField textField_6;
+	private JTextField textField_4;
 
 	public LoginJoinPanel() {
 		initialize();
@@ -57,19 +58,19 @@ public class LoginJoinPanel extends JPanel {
 		System.out.println(f.exists() ? "Exists" : "doesnt exists");// 파일 경로 찾기 방법.
 
 		JLabel lblNewLabel = new JLabel("  Name:");
-		lblNewLabel.setBounds(33, 146, 62, 18);
+		lblNewLabel.setBounds(33, 146, 50, 18);
 		add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("  ID :");
-		lblNewLabel_1.setBounds(45, 187, 34, 18);
+		lblNewLabel_1.setBounds(49, 185, 34, 18);
 		add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("PWS:");
-		lblNewLabel_2.setBounds(45, 230, 50, 18);
+		lblNewLabel_2.setBounds(49, 228, 34, 18);
 		add(lblNewLabel_2);
 
 		JLabel lblNewLabel_3 = new JLabel("Age :");
-		lblNewLabel_3.setBounds(50, 273, 50, 18);
+		lblNewLabel_3.setBounds(49, 272, 34, 18);
 		add(lblNewLabel_3);
 
 		JLabel lblNewLabel_4 = new JLabel("성별 (M / F)");
@@ -97,6 +98,7 @@ public class LoginJoinPanel extends JPanel {
 		textField_1.setColumns(10);
 
 		JButton btnNewButton = new JButton("중복확인");
+		btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
 		btnNewButton.setBounds(143, -2, 89, 27);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -124,32 +126,33 @@ public class LoginJoinPanel extends JPanel {
 		add(panel_4);
 		panel_4.setLayout(null);
 
-		textField_4 = new JTextField();
-		textField_4.setBounds(57, 10, 131, 24);
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
-
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setBounds(187, 14, 57, 15);
+		JLabel lblNewLabel_5 = new JLabel("cm");
+		lblNewLabel_5.setBounds(209, 14, 23, 15);
 		panel_4.add(lblNewLabel_5);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(61, 10, 131, 24);
+		panel_4.add(textField_6);
+		textField_6.setColumns(10);
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setBounds(45, 477, 243, 42);
 		add(panel_5);
 		panel_5.setLayout(null);
 
-		textField_5 = new JTextField();
-		textField_5.setBounds(12, 0, 152, 24);
-		panel_5.add(textField_5);
-		textField_5.setColumns(10);
-
-		JLabel lblNewLabel_6 = new JLabel("New label");
-		lblNewLabel_6.setBounds(174, 10, 57, 15);
+		JLabel lblNewLabel_6 = new JLabel("kg");
+		lblNewLabel_6.setBounds(208, 5, 23, 15);
 		panel_5.add(lblNewLabel_6);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(61, 1, 131, 24);
+		panel_5.add(textField_4);
 
-		JLabel lblNewLabel_7 = new JLabel("회원 정보를 입력하세요");
+		JLabel lblNewLabel_7 = new JLabel("회원정보를 입력하세요");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_7.setFont(new Font("굴림", Font.PLAIN, 18));
-		lblNewLabel_7.setBounds(79, 74, 209, 36);
+		lblNewLabel_7.setBounds(35, 81, 300, 40);
 		add(lblNewLabel_7);
 
 		JButton btnNewButton_2 = new JButton("확인");
@@ -174,6 +177,10 @@ public class LoginJoinPanel extends JPanel {
 		buttonGroup.add(chckbxNewCheckBox_1);
 		chckbxNewCheckBox_1.setBounds(97, 0, 82, 27);
 		panel_3.add(chckbxNewCheckBox_1);
+		
+		JButton LBt2 = new JButton("");
+		LBt2.setBounds(12, 10, 24, 24);
+		add(LBt2);
 	}
 
 	public static void main(String[] args) {

@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import com.kh.controller.login.LoginController;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import javax.swing.SwingConstants;
 
 public class LoginMainView extends JPanel {
 
@@ -88,51 +89,50 @@ public class LoginMainView extends JPanel {
 //		});
 //		add(lblHome);
 
-		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginPage.jpg").getImage());
+		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginImage.jpg").getImage());
 		panel.setSize(getSize());
 		add(panel);
 
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(142, 181, 57, 15);
+		JLabel lblNewLabel_2 = new JLabel("LOGIN");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 46));
+		lblNewLabel_2.setBounds(47, 180, 268, 72);
 		panel.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(142, 481, 57, 15);
+		JLabel lblNewLabel_3 = new JLabel("심BOX 회원이 아니신가요?");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(100, 473, 172, 25);
 		panel.add(lblNewLabel_3);
 
 		JButton btnNewButton_1 = new JButton("회원가입");
-		btnNewButton_1.setBounds(124, 514, 105, 27);
+		btnNewButton_1.setBounds(142, 519, 80, 25);
 		panel.add(btnNewButton_1);
 
-		JButton btnNewButton_2 = new JButton("관리자 버튼");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_2.setBounds(251, 10, 97, 23);
-		panel.add(btnNewButton_2);
-
 		passwordField = new JPasswordField();
-		passwordField.setBounds(142, 250, 116, 24);
+		passwordField.setBounds(124, 309, 172, 42);
 		panel.add(passwordField);
 
-		JLabel lblNewLabel_1 = new JLabel("PW : ");
-		lblNewLabel_1.setBounds(78, 252, 62, 18);
-		panel.add(lblNewLabel_1);
-
-		JLabel lblNewLabel = new JLabel("Login : ");
-		lblNewLabel.setBounds(63, 205, 166, 49);
-		panel.add(lblNewLabel);
-
 		textField = new JTextField();
-		textField.setBounds(142, 216, 116, 24);
+		textField.setBounds(124, 262, 172, 42);
 		panel.add(textField);
 		textField.setColumns(10);
 
-		JButton btnNewButton = new JButton("확인");
-		btnNewButton.setBounds(142, 296, 70, 34);
+		JButton btnNewButton = new JButton("NEXT");
+		btnNewButton.setBounds(142, 362, 80, 25);
 		panel.add(btnNewButton);
 		btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
+		
+		JButton btnNewButton_2 = new JButton("RBt");
+		btnNewButton_2.setBounds(320, 7, 28, 28);
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("LBt");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_3.setBounds(12, 10, 24, 24);
+		panel.add(btnNewButton_3);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
