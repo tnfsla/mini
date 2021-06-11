@@ -46,7 +46,6 @@ public class EditUserPanel extends JPanel {
 		add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {//3.버튼을 누르면 에디트 패널 꺼지고 유저체인지 패널 출력
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("userMain이동");
 				viewManager.convertPanel("userMain");
 				
 			}
