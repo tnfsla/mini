@@ -122,17 +122,17 @@ public class LoginMainView extends JPanel {
 		panel.add(btnNewButton);
 		btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
 		
-		JButton btnNewButton_2 = new JButton("RBt");
-		btnNewButton_2.setBounds(320, 7, 28, 28);
-		panel.add(btnNewButton_2);
+		JButton RBt1 = new JButton("");
+		RBt1.setBounds(320, 7, 28, 28);
+		panel.add(RBt1);
 		
-		JButton btnNewButton_3 = new JButton("LBt");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton LBt1 = new JButton("");
+		LBt1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton_3.setBounds(12, 10, 24, 24);
-		panel.add(btnNewButton_3);
+		LBt1.setBounds(12, 10, 24, 24);
+		panel.add(LBt1);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
