@@ -36,7 +36,7 @@ public class EditViewManager {
 		editMain = new EditUserPanel(this);
 		userChange = new UserChange(this);
 		userMain = new UserMain(this);
-		passwordChange = new PasswordChangeView(this,user);
+		passwordChange = new PasswordChangeView(this, user);
 		userCompare = new UserCompare(this);
 
 		if (main != null)
@@ -90,7 +90,7 @@ public class EditViewManager {
 
 	public void setUser(User user) {
 		this.user = user;
-		
+
 		updateUser();
 	}
 
@@ -99,6 +99,7 @@ public class EditViewManager {
 		editMain.updateUser();
 		userChange.updateUser();
 		userMain.updateUser();
+		passwordChange.setUser(user);
 		passwordChange.updateUser();
 		userCompare.updateUser();
 	}
