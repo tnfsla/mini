@@ -14,11 +14,13 @@ import javax.swing.SwingConstants;
 
 import com.kh.controller.exercise.AutoRecordController;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class AutoRecordPanel extends JPanel {
 
 	private AutoRecordController autoreRecordController;
 	private User user;
+	private Main main;
 	
 	public AutoRecordPanel() {
 
@@ -252,5 +254,10 @@ public class AutoRecordPanel extends JPanel {
 
 		setVisible(true);
 
+	}
+
+	public AutoRecordPanel(Main main) {
+		this();
+		this.main = main;
 	}
 }
