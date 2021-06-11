@@ -260,4 +260,9 @@ public class AutoRecordPanel extends JPanel {
 		this();
 		this.main = main;
 	}
+	
+	public void setUser(User user) {
+		 this.user = user;
+	      
+	}
 }
