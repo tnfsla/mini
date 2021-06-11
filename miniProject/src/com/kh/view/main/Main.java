@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
 import com.kh.view.admin.AdminViewManager;
 import com.kh.view.crew.CrewViewManager;
@@ -168,5 +169,4 @@ public class Main {
 	public LoginMainView getLoginView() {
 		return loginView;
 	}
-
 }
