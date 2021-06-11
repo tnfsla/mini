@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 
 public class UserCompare extends JPanel {
 	private JTextField textField;
+	private JTextField textField2;
+	private JTextField textField3;
 	private EditViewManager viewManager;
 
 	/**
@@ -31,10 +33,10 @@ public class UserCompare extends JPanel {
 			textField.setText(userName);
 		}
 
-		textField = new JTextField();
-		textField.setBounds(42, 300, 228, 33);
-		add(textField);
-		textField.setColumns(10);
+		textField2 = new JTextField();
+		textField2.setBounds(42, 300, 228, 33);
+		add(textField2);
+		textField2.setColumns(10);
 
 		if (viewManager.getUser() != null) {
 			double diffHeight = viewManager.getUser().getHeight() - viewManager.getUser().getPrevHeight();
@@ -45,10 +47,10 @@ public class UserCompare extends JPanel {
 
 		// 이거 받은 값 - 원래 회원가입값 이 지금 오류가남
 
-		textField = new JTextField();
-		textField.setBounds(42, 413, 228, 33);
-		add(textField);
-		textField.setColumns(10);
+		textField3 = new JTextField();
+		textField3.setBounds(42, 413, 228, 33);
+		add(textField3);
+		textField3.setColumns(10);
 
 		if (viewManager.getUser() != null) {
 			double diffWeight = viewManager.getUser().getWeight() - viewManager.getUser().getPrevWeight();
@@ -103,9 +105,9 @@ public class UserCompare extends JPanel {
 		double diffHeight = viewManager.getUser().getHeight() - viewManager.getUser().getPrevHeight();
 		System.out.println(" getHeight() = " + viewManager.getUser().getHeight());
 		System.out.println("getPrevHeight() = " + viewManager.getUser().getPrevHeight());
-		textField.setText(String.valueOf(diffHeight));
+		textField2.setText(String.valueOf(diffHeight));
 
 		double diffWeight = viewManager.getUser().getWeight() - viewManager.getUser().getPrevWeight();
-		textField.setText(String.valueOf(diffWeight));
+		textField3.setText(String.valueOf(diffWeight));
 	}
 }
