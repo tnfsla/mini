@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 
 public class RecordMainPanel extends JPanel {
 	
-	private AutoRecordPanel autoRecordPanel;
+	//private AutoRecordPanel autoRecordPanel;
 	private InputRecordPanel inputRecordPanel;
 	private StopWatchPanel stopWatchPanel;
 	
@@ -82,13 +82,13 @@ public class RecordMainPanel extends JPanel {
 	}
 	
 	public void initPanel() {
-		autoRecordPanel = new AutoRecordPanel(main);
+		//autoRecordPanel = new AutoRecordPanel(main);
 		inputRecordPanel = new InputRecordPanel(main);
 		stopWatchPanel = new StopWatchPanel(main);
 		
 		panelMap = main.getPanelMap();
 		
-		panelMap.put("record_auto", autoRecordPanel);
+		//panelMap.put("record_auto", autoRecordPanel);
 		panelMap.put("record_input", inputRecordPanel);
 		panelMap.put("record_stopWatch", stopWatchPanel);
 	}
@@ -100,7 +100,7 @@ public class RecordMainPanel extends JPanel {
 	}
 	
 	   public void updateUser() {
-		      autoRecordPanel.setUser(user);
+		      //autoRecordPanel.setUser(user);
 		      inputRecordPanel.setUser(user);
 		      stopWatchPanel.setUser(user);
 		   }
