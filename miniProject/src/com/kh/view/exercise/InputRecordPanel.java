@@ -1,23 +1,28 @@
 package com.kh.view.exercise;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Calendar;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
 import com.kh.controller.exercise.InputRecordController;
+import com.kh.model.vo.User;
 
 public class InputRecordPanel extends JPanel {
 	
 	private InputRecordController inputRecordController;
-
+	private RecordMainPanel recordMainPanel;
+	
+	private User user;
+	
 	public InputRecordPanel() {
 		
 		ImageIcon ss1 = new ImageIcon("./image/star1.png");
@@ -144,17 +149,11 @@ public class InputRecordPanel extends JPanel {
 		cf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				// 사용자가 입력한 시간 거리 가져오기
-				String h1 = h.getText();
-				String m1 = m.getText();
-				String s1 = s.getText();
-				String kmm = km3.getText();
-
 				// 사용자가 입력한 값을 계산하기 위해 형변환
-				int hi = Integer.parseInt(h1);
-				int mi = Integer.parseInt(m1);
-				int si = Integer.parseInt(s1);
-				double ki = Double.valueOf(kmm).doubleValue();
+				int hi = Integer.parseInt(h.getText());
+				int mi = Integer.parseInt(m.getText());
+				int si = Integer.parseInt(s.getText());
+				double ki = Double.valueOf(km2.getText()).doubleValue();
 
 				double rrp = (((hi * 60) + mi + (si / 60)) / ki); // 페이스 계산
 				String fp = String.format("%.2f", rrp); // 계산된 페이스값 문자열로 저장
@@ -255,6 +254,31 @@ public class InputRecordPanel extends JPanel {
 		save.setLocation(145, 480);
 		save.setSize(70, 40);
 		add(save);
+		
+		save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				// 사용자가 입력한 시간 거리 가져오기
+				String h1 = h.getText();
+				String m1 = m.getText();
+				String s1 = s.getText();
+				String kmm = km3.getText();
+
+				// 사용자가 입력한 값을 계산하기 위해 형변환
+				int hi = Integer.parseInt(h1);
+				int mi = Integer.parseInt(m1);
+				int si = Integer.parseInt(s1);
+				double ki = Double.valueOf(kmm).doubleValue();
+				
+				long runTime = (hi*3600)+(mi*60)+si;
+				
+				
+				
+				inputRecordController.saveEx();
+				
+			}
+		});
 
 		setVisible(true);
 
