@@ -89,8 +89,8 @@ public class RecordMainPanel extends JPanel {
 		panelMap = main.getPanelMap();
 		
 		panelMap.put("record_auto", autoRecordPanel);
-		panelMap.put("record_input", autoRecordPanel);
-		panelMap.put("record_stopWatch", autoRecordPanel);
+		panelMap.put("record_input", inputRecordPanel);
+		panelMap.put("record_stopWatch", stopWatchPanel);
 	}
 
 	public void setUser(User user) {
