@@ -2,6 +2,7 @@ package com.kh.view.exercise;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,8 +13,16 @@ import javax.swing.SwingConstants;
 import com.kh.controller.exercise.RecordMainController;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RecordMainPanel extends JPanel {
+	
+	private AutoRecordPanel autoRecordPanel;
+	private InputRecordPanel inputRecordPanel;
+	private StopWatchPanel stopWatchPanel;
+	
+	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 	
 	private RecordMainController recordMainController;
 
@@ -33,11 +42,21 @@ public class RecordMainPanel extends JPanel {
 		add(t1);
 
 		JButton b1 = new JButton("시간 측정 기록");
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.convertPanel("record_stopWatch");
+			}
+		});
 		b1.setLocation(80, 250);
 		b1.setSize(180, 80);
 		add(b1);
 
 		JButton b2 = new JButton("자율 운동 기록");
+		b2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				main.convertPanel("record_input");
+			}
+		});
 		b2.setLocation(80, 401);
 		b2.setSize(180, 80);
 		add(b2);
@@ -58,6 +77,20 @@ public class RecordMainPanel extends JPanel {
 	public RecordMainPanel(Main main) {
 		this();
 		this.main = main;
+		
+		initPanel();
+	}
+	
+	public void initPanel() {
+		autoRecordPanel = new AutoRecordPanel(main);
+		inputRecordPanel = new InputRecordPanel(main);
+		stopWatchPanel = new StopWatchPanel(main);
+		
+		panelMap = main.getPanelMap();
+		
+		panelMap.put("record_auto", autoRecordPanel);
+		panelMap.put("record_input", autoRecordPanel);
+		panelMap.put("record_stopWatch", autoRecordPanel);
 	}
 
 	public void setUser(User user) {

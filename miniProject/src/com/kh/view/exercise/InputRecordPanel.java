@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Calendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import com.kh.controller.exercise.InputRecordController;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 
 public class InputRecordPanel extends JPanel {
 	
@@ -22,6 +22,8 @@ public class InputRecordPanel extends JPanel {
 	private RecordMainPanel recordMainPanel;
 	
 	private User user;
+	
+	private Main main;
 	
 	public InputRecordPanel() {
 		
@@ -282,6 +284,11 @@ public class InputRecordPanel extends JPanel {
 
 		setVisible(true);
 
+	}
+
+	public InputRecordPanel(Main main) {
+		this();
+		this.main = main;
 	}
 
 }
