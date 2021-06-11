@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -125,6 +129,9 @@ public class PendingApprovalP extends JPanel {
 					}
 					
 				}
+				
+				saveCrewList();
+				
 			}
 		});
 		btnNewButton_1.setBounds(182, 450, 113, 39);
@@ -141,5 +148,22 @@ public class PendingApprovalP extends JPanel {
 		this.crew = crew;
 		this.crewp = crewList;
 		initialize();
+	}
+	
+	public void saveCrewList() {
+
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/crewList.dat"))) {
+
+			for (Crew crewList : crew) {
+				oos.writeObject(crewList);
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("크루 리스트 저장 완료");
 	}
 }
