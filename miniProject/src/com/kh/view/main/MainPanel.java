@@ -154,23 +154,23 @@ public class MainPanel extends JPanel {
 		label.setBounds(41, 122, 146, 27);
 		add(label);
 
-		JButton btnNewButton_2 = new JButton("admin test");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				main.convertPanel("admin");
-			}
-		});
-		btnNewButton_2.setBounds(185, 24, 97, 23);
-		add(btnNewButton_2);
+//		JButton btnNewButton_2 = new JButton("admin test");
+//		btnNewButton_2.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				main.convertPanel("admin");
+//			}
+//		});
+//		btnNewButton_2.setBounds(185, 24, 97, 23);
+//		add(btnNewButton_2);
 
-		JButton btnNewButton_3 = new JButton("login test");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				main.convertPanel("login");
-			}
-		});
-		btnNewButton_3.setBounds(185, 67, 97, 23);
-		add(btnNewButton_3);
+//		JButton btnNewButton_3 = new JButton("login test");
+//		btnNewButton_3.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				main.convertPanel("login");
+//			}
+//		});
+//		btnNewButton_3.setBounds(185, 67, 97, 23);
+//		add(btnNewButton_3);
 
 	}
 
