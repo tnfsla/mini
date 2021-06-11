@@ -15,13 +15,13 @@ public class ResultController {
 		this();
 		this.exercises = exericises;
 	}
-	
+
 	ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
 	public void addExercise(Exercise ex) {
 		exercises.add(ex);
 	}
-	
+
 	public void setExercises(ArrayList<Exercise> exercises) {
 		this.exercises = exercises;
 	}
@@ -60,10 +60,15 @@ public class ResultController {
 		return sum;
 	}
 
-	public boolean getDay(int day) {
+	public boolean getDate(int year, int month, int day) {
 
 		for (int i = 0; i < exercises.size(); i++) {
-			if (day == exercises.get(i).getDates().get(Calendar.DATE)) {
+			Calendar cal = exercises.get(i).getDates();
+			int year2 = cal.get(Calendar.YEAR);
+			int month2 = cal.get(Calendar.MONTH);
+			int day2 = cal.get(Calendar.DATE);
+
+			if (day2 == day && month2 == month && year2 == year) {
 				return true;
 			}
 
@@ -85,10 +90,18 @@ public class ResultController {
 		Calendar cal = Calendar.getInstance();
 		cal.set(year, month, day);
 
+//		System.out.printf("타겟 %d %d %d\n", year, month, day);
+
 		for (int i = 0; i < exercises.size(); i++) {
-			if (exercises.get(i).getDates().get(Calendar.DATE) == day
-					&& exercises.get(i).getDates().get(Calendar.MONTH) == month
-					&& exercises.get(i).getDates().get(Calendar.YEAR) == year) {
+			Calendar cal2 = exercises.get(i).getDates();
+
+			int year2 = cal2.get(Calendar.YEAR);
+			int month2 = cal2.get(Calendar.MONTH);
+			int day2 = cal2.get(Calendar.DATE);
+
+//			System.out.printf("비교 %d %d %d\n", year2, month2, day2);
+
+			if (day2 == day && month2 == month && year2 == year) {
 				return exercises.get(i);
 			}
 		}
