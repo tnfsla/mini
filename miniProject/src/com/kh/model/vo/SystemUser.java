@@ -3,9 +3,10 @@ package com.kh.model.vo;//06.04(수)최용석
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class SystemUser {
+public class SystemUser implements Serializable {
 
 	private String id;
 	private String pw;
@@ -44,6 +45,11 @@ public class SystemUser {
 
 	public void setAdminFlag(boolean adminFlag) {
 		this.adminFlag = adminFlag;
+	}
+
+	@Override
+	public String toString() {
+		return "id : " + id + ", pw : " + pw + ", adminFlag : " + adminFlag;
 	}
 
 }

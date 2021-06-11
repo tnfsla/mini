@@ -7,23 +7,27 @@ import java.util.Random;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
+import com.kh.view.main.Main;
 import com.kh.view.result.ResultMainView;
 
 public class Run {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ResultMainView rm = new ResultMainView();
-		Calendar cal = Calendar.getInstance();
-		Calendar cal1 = Calendar.getInstance();
+//		// TODO Auto-generated method stub
+//		ResultMainView rm = new ResultMainView();
+//		Calendar cal = Calendar.getInstance();
+//		Calendar cal1 = Calendar.getInstance();
+//		
+//		
+//		cal.set(2021, 6, 9);	
+//		rm.getRc().addExercise(new Exercise(cal, 0, 0, 0, 7300, 10, 700, 10, 3  ));
+//		cal1.set(2021, 6, 10);
+//		rm.getRc().addExercise(new Exercise(cal1, 0, 0, 0, 6800, 35, 652, 10, 4));
+//
+//		rm.CalendarMain();
 		
-		
-		cal.set(2021, 6, 9);	
-		rm.getRc().addExercise(new Exercise(cal, 0, 0, 0, 7300, 10, 700, 10, 3  ));
-		cal1.set(2021, 6, 10);
-		rm.getRc().addExercise(new Exercise(cal1, 0, 0, 0, 6800, 35, 652, 10, 4));
-
-		rm.CalendarMain();
+		Main main = new Main();
+		main.run();
 	}
 	//private static void createTest(Calendar cal, Random random, ArrayList<Exercise> exercises, User user, CrewDao dao) {
 		//cal = Calendar.getInstance();

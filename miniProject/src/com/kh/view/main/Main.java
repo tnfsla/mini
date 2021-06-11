@@ -55,6 +55,11 @@ public class Main {
 		});
 	}
 
+	public void run() {
+		frame.setBounds(0, 0, 376, 639);
+		frame.setVisible(true);
+	}
+
 	public Main() {
 		panelMap = new LinkedHashMap<String, JPanel>();
 
@@ -73,22 +78,24 @@ public class Main {
 		resultView = new ResultMainView(this);
 		crewManager = new CrewViewManager(this);
 		editView = new EditViewManager(this);
-		
+
 		panelMap.put("main", mainPanel);
 		panelMap.put("admin", adminManager.getMainPanel());
 		panelMap.put("record", recordMain);
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", editView.getEditMain());
-	
+
 		sTimeI = adminManager.getEventSetting().getsTimeI();
-		System.out.println("sTimeI : " + sTimeI);
+//		System.out.println("sTimeI : " + sTimeI);
 
 		addPanels(frame);
 
-		loginView.loginUser();
-		
-		convertPanel("main");
+		// test
+//		loginView.loginUser();
+//		convertPanel("main");
+
+		convertPanel("login");
 	}
 
 	// 로그인된 user 객체 각 파트에 update
@@ -159,6 +166,7 @@ public class Main {
 		this.eventFlag = eventFlag;
 	}
 
-	
-
+	public LoginMainView getLoginView() {
+		return loginView;
+	}
 }

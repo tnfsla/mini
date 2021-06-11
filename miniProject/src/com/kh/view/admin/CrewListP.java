@@ -96,7 +96,7 @@ public class CrewListP extends JPanel {
 
 				model.addRow(rows);
 			}
-			System.out.println(rows[i]);
+//			System.out.println(rows[i]);
 		}
 		table = new JTable(model);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

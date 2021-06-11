@@ -13,20 +13,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.login.LoginController;
+import com.kh.model.vo.SystemUser;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import javax.swing.SwingConstants;
 
 public class LoginMainView extends JPanel {
 
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField textFieldId;
+	private JPasswordField passwordFieldPwd;
 
 	private User user;
 
@@ -38,6 +38,8 @@ public class LoginMainView extends JPanel {
 
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
+	private JButton btnJoin;
+	private JLabel lblJoin;
 
 	public LoginMainView() {
 		initialize();
@@ -66,7 +68,11 @@ public class LoginMainView extends JPanel {
 	}
 
 	public void loginUser() {
-		User user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
+		if (user == null)
+			user = new User("test", "1234", "김태훈", 20, 100, 100, '남', false);
+
+		System.out.println("로그인 유저 : " + user);
+
 		main.updateUser(user);
 	}
 
@@ -74,7 +80,6 @@ public class LoginMainView extends JPanel {
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
-		JPasswordField txtPass = new JPasswordField(10);
 
 		// 테스트 용
 //		JLabel lblHome = new JLabel("Home");
@@ -93,70 +98,85 @@ public class LoginMainView extends JPanel {
 		panel.setSize(getSize());
 		add(panel);
 
-		JLabel lblNewLabel_2 = new JLabel("LOGIN");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 46));
-		lblNewLabel_2.setBounds(47, 180, 268, 72);
-		panel.add(lblNewLabel_2);
+		JLabel lblLogin = new JLabel("LOGIN");
+		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogin.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 46));
+		lblLogin.setBounds(47, 180, 268, 72);
+		panel.add(lblLogin);
 
-		JLabel lblNewLabel_3 = new JLabel("심BOX 회원이 아니신가요?");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setBounds(100, 473, 172, 25);
-		panel.add(lblNewLabel_3);
+		lblJoin = new JLabel("심BOX 회원이 아니신가요?");
+		lblJoin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJoin.setBounds(100, 473, 172, 25);
+		panel.add(lblJoin);
 
-		JButton btnNewButton_1 = new JButton("회원가입");
-		btnNewButton_1.setBounds(142, 519, 80, 25);
-		panel.add(btnNewButton_1);
+		btnJoin = new JButton("회원가입");
+		btnJoin.setBounds(142, 519, 80, 25);
+		panel.add(btnJoin);
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(124, 309, 172, 42);
-		panel.add(passwordField);
+		passwordFieldPwd = new JPasswordField();
+		passwordFieldPwd.setBounds(124, 309, 172, 42);
+		panel.add(passwordFieldPwd);
 
-		textField = new JTextField();
-		textField.setBounds(124, 262, 172, 42);
-		panel.add(textField);
-		textField.setColumns(10);
+		textFieldId = new JTextField();
+		textFieldId.setBounds(124, 262, 172, 42);
+		panel.add(textFieldId);
+		textFieldId.setColumns(10);
 
-		JButton btnNewButton = new JButton("NEXT");
-		btnNewButton.setBounds(142, 362, 80, 25);
-		panel.add(btnNewButton);
-		btnNewButton.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
-		
-		JButton RBt1 = new JButton("");
-		RBt1.setBounds(320, 7, 28, 28);
-		panel.add(RBt1);
-		
-		JButton LBt1 = new JButton("");
-		LBt1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		LBt1.setBounds(12, 10, 24, 24);
-		panel.add(LBt1);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLogin = new JButton("NEXT");
+		btnLogin.setBounds(142, 362, 80, 25);
+		panel.add(btnLogin);
+		btnLogin.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
+
+		JButton btnAdmin = new JButton("RBt");
+		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updateAdminState();
+			}
+		});
+		btnAdmin.setBounds(320, 7, 28, 28);
+		panel.add(btnAdmin);
 
-				String id = "admin";
-				String pass = "1234";
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String id = textFieldId.getText();
+				String password = String.valueOf(passwordFieldPwd.getPassword());
 
-				if (id.equals(textField.getText()) && pass.equals(passwordField.getText())) {
-					JOptionPane.showMessageDialog(null, "인증되었습니다");
-					// 로그인 성공이 되었을때
+				user = loginController.selectUser(id, password);
 
-					// 메인 페이지로 이동
-				} else {
-					JOptionPane.showConfirmDialog(null, "다시 확인하십시오");
+				// login 성공
+				if (user != null) {
+					System.out.println("로그인 성공");
+					loginUser();
+
+					if (user.isAdminFlag() == false) {
+						main.convertPanel("main"); // 일반 유저인 경우 main page로
+					} else {
+						main.convertPanel("admin"); // admin인 경우 admin page로
+					}
+
+				} else { // login 실패
+					System.out.println("로그인 실패");
 				}
-
 			}
 
 		});
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				System.out.println("회원 가입으로 이동");
+				main.convertPanel("login_join");
 			}
 		});
 
+	}
+
+	// 관리자 상태로 전환해주는 메소드
+	private void updateAdminState() {
+		// 회원가입부분 보이지 않게 수정
+		lblJoin.setVisible(false);
+		btnJoin.setVisible(false);
+		
+		// id admin id로 자동 세팅
+		textFieldId.setText(loginController.getAdmin().getId());
 	}
 
 	public LoginController getLoginController() {

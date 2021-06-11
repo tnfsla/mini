@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.ButtonGroup;
@@ -13,12 +15,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.kh.controller.login.JoinController;
 import com.kh.model.dao.UserDao;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 
 public class LoginJoinPanel extends JPanel {
 
@@ -28,13 +31,19 @@ public class LoginJoinPanel extends JPanel {
 
 	private Main main;
 
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldName;
+	private JTextField textFieldId;
+	private JTextField textFieldAge;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField textField_6;
-	private JTextField textField_4;
+	private JTextField textFieldHeight;
+	private JTextField textFieldWeight;
+	private JPasswordField passwordFieldPwd;
+
+	private JCheckBox chckbxMan;
+
+	private JCheckBox chckbxWoman;
+
+	private JButton btnJoin;
 
 	public LoginJoinPanel() {
 		initialize();
@@ -51,136 +60,180 @@ public class LoginJoinPanel extends JPanel {
 	}
 
 	private void initialize() {
-		setBounds(100, 100, 360, 600);
+		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		File f = new File("./resources/UserJoinpage.jpg");
-		System.out.println(f.exists() ? "Exists" : "doesnt exists");// 파일 경로 찾기 방법.
+		File f = new File("./image/UserJoinPage.png");
+//		System.out.println(f.exists() ? "Exists" : "doesnt exists");// 파일 경로 찾기 방법.
 
-		JLabel lblNewLabel = new JLabel("  Name:");
-		lblNewLabel.setBounds(33, 146, 50, 18);
-		add(lblNewLabel);
+		JLabel lblName = new JLabel("  Name:");
+		lblName.setBounds(33, 146, 50, 18);
+		add(lblName);
 
-		JLabel lblNewLabel_1 = new JLabel("  ID :");
-		lblNewLabel_1.setBounds(49, 185, 34, 18);
-		add(lblNewLabel_1);
+		JLabel lblId = new JLabel("  ID :");
+		lblId.setBounds(49, 185, 34, 18);
+		add(lblId);
 
-		JLabel lblNewLabel_2 = new JLabel("PWS:");
-		lblNewLabel_2.setBounds(49, 228, 34, 18);
-		add(lblNewLabel_2);
+		JLabel lblPwd = new JLabel("PWS:");
+		lblPwd.setBounds(49, 228, 34, 18);
+		add(lblPwd);
 
-		JLabel lblNewLabel_3 = new JLabel("Age :");
-		lblNewLabel_3.setBounds(49, 272, 34, 18);
-		add(lblNewLabel_3);
+		JLabel lblAge = new JLabel("Age :");
+		lblAge.setBounds(49, 272, 34, 18);
+		add(lblAge);
 
-		JLabel lblNewLabel_4 = new JLabel("성별 (M / F)");
-		lblNewLabel_4.setBounds(121, 320, 93, 18);
-		add(lblNewLabel_4);
+		JLabel lblNGender = new JLabel("성별 (M / F)");
+		lblNGender.setBounds(121, 320, 93, 18);
+		add(lblNGender);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(101, 144, 131, 24);
-		add(panel);
-		panel.setLayout(null);
+		JPanel panelName = new JPanel();
+		panelName.setBounds(101, 144, 131, 24);
+		add(panelName);
+		panelName.setLayout(null);
 
-		textField = new JTextField();
-		textField.setBounds(0, 0, 131, 24);
-		panel.add(textField);
-		textField.setColumns(10);
+		textFieldName = new JTextField();
+		textFieldName.setBounds(0, 0, 131, 24);
+		panelName.add(textFieldName);
+		textFieldName.setColumns(10);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(101, 185, 234, 24);
-		add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panelId = new JPanel();
+		panelId.setBounds(101, 185, 234, 24);
+		add(panelId);
+		panelId.setLayout(null);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(0, 0, 131, 24);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldId = new JTextField();
+		textFieldId.setBounds(0, 0, 131, 24);
+		panelId.add(textFieldId);
+		textFieldId.setColumns(10);
 
-		JButton btnNewButton = new JButton("중복확인");
-		btnNewButton.setHorizontalAlignment(SwingConstants.LEADING);
-		btnNewButton.setBounds(143, -2, 89, 27);
-		panel_1.add(btnNewButton);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCheckId = new JButton("중복확인");
+		btnCheckId.setHorizontalAlignment(SwingConstants.LEADING);
+		btnCheckId.setBounds(143, -2, 89, 27);
+		panelId.add(btnCheckId);
+		btnCheckId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				String id = textFieldId.getText();
+
+				if (joinController.hasUserId(id) == false) {
+					System.out.println("사용가능한 아이디 입니다.");
+					JoinCheckDialog dialog = new JoinCheckDialog();
+					dialog.setVisible(true);
+					updateJoinState(true);
+				} else {
+					System.out.println("해당 아이디가 존재합니다.");
+					LoginCheckDialog dialog = new LoginCheckDialog();
+					dialog.setVisible(true);
+					updateJoinState(false);
+				}
+				
+				joinController.printUser();
+			}
+
+			private void updateJoinState(boolean b) {
+				btnJoin.setEnabled(b);
 			}
 		});
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(101, 228, 131, 24);
-		add(panel_2);
-		panel_2.setLayout(null);
-
-		textField_2 = new JTextField();
-		textField_2.setBounds(0, 0, 131, 24);
-		panel_2.add(textField_2);
-		textField_2.setColumns(10);
-
-		textField_3 = new JTextField();
-		textField_3.setBounds(101, 270, 131, 24);
-		add(textField_3);
-		textField_3.setColumns(10);
-
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(44, 425, 244, 42);
-		add(panel_4);
-		panel_4.setLayout(null);
-
-		JLabel lblNewLabel_5 = new JLabel("cm");
-		lblNewLabel_5.setBounds(209, 14, 23, 15);
-		panel_4.add(lblNewLabel_5);
+		JPanel panelPwd = new JPanel();
+		panelPwd.setBounds(101, 228, 131, 24);
+		add(panelPwd);
+		panelPwd.setLayout(null);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(61, 10, 131, 24);
-		panel_4.add(textField_6);
-		textField_6.setColumns(10);
+		passwordFieldPwd = new JPasswordField();
+		passwordFieldPwd.setBounds(0, 0, 131, 24);
+		panelPwd.add(passwordFieldPwd);
 
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(45, 477, 243, 42);
-		add(panel_5);
-		panel_5.setLayout(null);
+		JPanel panelAge = new JPanel();
+		panelAge.setBounds(101, 270, 131, 24);
+		add(panelAge);
+		panelAge.setLayout(null);
 
-		JLabel lblNewLabel_6 = new JLabel("kg");
-		lblNewLabel_6.setBounds(208, 5, 23, 15);
-		panel_5.add(lblNewLabel_6);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(61, 1, 131, 24);
-		panel_5.add(textField_4);
+		textFieldAge = new JTextField();
+		textFieldAge.setBounds(0, 0, 131, 24);
+		panelAge.add(textFieldAge);
+		textFieldAge.setColumns(10);
 
-		JLabel lblNewLabel_7 = new JLabel("회원정보를 입력하세요");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_7.setFont(new Font("굴림", Font.PLAIN, 18));
-		lblNewLabel_7.setBounds(35, 81, 300, 40);
-		add(lblNewLabel_7);
+		JPanel panelHeight = new JPanel();
+		panelHeight.setBounds(44, 425, 244, 42);
+		add(panelHeight);
+		panelHeight.setLayout(null);
 
-		JButton btnNewButton_2 = new JButton("확인");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JLabel lblHeight = new JLabel("cm");
+		lblHeight.setBounds(209, 14, 23, 15);
+		panelHeight.add(lblHeight);
+
+		textFieldHeight = new JTextField();
+		textFieldHeight.setBounds(61, 10, 131, 24);
+		panelHeight.add(textFieldHeight);
+		textFieldHeight.setColumns(10);
+
+		JPanel panelWeight = new JPanel();
+		panelWeight.setBounds(45, 477, 243, 42);
+		add(panelWeight);
+		panelWeight.setLayout(null);
+
+		JLabel lblWeight = new JLabel("kg");
+		lblWeight.setBounds(208, 5, 23, 15);
+		panelWeight.add(lblWeight);
+
+		textFieldWeight = new JTextField();
+		textFieldWeight.setColumns(10);
+		textFieldWeight.setBounds(61, 1, 131, 24);
+		panelWeight.add(textFieldWeight);
+
+		JLabel lblJoinTitle = new JLabel("회원정보를 입력하세요");
+		lblJoinTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblJoinTitle.setFont(new Font("굴림", Font.PLAIN, 18));
+		lblJoinTitle.setBounds(35, 81, 300, 40);
+		add(lblJoinTitle);
+
+		btnJoin = new JButton("확인");
+		btnJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String name = textFieldName.getText();
+				String id = textFieldId.getText();
+				String password = String.valueOf(passwordFieldPwd.getPassword());
+				int age = Integer.parseInt(textFieldAge.getText());
+				char gender = chckbxMan.isSelected() ? '남' : '여';
+				double height = Double.parseDouble(textFieldHeight.getText());
+				double weight = Double.parseDouble(textFieldWeight.getText());
+
+				joinController.createUser(name, id, password, age, gender, height, weight);
+
+				// 회원가입 이후 로그인 페이지로 이동
+				JoinCompleteDialog dialog = new JoinCompleteDialog();
+				dialog.setVisible(true);
+				
+				dialog.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						// dialog dispose시 호출
+						main.convertPanel("login");
+						
+						joinController.saveUserList(); // 유저 정보 저장
+						joinController.printUser();
+					}
+				});
 			}
 		});
-		btnNewButton_2.setBounds(121, 513, 93, 27);
-		add(btnNewButton_2);
+		btnJoin.setBounds(121, 513, 93, 27);
+		add(btnJoin);
 
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(94, 369, 179, 27);
-		add(panel_3);
-		panel_3.setLayout(null);
+		JPanel panelGender = new JPanel();
+		panelGender.setBounds(94, 369, 179, 27);
+		add(panelGender);
+		panelGender.setLayout(null);
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("남(M)");
-		buttonGroup.add(chckbxNewCheckBox);
-		chckbxNewCheckBox.setBounds(0, 0, 73, 27);
-		panel_3.add(chckbxNewCheckBox);
+		chckbxMan = new JCheckBox("남(M)");
+		buttonGroup.add(chckbxMan);
+		chckbxMan.setBounds(0, 0, 73, 27);
+		panelGender.add(chckbxMan);
 
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("여(F)");
-		buttonGroup.add(chckbxNewCheckBox_1);
-		chckbxNewCheckBox_1.setBounds(97, 0, 82, 27);
-		panel_3.add(chckbxNewCheckBox_1);
-		
-		JButton LBt2 = new JButton("");
-		LBt2.setBounds(12, 10, 24, 24);
-		add(LBt2);
+		chckbxWoman = new JCheckBox("여(F)");
+		buttonGroup.add(chckbxWoman);
+		chckbxWoman.setBounds(97, 0, 82, 27);
+		panelGender.add(chckbxWoman);
 	}
 
 	public static void main(String[] args) {

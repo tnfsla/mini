@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class JoinCheckDialog extends JDialog {
 	private JTextField textField;
@@ -42,9 +44,14 @@ public class JoinCheckDialog extends JDialog {
 			textField.setColumns(10);
 		}
 		
-		JButton btnNewButton = new JButton("확인");
-		btnNewButton.setBounds(87, 63, 108, 40);
-		getContentPane().add(btnNewButton);
+		JButton btnConfirm = new JButton("확인");
+		btnConfirm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnConfirm.setBounds(87, 63, 108, 40);
+		getContentPane().add(btnConfirm);
 	}
 
 }

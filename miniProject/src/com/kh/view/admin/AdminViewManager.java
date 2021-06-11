@@ -385,17 +385,17 @@ public class AdminViewManager {
 		lblNewLabel.setBounds(104, 16, 128, 57);
 		mainPanel.add(lblNewLabel);
 
-		JLabel lblHome = new JLabel("Home");
-		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHome.setBounds(150, 561, 60, 29);
-		lblHome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("메인 페이지로 이동");
-				main.convertPanel("main");
-			}
-		});
-		mainPanel.add(lblHome);
+//		JLabel lblHome = new JLabel("Home");
+//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblHome.setBounds(150, 561, 60, 29);
+//		lblHome.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				System.out.println("메인 페이지로 이동");
+//				main.convertPanel("main");
+//			}
+//		});
+//		mainPanel.add(lblHome);
 	}
 
 	public void loadCrewList() {

@@ -5,11 +5,8 @@ import java.util.ArrayList;
 
 public class User extends SystemUser implements Serializable {
 
-/**
-	 * 
-	 */
-	private static final long serialVersionUID =-4624560970749904817L;
-	//public abstract class User  {//06.04(수)최용석
+	private static final long serialVersionUID = -4624560970749904817L;
+
 	private String name;
 	private int age;
 	private double height;
@@ -19,11 +16,11 @@ public class User extends SystemUser implements Serializable {
 	private String crewName; // 크루 가입 여부 가입시 가입한 크루이름, 미가입시 null
 	private double prevHeight;
 	private double prevWeight;
-	
+
 	private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
-	public User(String id, String pw, String name, int age, double height, double weight,
-			char gender, boolean hasBedge) {
+	public User(String id, String pw, String name, int age, double height, double weight, char gender,
+			boolean hasBedge) {
 		super(id, pw, false);
 		this.name = name;
 		this.age = age;
@@ -32,6 +29,10 @@ public class User extends SystemUser implements Serializable {
 		this.gender = gender;
 		this.hasBedge = hasBedge;
 		this.crewName = null;
+	}
+
+	public User(SystemUser admin) {
+		super(admin.getId(), admin.getPw(), true);
 	}
 
 	public String getName() {
@@ -97,8 +98,6 @@ public class User extends SystemUser implements Serializable {
 	public void setExercises(ArrayList<Exercise> exercises) {
 		this.exercises = exercises;
 	}
-	
-	
 
 	// 운동 기록 추가 메소드
 	public void addExercise(Exercise exercise) {
@@ -126,6 +125,11 @@ public class User extends SystemUser implements Serializable {
 	public void setPrevWeight(double prevWeight) {
 		this.prevWeight = prevWeight;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return super.toString() + ", name : " + name + ", age : " + age + ", height : " + height + ", weight : "
+				+ weight + ", gender : " + gender + ", hasBedge : " + hasBedge + ", crewName : " + crewName
+				+ ", exercises : " + exercises;
+	}
 }
