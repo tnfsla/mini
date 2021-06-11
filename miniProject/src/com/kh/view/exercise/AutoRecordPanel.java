@@ -1,8 +1,5 @@
 package com.kh.view.exercise;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,10 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.kh.controller.exercise.AutoRecordController;
+import com.kh.model.vo.User;
 
 public class AutoRecordPanel extends JPanel {
 
 	private AutoRecordController autoreRecordController;
+	private User user;
 	
 	public AutoRecordPanel() {
 
@@ -130,16 +129,11 @@ public class AutoRecordPanel extends JPanel {
 		cfA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				String h1 = h.getText();
-				String m1 = m.getText();
-				String s1 = s.getText();
-				String kmm = km3.getText();
-
-				// 계산하기 위해 형변환
-				int hi = Integer.parseInt(h1);
-				int mi = Integer.parseInt(m1);
-				int si = Integer.parseInt(s1);
-				double ki = Double.valueOf(kmm).doubleValue();
+				// 사용자가 입력한 값을 계산하기 위해 형변환
+				int hi = Integer.parseInt(h.getText());
+				int mi = Integer.parseInt(m.getText());
+				int si = Integer.parseInt(s.getText());
+				double ki = Double.valueOf(km2.getText()).doubleValue();
 
 				double rrp = (((hi * 60) + mi + (si / 60)) / ki); // 페이스 계산
 				String fp = String.format("%.2f", rrp); // 계산된 페이스값 문자열로 저장
@@ -191,6 +185,7 @@ public class AutoRecordPanel extends JPanel {
 				s3.setIcon(ss1);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				int s = 1;
 			}
 		});
 		s2.addMouseListener(new MouseAdapter() {
@@ -201,6 +196,7 @@ public class AutoRecordPanel extends JPanel {
 				s3.setIcon(ss1);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				int s = 2;
 			}
 		});
 		s3.addMouseListener(new MouseAdapter() {
@@ -211,6 +207,7 @@ public class AutoRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss1);
 				s5.setIcon(ss1);
+				int s = 3;
 			}
 		});
 		s4.addMouseListener(new MouseAdapter() {
@@ -221,6 +218,7 @@ public class AutoRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss2);
 				s5.setIcon(ss1);
+				int s = 4;
 			}
 		});
 		s5.addMouseListener(new MouseAdapter() {
@@ -231,6 +229,7 @@ public class AutoRecordPanel extends JPanel {
 				s3.setIcon(ss2);
 				s4.setIcon(ss2);
 				s5.setIcon(ss2);
+				int s = 5;
 
 			}
 		});
@@ -243,6 +242,8 @@ public class AutoRecordPanel extends JPanel {
 
 		saveA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				System.out.println(s);
 
 				// 운동기록 저장
 

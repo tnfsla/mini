@@ -7,4 +7,11 @@ public class JoinController {
 
 	private UserDao userDao;
 	
+	public JoinController() {
+		
+	}
+	
+	public JoinController(UserDao userDao) {
+		this.userDao = userDao;
+	}
 }

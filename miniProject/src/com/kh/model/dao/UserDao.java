@@ -11,7 +11,9 @@ public class UserDao {
 	// 프로그램 시작 및 회원가입 등의 경우 User 정보들을 저장하고 읽어오기도 하여야함
 	private ArrayList<User> userList; 
 	
-	
+	public UserDao() {
+		userList = new ArrayList<User>();
+	}
 	
 	// 유저 정보들을 객체 형태로 저장
 	public void saveUserList() {

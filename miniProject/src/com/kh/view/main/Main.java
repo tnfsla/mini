@@ -74,10 +74,6 @@ public class Main {
 	public void initPanel() {
 
 		loginView = new LoginMainView(this, user); // 매개변수로 들어간 user가 추후에 객체가 생성되게 됨
-
-		// map 생성 후
-		// 해당 panel들 map에 추가
-		panelMap.put("login", loginView);
 		
 		addPanels(frame);
 		
