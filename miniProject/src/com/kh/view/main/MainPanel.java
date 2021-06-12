@@ -195,7 +195,8 @@ public class MainPanel extends JPanel {
 	public void updateUser() {
 		double tSum = 0;
 		double dSum = 0.0;
-
+		ImageIcon bedge = new ImageIcon("images/bedge.PNG");
+		System.out.println(user.getExercises().size());
 		for (int i = 0; i < user.getExercises().size(); i++) {
 			if (user.getExercises().get(i).getDatesCompare() > sTime / 1000000) {
 				if (eventFlag.equals("KM")) {
@@ -213,14 +214,11 @@ public class MainPanel extends JPanel {
 		}
 
 		if (user.isHasBedge()) {
-			JLabel lblNewLabel = new JLabel("bedge");
-			lblNewLabel.setBounds(280, 71, 57, 15);
+			JLabel lblNewLabel = new JLabel(bedge);
+			lblNewLabel.setBounds(260, 50, 80, 80);
 			add(lblNewLabel);
 		}
-//		JLabel lblNewLabel = new JLabel("bedge");
-//		lblNewLabel.setBounds(280, 71, 57, 15);
-//		add(lblNewLabel);
-		//42, 71, 200, 40
+
 	}
 
 	public long getdTimeI() {
