@@ -41,7 +41,7 @@ public class Exercise implements Serializable {
 	}
 	
 	public long getDatesCompare() {
-		SimpleDateFormat dtf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat dtf = new SimpleDateFormat("yyyyMMddHHmmss");
 		long dateCompare = Long.parseLong(dtf.format(dates.getTime()));
 		return dateCompare;
 //		long systemTime = System.currentTimeMillis();

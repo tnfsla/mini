@@ -59,7 +59,7 @@ public class EventDao {
 	
 	public void EventEnd() {
 		event.setEventDate(0);
-		event.setEventFlag(null);
+		event.setEventFlag("");
 		event.setEventGoal(0);
 		saveEvent();
 	}

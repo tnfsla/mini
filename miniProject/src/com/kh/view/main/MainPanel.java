@@ -193,25 +193,29 @@ public class MainPanel extends JPanel {
 	}
 
 	public void updateUser() {
-		double tSum = 0;
+		long tSum = 0L;
 		double dSum = 0.0;
+		System.out.println(eventFlag);
+		System.out.println(eventGoal);
+		System.out.println(sTime);
 		ImageIcon bedge = new ImageIcon("images/bedge.PNG");
-		System.out.println(user.getExercises().size());
 		for (int i = 0; i < user.getExercises().size(); i++) {
-			if (user.getExercises().get(i).getDatesCompare() > sTime / 1000000) {
+			if (user.getExercises().get(i).getDatesCompare() >= sTime) {
 				if (eventFlag.equals("KM")) {
 					dSum += user.getExercises().get(i).getDistance();
-					if (dSum > eventGoal) {
+					if (dSum >= eventGoal) {
 						user.setHasBedge(true);
 					}
 				} else if (eventFlag.equals("H")) {
 					tSum += user.getExercises().get(i).getRunTime();
-					if (tSum > eventGoal*3600) {
+					if (tSum >= (long)(eventGoal*3600)) {
 						user.setHasBedge(true);
 					}
 				}
 			}
 		}
+
+		aec.getUserDao().saveUserList();
 
 		if (user.isHasBedge()) {
 			JLabel lblNewLabel = new JLabel(bedge);
