@@ -135,11 +135,16 @@ public class MainPanel extends JPanel {
 		Image updateCrewImg = runCrew.getScaledInstance(262, 118, Image.SCALE_SMOOTH);
 		ImageIcon updateCrewIcon = new ImageIcon(updateCrewImg);
 		JButton btnNewButton_1_2 = new JButton(updateCrewIcon);
+		btnNewButton_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_1_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				main.convertPanel("crew");
 				System.out.println("Crew Part 이동");
+				main.getCrewManager().updateCrewJoinState(true);
 			}
 		});
 		btnNewButton_1_2.setBounds(41, 315, 262, 118);

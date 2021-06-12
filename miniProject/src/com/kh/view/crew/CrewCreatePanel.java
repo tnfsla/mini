@@ -1,22 +1,19 @@
 package com.kh.view.crew;
 
-import java.awt.EventQueue;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
-import com.kh.controller.crew.CrewCreateController;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.kh.controller.crew.CrewCreateController;
 
 public class CrewCreatePanel extends JPanel {
 
@@ -45,9 +42,10 @@ public class CrewCreatePanel extends JPanel {
 		btnCreateCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(), crewManager.getUser());
-				crewManager.updateCrewJoinState(); // 크루 가입 상태 업데이트
+				crewManager.updateCrewJoinState(true); // 크루 가입 상태 업데이트
 				crewManager.convertPanel("crew_main"); // main page로
 				crewManager.getControllerManager().getCrewDao().saveCrewList(); // 해당 크루 정보 저장
+				crewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList(); // 변경된 유저 정보 저장
 			}
 		});
 		btnCreateCrew.setBounds(235, 20, 97, 23);
@@ -101,7 +99,7 @@ public class CrewCreatePanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
 				crewManager.convertPanel("crew_main");
-				crewManager.updateCrewJoinState();
+				crewManager.updateCrewJoinState(true);
 			}
 		});
 		footerPanel.add(lblHome);

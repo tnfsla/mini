@@ -171,4 +171,8 @@ public class Main {
 	public LoginMainView getLoginView() {
 		return loginView;
 	}
+	
+	public CrewViewManager getCrewManager() {
+		return crewManager;
+	}
 }

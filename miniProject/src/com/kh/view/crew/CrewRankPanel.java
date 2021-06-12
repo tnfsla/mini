@@ -171,7 +171,7 @@ public class CrewRankPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
 				crewManager.convertPanel("crew_main");
-				crewManager.updateCrewJoinState();
+				crewManager.updateCrewJoinState(true);
 			}
 		});
 		footerPanel.add(lblHome);
