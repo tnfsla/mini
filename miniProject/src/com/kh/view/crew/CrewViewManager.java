@@ -272,13 +272,13 @@ public class CrewViewManager {
 		lblCrewName1 = new JLabel("크루명");
 		lblCrewName1.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName1.setBounds(60, 10, 80, 30);
+		lblCrewName1.setBounds(75, 10, 80, 30);
 		panelCrew1.add(lblCrewName1);
 
 		lblCrewCount1 = new JLabel("0 명");
 		lblCrewCount1.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount1.setBounds(180, 10, 70, 30);
+		lblCrewCount1.setBounds(175, 10, 70, 30);
 		panelCrew1.add(lblCrewCount1);
 
 		btnCrewPage1 = new JButton("");
@@ -316,13 +316,13 @@ public class CrewViewManager {
 		lblCrewName2 = new JLabel("크루명");
 		lblCrewName2.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName2.setBounds(60, 10, 80, 30);
+		lblCrewName2.setBounds(75, 10, 80, 30);
 		panelCrew2.add(lblCrewName2);
 
 		lblCrewCount2 = new JLabel("0 명");
 		lblCrewCount2.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount2.setBounds(180, 10, 70, 30);
+		lblCrewCount2.setBounds(175, 10, 70, 30);
 		panelCrew2.add(lblCrewCount2);
 
 		btnCrewPage2 = new JButton("");
@@ -360,13 +360,13 @@ public class CrewViewManager {
 		lblCrewName3 = new JLabel("크루명");
 		lblCrewName3.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName3.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName3.setBounds(60, 10, 80, 30);
+		lblCrewName3.setBounds(75, 10, 80, 30);
 		panelCrew3.add(lblCrewName3);
 
 		lblCrewCount3 = new JLabel("0 명");
 		lblCrewCount3.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount3.setBounds(180, 10, 70, 30);
+		lblCrewCount3.setBounds(175, 10, 70, 30);
 		panelCrew3.add(lblCrewCount3);
 
 		btnCrewPage3 = new JButton("");
