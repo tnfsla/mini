@@ -3,10 +3,10 @@ package com.kh.view.crew;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,7 +24,6 @@ import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import java.awt.Font;
 
 public class CrewViewManager {
 

@@ -16,7 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
 import com.kh.controller.crew.CrewRankController;
 import com.kh.model.vo.Crew;

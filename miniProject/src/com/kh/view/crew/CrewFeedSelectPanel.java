@@ -35,8 +35,6 @@ public class CrewFeedSelectPanel extends JPanel {
 
 	private JTextArea textAreaContents;
 
-	private JLabel lblTitle;
-
 	private JLabel lblLike;
 
 	private Feed curFeed;
@@ -44,6 +42,7 @@ public class CrewFeedSelectPanel extends JPanel {
 	private DefaultListModel<Comment> commentModel;
 
 	private CommentRenderer commentRenderer;
+	private JTextField textFieldTitle;
 
 	public CrewFeedSelectPanel() {
 		initialize();
@@ -67,7 +66,7 @@ public class CrewFeedSelectPanel extends JPanel {
 		String date = feedSelectController.convertCalToDate(cal);
 		lblDate.setText(date);
 
-		lblTitle.setText(curFeed.getTitle());
+		textFieldTitle.setText(curFeed.getTitle());
 
 		textAreaContents.setText(curFeed.getContents());
 
@@ -112,7 +111,7 @@ public class CrewFeedSelectPanel extends JPanel {
 		btnEditFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("피드 수정");
-				feedSelectController.updateFeed(curFeed, lblTitle.getText(), textAreaContents.getText());
+				feedSelectController.updateFeed(curFeed, textFieldTitle.getText(), textAreaContents.getText());
 			}
 		});
 		btnEditFeed.setBounds(224, 10, 60, 23);
@@ -149,10 +148,11 @@ public class CrewFeedSelectPanel extends JPanel {
 		textAreaContents = new JTextArea();
 		textAreaContents.setBounds(12, 88, 312, 52);
 		panelSelectFeed.add(textAreaContents);
-
-		lblTitle = new JLabel("");
-		lblTitle.setBounds(12, 60, 130, 21);
-		panelSelectFeed.add(lblTitle);
+		
+		textFieldTitle = new JTextField();
+		textFieldTitle.setBounds(12, 60, 116, 21);
+		panelSelectFeed.add(textFieldTitle);
+		textFieldTitle.setColumns(10);
 
 		JPanel panelLike = new JPanel();
 		panelLike.setBounds(12, 215, 336, 50);

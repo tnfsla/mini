@@ -18,6 +18,7 @@ import javax.swing.event.ListSelectionListener;
 import com.kh.controller.crew.CrewFeedController;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.Feed;
+import javax.swing.ListSelectionModel;
 
 public class CrewFeedPanel extends JPanel {
 
@@ -75,8 +76,8 @@ public class CrewFeedPanel extends JPanel {
 		add(btnCreateFeed);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(12, 59, 336, 541);
 		add(scrollPane);
 
@@ -84,6 +85,7 @@ public class CrewFeedPanel extends JPanel {
 		FeedRenderer feedRenderer = new FeedRenderer();
 
 		listFeed = new JList();
+		listFeed.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listFeed.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 
@@ -116,7 +118,6 @@ public class CrewFeedPanel extends JPanel {
 
 		for (Feed feed : curCrew.getFeedList()) {
 			feedModel.addElement(feed);
-
 		}
 	}
 

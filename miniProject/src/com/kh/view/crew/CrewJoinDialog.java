@@ -1,6 +1,8 @@
 package com.kh.view.crew;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.awt.Font;
 
 public class CrewJoinDialog extends JDialog {
 
@@ -28,13 +28,13 @@ public class CrewJoinDialog extends JDialog {
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JLabel lblNewLabel = new JLabel("가입 하시겠습니까?");
-			lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+			lblNewLabel.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 20));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(new Color(215, 255, 241));
+			buttonPane.setBackground(CrewViewManager.COLOR_MINT);
 			buttonPane.setBounds(0, 55, 265, 35);
 			getContentPane().add(buttonPane);
 			buttonPane.setLayout(null);
@@ -50,7 +50,7 @@ public class CrewJoinDialog extends JDialog {
 					cancelButton.setContentAreaFilled(false);
 					panel.add(cancelButton);
 					cancelButton.setForeground(Color.WHITE);
-					cancelButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+					cancelButton.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
 					cancelButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							crewPanel.setIsJoinCrew(false); // 크루 페이지 가입 상태 false로 변경
@@ -73,7 +73,7 @@ public class CrewJoinDialog extends JDialog {
 					okButton.setContentAreaFilled(false);
 					panel2.add(okButton);
 					okButton.setForeground(Color.WHITE);
-					okButton.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+					okButton.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
 					okButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							crewPanel.setIsJoinCrew(true); // 크루 페이지 가입 상태 true로 변경
