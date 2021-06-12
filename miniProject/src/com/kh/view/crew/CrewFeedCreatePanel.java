@@ -37,11 +37,11 @@ public class CrewFeedCreatePanel extends JPanel {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		JPanel panelCrewPageBack = new JPanel();
-		panelCrewPageBack.setBounds(15, 10, 30, 30);
-		panelCrewPageBack.add(new CrewImagePanel("./images/back.png", panelCrewPageBack.getSize()));
-		add(panelCrewPageBack);
-		panelCrewPageBack.setLayout(null);
+		JPanel panelFeedBack = new JPanel();
+		panelFeedBack.setBounds(15, 10, 30, 30);
+		panelFeedBack.add(new CrewImagePanel("./images/back.png", panelFeedBack.getSize()));
+		add(panelFeedBack);
+		panelFeedBack.setLayout(null);
 
 		JButton btnFeedBack = new JButton("");
 		btnFeedBack.addActionListener(new ActionListener() {
@@ -53,7 +53,7 @@ public class CrewFeedCreatePanel extends JPanel {
 		btnFeedBack.setContentAreaFilled(false);
 		btnFeedBack.setBorderPainted(false);
 		btnFeedBack.setBounds(0, 0, 30, 30);
-		panelCrewPageBack.add(btnFeedBack);
+		panelFeedBack.add(btnFeedBack);
 
 		JLabel lblFeedCreate = new JLabel("글쓰기");
 		lblFeedCreate.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 18));
