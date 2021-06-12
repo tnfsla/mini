@@ -112,7 +112,10 @@ public class CrewPanel extends JPanel {
 						if (isJoinCrew == true) {
 							// 크루 컨트롤러에서 가입 진행
 							crewController.joinCrew(crew, crewManager.getUser());
-							crewManager.updateCrewJoinState();
+							crewManager.updateCrewJoinState(true);
+							
+							crewManager.getControllerManager().getCrewDao().saveCrewList(); // 해당 크루 정보 저장
+							crewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList(); // 변경된 유저 정보 저장
 						}
 
 						btnJoinCrew.setVisible(!isJoinCrew); // 크루 가입 상태에 따라 가입하기 버튼 보이기 처리 isJoinCrew false면 보여주기
@@ -261,7 +264,7 @@ public class CrewPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
 				crewManager.convertPanel("crew_main");
-				crewManager.updateCrewJoinState();
+				crewManager.updateCrewJoinState(true);
 			}
 		});
 		footerPanel.add(lblHome);
