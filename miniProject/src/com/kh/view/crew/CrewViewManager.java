@@ -24,6 +24,7 @@ import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import java.awt.Font;
 
 public class CrewViewManager {
 
@@ -66,6 +67,8 @@ public class CrewViewManager {
 	private JButton btnCrewPage3;
 
 	private JButton btnCrewCreateCancel;
+
+	private JPanel panelCrewCreateCancel;
 
 	public CrewViewManager(User user) {
 		this.user = user;
@@ -177,7 +180,7 @@ public class CrewViewManager {
 		if (user == null || user.getCrewName() == null) {
 			System.out.println("현재 유저 크루 미가입 상태");
 
-			btnCrewCreateCancel.setVisible(false);
+			panelCrewCreateCancel.setVisible(false);
 
 			btnCreatePage.setText("크루 만들기");
 			btnCreatePage.setEnabled(true);
@@ -193,7 +196,7 @@ public class CrewViewManager {
 		if (controllerManager.selectCrew(user.getCrewName()).isAccept() == false) {
 			System.out.println("현재 유저 크루 만들기 상태 승인 안남");
 
-			btnCrewCreateCancel.setVisible(true);
+			panelCrewCreateCancel.setVisible(true);
 
 			btnCreatePage.setText("크루 승인을 요청하고 있습니다.");
 			btnCreatePage.setEnabled(false);
@@ -225,7 +228,16 @@ public class CrewViewManager {
 		mainPanel.setBounds(0, 0, 360, 600);
 		mainPanel.setLayout(null);
 
+		JPanel panelCreatePage = new JPanel();
+		panelCreatePage.setBounds(25, 60, 310, 100);
+		mainPanel.add(panelCreatePage);
+		panelCreatePage.setBackground(new Color(215, 255, 241));
+		panelCreatePage.setLayout(null);
+
 		btnCreatePage = new JButton("크루 만들기");
+		btnCreatePage.setBounds(0, 0, 310, 100);
+		panelCreatePage.add(btnCreatePage);
+		btnCreatePage.setFont(new Font("맑은 고딕", Font.BOLD, 32));
 		btnCreatePage.setContentAreaFilled(false);
 		btnCreatePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,11 +245,10 @@ public class CrewViewManager {
 				convertPanel("crew_create"); // 크루 만들기 page로
 			}
 		});
-		btnCreatePage.setBounds(25, 60, 310, 100);
-		mainPanel.add(btnCreatePage);
 
 		JLabel lblCrewLabel = new JLabel("-心BOX 크루 추천");
-		lblCrewLabel.setBounds(30, 200, 110, 50);
+		lblCrewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		lblCrewLabel.setBounds(30, 200, 150, 50);
 		mainPanel.add(lblCrewLabel);
 
 		JPanel crewListPanel = new JPanel();
@@ -252,26 +263,26 @@ public class CrewViewManager {
 		crewListPanel.add(crewItemPanel1);
 		crewItemPanel1.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 280, 55);
-		crewItemPanel1.add(panel);
-		panel.setLayout(null);
+		JPanel panelCrew1 = new JPanel();
+		panelCrew1.setBackground(Color.WHITE);
+		panelCrew1.setBounds(0, 0, 280, 55);
+		crewItemPanel1.add(panelCrew1);
+		panelCrew1.setLayout(null);
 
 		lblCrewName1 = new JLabel("크루명");
+		lblCrewName1.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCrewName1.setBounds(60, 10, 80, 30);
-		panel.add(lblCrewName1);
+		panelCrew1.add(lblCrewName1);
 
 		lblCrewCount1 = new JLabel("0 명");
+		lblCrewCount1.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount1.setBounds(180, 10, 70, 30);
-		panel.add(lblCrewCount1);
+		panelCrew1.add(lblCrewCount1);
 
 		btnCrewPage1 = new JButton("");
 		btnCrewPage1.setContentAreaFilled(false);
-		btnCrewPage1.addMouseListener(new MouseAdapter() {
-		});
 		btnCrewPage1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!lblCrewName1.getText().equals("크루명")) {// 크루가 리스트에 출력되어 있는 경우
@@ -286,29 +297,33 @@ public class CrewViewManager {
 			}
 		});
 		btnCrewPage1.setBounds(0, 0, 280, 55);
-		panel.add(btnCrewPage1);
+		panelCrew1.add(btnCrewPage1);
 		btnCrewPage1.setHorizontalAlignment(SwingConstants.LEFT);
+		CrewImagePanel crewImagePanel = new CrewImagePanel("./images/crew_crew.png", panelCrew1.getSize());
+		panelCrew1.add(crewImagePanel); // 이미지 추가
 
 		JPanel crewItemPanel2 = new JPanel();
 		crewItemPanel2.setBackground(new Color(215, 255, 241));
 		crewItemPanel2.setLayout(null);
 		crewListPanel.add(crewItemPanel2);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.WHITE);
-		panel_1.setLayout(null);
-		panel_1.setBounds(0, 0, 280, 55);
-		crewItemPanel2.add(panel_1);
+		JPanel panelCrew2 = new JPanel();
+		panelCrew2.setBackground(Color.WHITE);
+		panelCrew2.setLayout(null);
+		panelCrew2.setBounds(0, 0, 280, 55);
+		crewItemPanel2.add(panelCrew2);
 
 		lblCrewName2 = new JLabel("크루명");
+		lblCrewName2.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCrewName2.setBounds(60, 10, 80, 30);
-		panel_1.add(lblCrewName2);
+		panelCrew2.add(lblCrewName2);
 
 		lblCrewCount2 = new JLabel("0 명");
+		lblCrewCount2.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount2.setBounds(180, 10, 70, 30);
-		panel_1.add(lblCrewCount2);
+		panelCrew2.add(lblCrewCount2);
 
 		btnCrewPage2 = new JButton("");
 		btnCrewPage2.setContentAreaFilled(false);
@@ -327,28 +342,32 @@ public class CrewViewManager {
 				}
 			}
 		});
-		panel_1.add(btnCrewPage2);
+		panelCrew2.add(btnCrewPage2);
+		CrewImagePanel crewImagePanel2 = new CrewImagePanel("./images/crew_crew.png", panelCrew2.getSize());
+		panelCrew2.add(crewImagePanel2); // 이미지 추가
 
 		JPanel crewItemPanel3 = new JPanel();
 		crewItemPanel3.setBackground(new Color(215, 255, 241));
 		crewItemPanel3.setLayout(null);
 		crewListPanel.add(crewItemPanel3);
 
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setLayout(null);
-		panel_2.setBounds(0, 0, 280, 55);
-		crewItemPanel3.add(panel_2);
+		JPanel panelCrew3 = new JPanel();
+		panelCrew3.setBackground(Color.WHITE);
+		panelCrew3.setLayout(null);
+		panelCrew3.setBounds(0, 0, 280, 55);
+		crewItemPanel3.add(panelCrew3);
 
 		lblCrewName3 = new JLabel("크루명");
+		lblCrewName3.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 		lblCrewName3.setHorizontalAlignment(SwingConstants.LEFT);
 		lblCrewName3.setBounds(60, 10, 80, 30);
-		panel_2.add(lblCrewName3);
+		panelCrew3.add(lblCrewName3);
 
 		lblCrewCount3 = new JLabel("0 명");
+		lblCrewCount3.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		lblCrewCount3.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCrewCount3.setBounds(180, 10, 70, 30);
-		panel_2.add(lblCrewCount3);
+		panelCrew3.add(lblCrewCount3);
 
 		btnCrewPage3 = new JButton("");
 		btnCrewPage3.setContentAreaFilled(false);
@@ -367,17 +386,18 @@ public class CrewViewManager {
 				}
 			}
 		});
-		panel_2.add(btnCrewPage3);
+		panelCrew3.add(btnCrewPage3);
+		CrewImagePanel crewImagePanel3 = new CrewImagePanel("./images/crew_crew.png", panelCrew3.getSize());
+		panelCrew3.add(crewImagePanel3); // 이미지 추가
 
 		JPanel footerPanel = new JPanel();
-		footerPanel.add(new CrewImagePanel("./images/home2.png", footerPanel.getSize()));
 		footerPanel.setBackground(Color.WHITE);
-		footerPanel.setBounds(0, 560, 360, 30);
-		mainPanel.add(footerPanel);
+		footerPanel.setBounds(0, 560, 360, 20);
 
 		JButton btnHome = new JButton("");
-		btnHome.setBounds(160, 0, 40, 30);
-		btnHome.setContentAreaFilled(false);
+		btnHome.setBounds(170, 0, 20, 20);
+		btnHome.setContentAreaFilled(false); // 내용영역 채우기 안함
+		btnHome.setBorderPainted(false); // 외곽선 제거
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("메인 페이지로 이동");
@@ -388,9 +408,11 @@ public class CrewViewManager {
 				updateCrewJoinState(true);
 			}
 		});
-		footerPanel.setLayout(null);
 		btnHome.setPreferredSize(new Dimension(40, 30));
 		footerPanel.add(btnHome);
+		footerPanel.add(new CrewImagePanel("./images/home2.png", footerPanel.getSize())); // 이미지 추가
+		mainPanel.add(footerPanel);
+		footerPanel.setLayout(null);
 
 		JPanel radioBtnPanel = new JPanel();
 		radioBtnPanel.setBackground(Color.WHITE);
@@ -421,8 +443,17 @@ public class CrewViewManager {
 
 		rdbtnCrew3.setSelected(true);
 
+		panelCrewCreateCancel = new JPanel();
+		panelCrewCreateCancel.setBounds(215, 37, 120, 23);
+		panelCrewCreateCancel.setVisible(false);
+		panelCrewCreateCancel.setBackground(new Color(215, 255, 241));
+		mainPanel.add(panelCrewCreateCancel);
+		panelCrewCreateCancel.setLayout(null);
+
 		btnCrewCreateCancel = new JButton("만들기 취소");
-		btnCrewCreateCancel.setVisible(false);
+		btnCrewCreateCancel.setBounds(0, 0, 120, 23);
+		panelCrewCreateCancel.add(btnCrewCreateCancel);
+		btnCrewCreateCancel.setFont(new Font("굴림", Font.BOLD, 12));
 		btnCrewCreateCancel.setContentAreaFilled(false);
 		btnCrewCreateCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -435,8 +466,6 @@ public class CrewViewManager {
 				main.getLoginView().getLoginController().getUserDao().saveUserList(); // 변경된 유저 정보 저장
 			}
 		});
-		btnCrewCreateCancel.setBounds(215, 37, 120, 23);
-		mainPanel.add(btnCrewCreateCancel);
 
 	}
 
