@@ -79,12 +79,12 @@ public class CrewPanel extends JPanel {
 
 	// panel 초기 설정 crewManager, crewController 설정 후에 호출해야해서 initialize 메소드로 따로 뺌
 	private void initialize() {
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(Color.WHITE);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
 		JPanel panelCrewNameContent = new JPanel();
-		panelCrewNameContent.setBounds(12, 30, 336, 147);
+		panelCrewNameContent.setBounds(12, 30, 336, 180);
 		add(panelCrewNameContent);
 		panelCrewNameContent.setLayout(null);
 
@@ -152,12 +152,12 @@ public class CrewPanel extends JPanel {
 		textAreaCrewContent.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
 		textAreaCrewContent.setText("크루 내용");
 		textAreaCrewContent.setEditable(false);
-		textAreaCrewContent.setBounds(10, 78, 314, 59);
+		textAreaCrewContent.setBounds(10, 80, 315, 85);
 		panelCrewNameContent.add(textAreaCrewContent);
 
 		JPanel panelCrewInfo = new JPanel();
 		panelCrewInfo.setBackground(CrewViewManager.COLOR_MINT);
-		panelCrewInfo.setBounds(12, 250, 336, 155);
+		panelCrewInfo.setBounds(12, 240, 336, 155);
 		add(panelCrewInfo);
 		panelCrewInfo.setLayout(null);
 
@@ -237,7 +237,7 @@ public class CrewPanel extends JPanel {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBackground(CrewViewManager.COLOR_MINT);
-		tabbedPane.setBounds(22, 415, 315, 136);
+		tabbedPane.setBounds(22, 410, 315, 136);
 
 		add(tabbedPane);
 

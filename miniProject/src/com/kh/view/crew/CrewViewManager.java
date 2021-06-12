@@ -41,9 +41,9 @@ public class CrewViewManager {
 	private CrewFeedSelectPanel feedSelectPanel; // 특정 크루 특정 피드 선택 page
 
 	public static final Color COLOR_MINT = new Color(215, 255, 241); // 민트색
-	public static final Color COLOR_GREEN = new Color(140, 215, 144); // 초록색
+	public static final Color COLOR_GREEN = new Color(140, 215, 144, (int) (0.43 * 256)); // 초록색
 	public static final String MAIN_FONT = "맑은 고딕";
-	
+
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
 	private CrewControllerManager controllerManager; // 메인 controller
