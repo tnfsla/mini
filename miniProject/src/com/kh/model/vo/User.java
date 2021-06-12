@@ -1,5 +1,9 @@
 package com.kh.model.vo;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -102,6 +106,18 @@ public class User extends SystemUser implements Serializable {
 	// 운동 기록 추가 메소드
 	public void addExercise(Exercise exercise) {
 		exercises.add(exercise);
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/exerciseList.dat"))) {
+
+			oos.writeObject(exercises);
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("운동기록 저장 완료");
 	}
 
 	@Override
