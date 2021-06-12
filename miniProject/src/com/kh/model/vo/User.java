@@ -106,10 +106,11 @@ public class User extends SystemUser implements Serializable {
 	// 운동 기록 추가 메소드
 	public void addExercise(Exercise exercise) {
 		exercises.add(exercise);
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/exerciseList.dat"))) {
-
-			oos.writeObject(exercises);
-
+		
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/userList.dat"))) {
+			for(int i = 0; i < exercises.size(); i++) {
+				oos.writeObject(exercises);
+			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

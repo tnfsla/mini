@@ -63,8 +63,8 @@ public class StopWatchPanel extends JPanel implements ActionListener, Runnable {
 
 	public StopWatchPanel() {
 
-		ImageIcon ss1 = new ImageIcon("./image/star1.png");
-		ImageIcon ss2 = new ImageIcon("./image/star2.png");
+		ImageIcon ss1 = new ImageIcon("./images/star1.png");
+		ImageIcon ss2 = new ImageIcon("./images/star2.png");
 
 		setLayout(null);
 		setBounds(0, 0, 360, 600);
