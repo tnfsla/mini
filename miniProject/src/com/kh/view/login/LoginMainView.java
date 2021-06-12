@@ -18,6 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.kh.controller.admin.AdminEventController;
 import com.kh.controller.login.LoginController;
 import com.kh.model.vo.SystemUser;
 import com.kh.model.vo.User;
@@ -29,12 +30,10 @@ public class LoginMainView extends JPanel {
 	private JPasswordField passwordFieldPwd;
 
 	private User user;
-
 	private Main main;
-
 	private LoginJoinPanel joinPanel;
-
 	private LoginController loginController;
+	private AdminEventController aec;
 
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
@@ -47,11 +46,12 @@ public class LoginMainView extends JPanel {
 		loginController = new LoginController();
 	}
 
-	public LoginMainView(Main main) {
+	public LoginMainView(Main main, AdminEventController aec) {
 		this();
-
+		this.aec = aec;
 		this.main = main;
 
+		aec.setUserDao(loginController.getUserDao());
 		panelMap = main.getPanelMap();
 
 		initPanel();
@@ -216,4 +216,7 @@ class ImagePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, null);
 	}
+	
+	
+	
 }

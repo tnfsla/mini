@@ -49,4 +49,6 @@ public class JoinController {
 	public void saveUserList() {
 		userDao.saveUserList();
 	}
+	
+
 }

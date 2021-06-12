@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Formatter;
+import java.util.Locale;
 
 public class Exercise implements Serializable {
 
@@ -41,8 +42,12 @@ public class Exercise implements Serializable {
 	
 	public long getDatesCompare() {
 		SimpleDateFormat dtf = new SimpleDateFormat("yyyyMMdd");
-		long dateCompare = Long.parseLong(dtf.format(dates));
+		long dateCompare = Long.parseLong(dtf.format(dates.getTime()));
 		return dateCompare;
+//		long systemTime = System.currentTimeMillis();
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+//		String dTime = formatter.format(systemTime);
+//		dTimeI = Long.parseLong(dTime);
 	}
 
 	public void setDates(Calendar dates) {
