@@ -2,11 +2,16 @@ package com.kh.view.crew;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -14,12 +19,10 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import com.kh.controller.crew.CrewController;
 import com.kh.model.vo.Crew;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.border.EmptyBorder;
 
 public class CrewPanel extends JPanel {
 
@@ -86,16 +89,31 @@ public class CrewPanel extends JPanel {
 		panelCrewNameContent.setLayout(null);
 
 		JPanel panelCrewName = new JPanel();
-		panelCrewName.setBackground(Color.GRAY);
+		panelCrewName.setBackground(CrewViewManager.COLOR_MINT);
 		panelCrewName.setBounds(0, 0, 336, 68);
 		panelCrewNameContent.add(panelCrewName);
 		panelCrewName.setLayout(null);
 
 		lblCrewName = new JLabel("크루명");
-		lblCrewName.setBounds(41, 10, 113, 33);
+		lblCrewName.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 20));
+		lblCrewName.setBounds(35, 10, 140, 45);
 		panelCrewName.add(lblCrewName);
 
-		btnJoinCrew = new JButton("가입하기");
+		JPanel panelJoinCrew = new JPanel();
+		panelJoinCrew.setBounds(230, 15, 80, 30);
+		panelJoinCrew.setBackground(CrewViewManager.COLOR_MINT);
+		panelCrewName.add(panelJoinCrew);
+		panelJoinCrew.setLayout(null);
+
+		btnJoinCrew = new JButton("");
+		btnJoinCrew.setBounds(0, 0, 80, 30);
+		btnJoinCrew.setContentAreaFilled(false);
+		btnJoinCrew.setBorderPainted(false);
+		btnJoinCrew.setFocusPainted(false);
+		panelJoinCrew.add(btnJoinCrew);
+		btnJoinCrew.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		CrewImagePanel crewImagePanel = new CrewImagePanel("./images/crew_crew_join.png", panelJoinCrew.getSize());
+		panelJoinCrew.add(crewImagePanel); // 이미지 추가
 		btnJoinCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CrewJoinDialog dialog = new CrewJoinDialog(crewManager.getCrewPanel());
@@ -113,9 +131,12 @@ public class CrewPanel extends JPanel {
 							// 크루 컨트롤러에서 가입 진행
 							crewController.joinCrew(crew, crewManager.getUser());
 							crewManager.updateCrewJoinState(true);
-							
+
 							crewManager.getControllerManager().getCrewDao().saveCrewList(); // 해당 크루 정보 저장
-							crewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList(); // 변경된 유저 정보 저장
+							crewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList(); // 변경된
+																													// 유저
+																													// 정보
+																													// 저장
 						}
 
 						btnJoinCrew.setVisible(!isJoinCrew); // 크루 가입 상태에 따라 가입하기 버튼 보이기 처리 isJoinCrew false면 보여주기
@@ -126,23 +147,22 @@ public class CrewPanel extends JPanel {
 //				System.out.println("test");
 			}
 		});
-		btnJoinCrew.setBounds(227, 15, 97, 23);
-
-		panelCrewName.add(btnJoinCrew);
 
 		textAreaCrewContent = new JTextArea();
+		textAreaCrewContent.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
 		textAreaCrewContent.setText("크루 내용");
 		textAreaCrewContent.setEditable(false);
 		textAreaCrewContent.setBounds(10, 78, 314, 59);
 		panelCrewNameContent.add(textAreaCrewContent);
 
 		JPanel panelCrewInfo = new JPanel();
-		panelCrewInfo.setBackground(Color.GRAY);
+		panelCrewInfo.setBackground(CrewViewManager.COLOR_MINT);
 		panelCrewInfo.setBounds(12, 250, 336, 155);
 		add(panelCrewInfo);
 		panelCrewInfo.setLayout(null);
 
 		JPanel panelCrewUserInfo = new JPanel();
+		panelCrewUserInfo.setBackground(CrewViewManager.COLOR_MINT);
 		panelCrewUserInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -162,20 +182,24 @@ public class CrewPanel extends JPanel {
 		panelCrewUserInfo.setLayout(null);
 
 		JLabel lblCrewUserInfo = new JLabel("크루원");
+		lblCrewUserInfo.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
 		lblCrewUserInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCrewUserInfo.setBounds(45, 10, 60, 15);
+		lblCrewUserInfo.setBounds(45, 15, 60, 15);
 		panelCrewUserInfo.add(lblCrewUserInfo);
 
 		JPanel panelCrewUserCount = new JPanel();
+		panelCrewUserCount.setBackground(Color.WHITE);
 		panelCrewUserCount.setBounds(25, 42, 100, 72);
 		panelCrewUserInfo.add(panelCrewUserCount);
 		panelCrewUserCount.setLayout(new BorderLayout(0, 0));
 
 		lblCrewUserCount = new JLabel("0");
+		lblCrewUserCount.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 24));
 		lblCrewUserCount.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCrewUserCount.add(lblCrewUserCount, BorderLayout.CENTER);
 
 		JPanel panelCrewFeedrInfo = new JPanel();
+		panelCrewFeedrInfo.setBackground(CrewViewManager.COLOR_MINT);
 		panelCrewFeedrInfo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -195,79 +219,113 @@ public class CrewPanel extends JPanel {
 		panelCrewInfo.add(panelCrewFeedrInfo);
 
 		JLabel lblCrewFeedInfo = new JLabel("피드");
+		lblCrewFeedInfo.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
 		lblCrewFeedInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCrewFeedInfo.setBounds(45, 10, 60, 15);
+		lblCrewFeedInfo.setBounds(45, 15, 60, 15);
 		panelCrewFeedrInfo.add(lblCrewFeedInfo);
 
 		JPanel panelCrewFeedCount = new JPanel();
+		panelCrewFeedCount.setBackground(Color.WHITE);
 		panelCrewFeedCount.setBounds(25, 42, 100, 72);
 		panelCrewFeedrInfo.add(panelCrewFeedCount);
 		panelCrewFeedCount.setLayout(new BorderLayout(0, 0));
 
 		lblCrewFeedCount = new JLabel("0");
+		lblCrewFeedCount.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 24));
 		lblCrewFeedCount.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCrewFeedCount.add(lblCrewFeedCount, BorderLayout.CENTER);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(22, 415, 310, 136);
+		tabbedPane.setBackground(CrewViewManager.COLOR_MINT);
+		tabbedPane.setBounds(22, 415, 315, 136);
 
 		add(tabbedPane);
 
 		JPanel panelShortInfo = new JPanel();
-		tabbedPane.addTab("요약", null, panelShortInfo, null);
+		panelShortInfo.setBackground(CrewViewManager.COLOR_MINT);
+		tabbedPane.addTab("", new ImageIcon("./images/crew_crew_summary.png"), panelShortInfo, null);
 		panelShortInfo.setLayout(null);
-
-		textAreaNotJoinCrewInfo = new JTextArea();
-		textAreaNotJoinCrewInfo.setLineWrap(true);
-		textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
-		textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
-		textAreaNotJoinCrewInfo.setEditable(false);
-		textAreaNotJoinCrewInfo.setBounds(12, 10, 281, 87);
-
-		panelShortInfo.add(textAreaNotJoinCrewInfo);
+		
+				JPanel panel = new JPanel();
+				panel.setBackground(CrewViewManager.COLOR_MINT);
+				panel.setBounds(0, 0, 310, 107);
+				panelShortInfo.add(panel);
+				panel.setLayout(null);
+				
+						textAreaNotJoinCrewInfo = new JTextArea();
+						textAreaNotJoinCrewInfo.setBounds(10, 10, 281, 87);
+						panel.add(textAreaNotJoinCrewInfo);
+						textAreaNotJoinCrewInfo.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
+						textAreaNotJoinCrewInfo.setLineWrap(true);
+						textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
+						textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
+						textAreaNotJoinCrewInfo.setEditable(false);
 
 		JPanel panelCrewInfoDistance = new JPanel();
-		panelCrewInfoDistance.setBounds(108, 0, 96, 107);
+		panelCrewInfoDistance.setBackground(Color.WHITE);
+		panelCrewInfoDistance.setBounds(115, 5, 85, 100);
 		panelShortInfo.add(panelCrewInfoDistance);
 		panelCrewInfoDistance.setLayout(null);
 
 		lblCrewDistance = new JLabel("거리");
-		lblCrewDistance.setBounds(12, 45, 57, 15);
+		lblCrewDistance.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
+		lblCrewDistance.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCrewDistance.setBounds(10, 60, 65, 15);
 		panelCrewInfoDistance.add(lblCrewDistance);
+		CrewImagePanel crewImagePanelCrewDistance = new CrewImagePanel("./images/crew_crew_distance.png", panelCrewInfoDistance.getSize());
+		panelCrewInfoDistance.add(crewImagePanelCrewDistance);
 
 		JPanel panelCrewInfoTime = new JPanel();
-		panelCrewInfoTime.setBounds(209, 0, 96, 107);
+		panelCrewInfoTime.setBackground(Color.WHITE);
+		panelCrewInfoTime.setBounds(215, 5, 85, 100);
 		panelShortInfo.add(panelCrewInfoTime);
 		panelCrewInfoTime.setLayout(null);
 
 		lblCrewTime = new JLabel("시간");
-		lblCrewTime.setBounds(12, 44, 57, 15);
+		lblCrewTime.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
+		lblCrewTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCrewTime.setBounds(10, 60, 65, 15);
 		panelCrewInfoTime.add(lblCrewTime);
+		CrewImagePanel crewImagePanelCrewTime = new CrewImagePanel("./images/crew_crew_time.png", panelCrewInfoTime.getSize());
+		panelCrewInfoTime.add(crewImagePanelCrewTime);
 
 		JPanel panelCrewInfoCrewNum = new JPanel();
-		panelCrewInfoCrewNum.setBounds(0, 0, 96, 107);
+		panelCrewInfoCrewNum.setBackground(Color.WHITE);
+		panelCrewInfoCrewNum.setBounds(10, 5, 85, 100);
 		panelShortInfo.add(panelCrewInfoCrewNum);
 		panelCrewInfoCrewNum.setLayout(null);
 
 		lblCrewNum = new JLabel("인원");
-		lblCrewNum.setBounds(12, 42, 57, 15);
+		lblCrewNum.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblCrewNum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCrewNum.setBounds(10, 60, 65, 15);
 		panelCrewInfoCrewNum.add(lblCrewNum);
+		CrewImagePanel crewImagePanelCrewNum = new CrewImagePanel("./images/crew_crew_userCount.png", panelCrewInfoCrewNum.getSize());
+		panelCrewInfoCrewNum.add(crewImagePanelCrewNum);
 
 		JPanel footerPanel = new JPanel();
-		footerPanel.setBackground(Color.LIGHT_GRAY);
-		footerPanel.setBounds(0, 561, 360, 29);
-		add(footerPanel);
+		footerPanel.setBackground(Color.WHITE);
+		footerPanel.setBounds(0, 560, 360, 20);
 
-		JLabel lblHome = new JLabel("Home");
-		lblHome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		JButton btnHome = new JButton("");
+		btnHome.setBounds(170, 0, 20, 20);
+		btnHome.setContentAreaFilled(false); // 내용영역 채우기 안함
+		btnHome.setBorderPainted(false); // 외곽선 제거
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				System.out.println("메인 페이지로 이동");
-				crewManager.convertPanel("crew_main");
+				if (crewManager.getMain() != null)
+					crewManager.getMain().convertPanel("main");
+				else
+					crewManager.convertPanel("crew_main");
 				crewManager.updateCrewJoinState(true);
 			}
 		});
-		footerPanel.add(lblHome);
+		btnHome.setPreferredSize(new Dimension(40, 30));
+		footerPanel.add(btnHome);
+		footerPanel.add(new CrewImagePanel("./images/home2.png", footerPanel.getSize())); // 이미지 추가
+		add(footerPanel);
+		footerPanel.setLayout(null);
 
 	}
 

@@ -54,7 +54,7 @@ public class CrewCreatePanel extends JPanel {
 		btnCreateCrew.setBounds(0, 0, 75, 20);
 		panelCreateCrew.add(btnCreateCrew);
 		btnCreateCrew.setForeground(Color.WHITE);
-		btnCreateCrew.setFont(new Font("맑은 고딕", Font.BOLD, 12));
+		btnCreateCrew.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
 		btnCreateCrew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createController.createCrew(textFieldCrewName.getText(), textAreaCrewContents.getText(),
@@ -72,6 +72,7 @@ public class CrewCreatePanel extends JPanel {
 		panelTextArea.setLayout(null);
 
 		textAreaCrewContents = new JTextArea();
+		textAreaCrewContents.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
 		textAreaCrewContents.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -96,7 +97,7 @@ public class CrewCreatePanel extends JPanel {
 		lblCrewContents.setBounds(0, 0, 100, 40);
 		panelCrewContents.add(lblCrewContents);
 		lblCrewContents.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCrewContents.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		lblCrewContents.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 16));
 
 		JPanel panelCrewName = new JPanel();
 		panelCrewName.setBackground(Color.WHITE);
@@ -109,7 +110,7 @@ public class CrewCreatePanel extends JPanel {
 		lblCrewName.setBounds(0, 0, 100, 40);
 		panelCrewName.add(lblCrewName);
 		lblCrewName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCrewName.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		lblCrewName.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 16));
 
 		JPanel panelTextField = new JPanel();
 		panelTextField.setBackground(Color.WHITE);
@@ -119,6 +120,7 @@ public class CrewCreatePanel extends JPanel {
 		panelTextField.setLayout(null);
 
 		textFieldCrewName = new JTextField();
+		textFieldCrewName.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
 		textFieldCrewName.setBounds(50, 10, 260, 30);
 		panelTextField.add(textFieldCrewName);
 		textFieldCrewName.setColumns(10);
