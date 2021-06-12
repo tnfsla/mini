@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Locale;
 
 import javax.swing.ButtonGroup;
@@ -17,6 +16,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.kh.model.vo.Event;
+
 public class EventSettingP extends JPanel {
 	private JTextField date;
 	private JTextField goal;
@@ -26,7 +27,7 @@ public class EventSettingP extends JPanel {
 	private String eventFlag;
 	private long sTimeI = 0;
 	private long dTimeI = 0;
-
+	private Event event;
 	/**
 	 * Create the panel.
 	 */
