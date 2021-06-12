@@ -69,8 +69,8 @@ public class CrewFeedCreatePanel extends JPanel {
 		JButton btnCreateFeed = new JButton("게시");
 		btnCreateFeed.setBounds(0, 0, 80, 30);
 		panelCreateFeed.add(btnCreateFeed);
-		btnCreateFeed.setForeground(Color.WHITE);
 		btnCreateFeed.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		btnCreateFeed.setForeground(Color.WHITE);
 		btnCreateFeed.setContentAreaFilled(false);
 		btnCreateFeed.setBorderPainted(false);
 		CrewImagePanel crewImagePanelCreateFeed = new CrewImagePanel("./images/crew_feed_button.png", panelCreateFeed.getSize());
@@ -103,7 +103,7 @@ public class CrewFeedCreatePanel extends JPanel {
 		panelFeedTitle.add(crewImagePanelFeedTitle);
 
 		JPanel panelFeedContents = new JPanel();
-		panelFeedContents.setBackground(CrewViewManager.COLOR_MINT);
+		panelFeedContents.setBackground(CrewViewManager.COLOR_GREEN);
 		panelFeedContents.setBounds(12, 110, 336, 480);
 		add(panelFeedContents);
 		panelFeedContents.setLayout(null);

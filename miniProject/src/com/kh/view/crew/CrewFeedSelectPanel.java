@@ -20,6 +20,8 @@ import javax.swing.ScrollPaneConstants;
 import com.kh.controller.crew.CrewFeedSelectController;
 import com.kh.model.vo.Comment;
 import com.kh.model.vo.Feed;
+import java.awt.Color;
+import java.awt.Font;
 
 public class CrewFeedSelectPanel extends JPanel {
 
@@ -45,6 +47,7 @@ public class CrewFeedSelectPanel extends JPanel {
 	private JTextField textFieldTitle;
 
 	public CrewFeedSelectPanel() {
+		setBackground(Color.WHITE);
 		initialize();
 	}
 
@@ -78,12 +81,12 @@ public class CrewFeedSelectPanel extends JPanel {
 	private void updateLike() {
 		lblLike.setText(feedSelectController.stringFormatLike(curFeed.getLikeUserList()));
 	}
-	
+
 	private void updateComment() {
 		commentModel.clear();
-		
+
 		feedSelectController.sortCommentDateDES(curFeed.getCommentList());
-		
+
 		for (Comment comment : curFeed.getCommentList()) {
 			commentModel.addElement(comment);
 		}
@@ -93,31 +96,73 @@ public class CrewFeedSelectPanel extends JPanel {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		JButton btnFeedBack = new JButton("뒤로가기");
+		JPanel panelFeedBack = new JPanel();
+		panelFeedBack.setBounds(15, 10, 30, 30);
+		add(panelFeedBack);
+		panelFeedBack.setLayout(null);
+
+		JButton btnFeedBack = new JButton("");
 		btnFeedBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("피드 페이지로 이동");
 				crewManager.convertPanel("crew_feed");
 			}
 		});
-		btnFeedBack.setBounds(12, 10, 90, 23);
-		add(btnFeedBack);
+		btnFeedBack.setContentAreaFilled(false);
+		btnFeedBack.setBorderPainted(false);
+		btnFeedBack.setBounds(0, 0, 30, 30);
+		panelFeedBack.add(btnFeedBack);
+		CrewImagePanel crewImagePanelFeedBack = new CrewImagePanel("./images/back.png", panelFeedBack.getSize());
+		panelFeedBack.add(crewImagePanelFeedBack);
 
-		JLabel lblSelectFeed = new JLabel("게시글");
-		lblSelectFeed.setBounds(114, 14, 57, 15);
-		add(lblSelectFeed);
+		JLabel lblFeedCreate = new JLabel("게시글");
+		lblFeedCreate.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 18));
+		lblFeedCreate.setBounds(65, 10, 100, 30);
+		add(lblFeedCreate);
+
+		JPanel panelEditFeed = new JPanel();
+		panelEditFeed.setBackground(Color.WHITE);
+		panelEditFeed.setBounds(224, 13, 60, 25);
+		add(panelEditFeed);
+		panelEditFeed.setLayout(null);
 
 		JButton btnEditFeed = new JButton("수정");
+		btnEditFeed.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
+		btnEditFeed.setBounds(0, 0, 60, 25);
+		btnEditFeed.setForeground(Color.WHITE);
+
+		btnEditFeed.setContentAreaFilled(false);
+		btnEditFeed.setBorderPainted(false);
+
+		panelEditFeed.add(btnEditFeed);
+		CrewImagePanel crewImagePanelEditFeed = new CrewImagePanel("./images/crew_feed_button.png",
+				panelEditFeed.getSize());
+		panelEditFeed.add(crewImagePanelEditFeed);
 		btnEditFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("피드 수정");
 				feedSelectController.updateFeed(curFeed, textFieldTitle.getText(), textAreaContents.getText());
 			}
 		});
-		btnEditFeed.setBounds(224, 10, 60, 23);
-		add(btnEditFeed);
+
+		JPanel panelRemoveFeed = new JPanel();
+		panelRemoveFeed.setBackground(Color.WHITE);
+		panelRemoveFeed.setBounds(288, 13, 60, 25);
+		add(panelRemoveFeed);
+		panelRemoveFeed.setLayout(null);
 
 		JButton btnRemoveFeed = new JButton("삭제");
+		btnRemoveFeed.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
+		btnRemoveFeed.setBounds(0, 0, 60, 25);
+		btnRemoveFeed.setForeground(Color.WHITE);
+
+		btnRemoveFeed.setContentAreaFilled(false);
+		btnRemoveFeed.setBorderPainted(false);
+
+		panelRemoveFeed.add(btnRemoveFeed);
+		CrewImagePanel crewImagePanelRemoveFeed = new CrewImagePanel("./images/crew_feed_button2.png",
+				btnRemoveFeed.getSize());
+		panelRemoveFeed.add(crewImagePanelRemoveFeed);
 		btnRemoveFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("피드 삭제");
@@ -129,82 +174,163 @@ public class CrewFeedSelectPanel extends JPanel {
 				crewManager.convertPanel("crew_feed");
 			}
 		});
-		btnRemoveFeed.setBounds(288, 10, 60, 23);
-		add(btnRemoveFeed);
+
+		JPanel panelSelectFeedWrap = new JPanel();
+		panelSelectFeedWrap.setBackground(CrewViewManager.COLOR_GREEN);
+		panelSelectFeedWrap.setBounds(12, 55, 336, 175);
+		add(panelSelectFeedWrap);
+		panelSelectFeedWrap.setLayout(null);
 
 		JPanel panelSelectFeed = new JPanel();
-		panelSelectFeed.setBounds(12, 55, 336, 150);
-		add(panelSelectFeed);
+		panelSelectFeed.setBackground(Color.WHITE);
+		panelSelectFeed.setBounds(10, 10, 316, 155);
+		panelSelectFeedWrap.add(panelSelectFeed);
 		panelSelectFeed.setLayout(null);
 
 		lblUserId = new JLabel("유저 아이디");
-		lblUserId.setBounds(12, 10, 72, 15);
+		lblUserId.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
+		lblUserId.setBounds(90, 10, 80, 15);
 		panelSelectFeed.add(lblUserId);
 
 		lblDate = new JLabel("2021.06.10 오후 17:25");
-		lblDate.setBounds(12, 35, 130, 15);
+		lblDate.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblDate.setBounds(90, 30, 130, 15);
 		panelSelectFeed.add(lblDate);
 
+		JPanel panelContents = new JPanel();
+		panelContents.setBounds(30, 90, 255, 55);
+		panelSelectFeed.add(panelContents);
+		panelContents.setLayout(null);
+
 		textAreaContents = new JTextArea();
-		textAreaContents.setBounds(12, 88, 312, 52);
-		panelSelectFeed.add(textAreaContents);
-		
+		textAreaContents.setBounds(5, 5, 245, 45);
+		panelContents.add(textAreaContents);
+
+		JPanel panelTitle = new JPanel();
+		panelTitle.setBounds(90, 50, 195, 30);
+		panelSelectFeed.add(panelTitle);
+		panelTitle.setLayout(null);
+
 		textFieldTitle = new JTextField();
-		textFieldTitle.setBounds(12, 60, 116, 21);
-		panelSelectFeed.add(textFieldTitle);
+		textFieldTitle.setBounds(10, 0, 175, 20);
+		panelTitle.add(textFieldTitle);
 		textFieldTitle.setColumns(10);
+		CrewImagePanel crewImagePanelTitle = new CrewImagePanel("./images/crew_feed_feedname_edit.png",
+				panelTitle.getSize());
+		panelTitle.add(crewImagePanelTitle);
+
+		JPanel panelUserIcon = new JPanel();
+		panelUserIcon.setBounds(12, 10, 65, 65);
+		panelSelectFeed.add(panelUserIcon);
+		panelUserIcon.setLayout(null);
+		CrewImagePanel crewImagePanel = new CrewImagePanel("./images/crew_feed_userIcon.png", panelUserIcon.getSize());
+		panelUserIcon.add(crewImagePanel);
+		
+		JPanel panelLikeWrap = new JPanel();
+		panelLikeWrap.setBounds(12, 245, 336, 50);
+		add(panelLikeWrap);
+		panelLikeWrap.setLayout(null);
 
 		JPanel panelLike = new JPanel();
-		panelLike.setBounds(12, 215, 336, 50);
-		add(panelLike);
+		panelLike.setBounds(10, 10, 316, 30);
+		panelLikeWrap.add(panelLike);
+		panelLike.setBackground(Color.WHITE);
 		panelLike.setLayout(null);
 
 		lblLike = new JLabel("파도아가라님 외 6명이 좋아합니다.");
-		lblLike.setBounds(87, 18, 237, 15);
+		lblLike.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblLike.setBounds(55, 8, 237, 15);
 		panelLike.add(lblLike);
 
-		JToggleButton tglbtnLike = new JToggleButton("좋아요");
+		JPanel paneltoggleLike = new JPanel();
+		paneltoggleLike.setBounds(10, 5, 30, 20);
+		panelLike.add(paneltoggleLike);
+		paneltoggleLike.setLayout(null);
+		
+		CrewImagePanel crewImagePanelToggleLike = new CrewImagePanel("./images/crew_feed_like.png", paneltoggleLike.getSize());
+		paneltoggleLike.add(crewImagePanelToggleLike);
+		
+		CrewImagePanel crewImagePanelToggleLikeClicked = new CrewImagePanel("./images/crew_feed_like_clicked.png", paneltoggleLike.getSize());
+		paneltoggleLike.add(crewImagePanelToggleLikeClicked);
+		crewImagePanelToggleLikeClicked.setVisible(false);
+
+		JToggleButton tglbtnLike = new JToggleButton("");
+		tglbtnLike.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
+		tglbtnLike.setBounds(0, 0, 30, 20);
+		tglbtnLike.setContentAreaFilled(false);
+		tglbtnLike.setBorderPainted(false);
+		paneltoggleLike.add(tglbtnLike);
 		tglbtnLike.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (((JToggleButton) e.getSource()).isSelected() == true) {
 					feedSelectController.addLike(curFeed, crewManager.getUser());
+					crewImagePanelToggleLike.setVisible(false);
+					crewImagePanelToggleLikeClicked.setVisible(true);
 				} else {
 					feedSelectController.removeLike(curFeed, crewManager.getUser());
+					crewImagePanelToggleLike.setVisible(true);
+					crewImagePanelToggleLikeClicked.setVisible(false);
 				}
 				updateLike();
 			}
 		});
-		tglbtnLike.setBounds(0, 14, 75, 23);
-		panelLike.add(tglbtnLike);
+
+		JPanel panelList = new JPanel();
+		panelList.setBackground(CrewViewManager.COLOR_GREEN);
+		panelList.setBounds(12, 305, 336, 235);
+		add(panelList);
+		panelList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 316, 215);
+		panelList.add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(12, 275, 336, 265);
-		add(scrollPane);
+
+		JList listComment = new JList();
 
 		commentModel = new DefaultListModel<Comment>();
 		commentRenderer = new CommentRenderer();
-		
-		JList listComment = new JList();
-		
+
 		listComment.setModel(commentModel);
 		listComment.setCellRenderer(commentRenderer);
-		
+
 		scrollPane.setViewportView(listComment);
 
 		JPanel panelComment = new JPanel();
+		panelComment.setBackground(Color.LIGHT_GRAY);
 		panelComment.setBounds(12, 550, 336, 40);
+
 		add(panelComment);
 		panelComment.setLayout(null);
 
 		textFieldComment = new JTextField();
+		textFieldComment.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
 		textFieldComment.setText("댓글을 남겨주세요");
-		textFieldComment.setBounds(12, 0, 250, 40);
+		textFieldComment.setBounds(50, 0, 212, 30);
 		panelComment.add(textFieldComment);
 		textFieldComment.setColumns(10);
 
+		JPanel panelCreateComment = new JPanel();
+		panelCreateComment.setBounds(261, 0, 75, 40);
+		panelComment.add(panelCreateComment);
+		panelCreateComment.setLayout(null);
+
 		JButton btnCreateComment = new JButton("보내기");
+		btnCreateComment.setBounds(0, 0, 75, 40);
+		panelCreateComment.add(btnCreateComment);
+		btnCreateComment.setForeground(Color.WHITE);
+		btnCreateComment.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		btnCreateComment.setContentAreaFilled(false);
+		btnCreateComment.setBorderPainted(false);
+		CrewImagePanel crewImagePanelCreateComment = new CrewImagePanel("./images/crew_feed_button.png",
+				panelCreateComment.getSize());
+		panelCreateComment.add(crewImagePanelCreateComment);
+
+		CrewImagePanel crewImagePanelComment = new CrewImagePanel("./images/crew_create_crewname_edit.png",
+				panelComment.getSize());
+		panelComment.add(crewImagePanelComment);
+
 		btnCreateComment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("댓글 작성");
@@ -212,8 +338,6 @@ public class CrewFeedSelectPanel extends JPanel {
 				updateComment();
 			}
 		});
-		btnCreateComment.setBounds(261, 0, 75, 40);
-		panelComment.add(btnCreateComment);
 
 	}
 

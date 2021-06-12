@@ -30,7 +30,7 @@ public class CrewFeedListPanel extends JPanel {
 		
 		panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 312, 240);
-		panel_1.setBackground(CrewViewManager.COLOR_MINT);
+		panel_1.setBackground(CrewViewManager.COLOR_GREEN);
 		add(panel_1);
 		panel_1.setLayout(null);
 		
