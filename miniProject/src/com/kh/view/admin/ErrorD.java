@@ -10,12 +10,16 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.kh.controller.admin.AdminEventController;
+
 import javax.swing.JLabel;
 
 public class ErrorD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private EventSettingP eventSetting;
+	private AdminEventController aec;
 	/**
 	 * Launch the application.
 	 */
@@ -38,8 +42,9 @@ public class ErrorD extends JDialog {
 	}
 
 
-	public ErrorD(EventSettingP eventSetting) {
+	public ErrorD(EventSettingP eventSetting, AdminEventController aec) {
 		this.eventSetting = eventSetting;
+		this.aec = aec;
 		
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,7 +63,7 @@ public class ErrorD extends JDialog {
 		lblNewLabel.setBounds(32, 79, 367, 55);
 		contentPanel.add(lblNewLabel);
 		{
-			JLabel lblNewLabel_1 = new JLabel("설정 날짜 : " +Long.toString(eventSetting.getsTimeI()));
+			JLabel lblNewLabel_1 = new JLabel("설정 날짜 : " +Long.toString(aec.getEventDao().getEvent().getEventDate()));
 
 			lblNewLabel_1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 			lblNewLabel_1.setBounds(32, 127, 367, 55);
@@ -70,26 +75,27 @@ public class ErrorD extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = new JButton("초기화");
 				okButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						aec.getEventDao().EventEnd();
 						dispose();
 					}
 				});
-				okButton.setActionCommand("OK");
+				okButton.setActionCommand("초기화");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("취소");
 				cancelButton.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						dispose();
 					}
 				});
-				cancelButton.setActionCommand("Cancel");
+				cancelButton.setActionCommand("취소");
 				buttonPane.add(cancelButton);
 			}
 		}

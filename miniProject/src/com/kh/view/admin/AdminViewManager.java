@@ -212,8 +212,6 @@ package com.kh.view.admin;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -230,11 +228,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Crew;
-import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 
 public class AdminViewManager {
@@ -339,19 +335,19 @@ public class AdminViewManager {
 				long dTime3 = dTime1 - (dTime1 / 1000000) * 1000000;
 				System.out.println(sTime2);
 				System.out.println(dTime2);
-				if (sTime2 != 0 && sTime2 >= dTime2) {
+				if (sTime2 != 0 && sTime2 <= dTime2) {
 					if (sTime3 <= dTime3) {
 						EventEndAlertD dialog = new EventEndAlertD(eventSetting,aec);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 					}else {
-						ErrorD dialog1 = new ErrorD(eventSetting);
+						ErrorD dialog1 = new ErrorD(eventSetting, aec);
 						dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog1.setVisible(true);
 					}
 
 				} else {
-					ErrorD dialog1 = new ErrorD(eventSetting);
+					ErrorD dialog1 = new ErrorD(eventSetting ,aec);
 					dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog1.setVisible(true);
 				}

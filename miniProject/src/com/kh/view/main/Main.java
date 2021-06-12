@@ -72,7 +72,7 @@ public class Main {
 	// 각 파트별 Panel 객체 생성 후 panelMap의 추가
 	public void initPanel() {
 		aec = new AdminEventController();
-		loginView = new LoginMainView(this);
+		loginView = new LoginMainView(this,aec);
 		adminManager = new AdminViewManager(this,aec); // loginView에서
 		mainPanel = new MainPanel(this,aec);
 

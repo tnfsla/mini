@@ -13,16 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.kh.controller.admin.AdminEventController;
-import com.kh.model.dao.UserDao;
-import com.kh.model.vo.User;
+import com.kh.controller.login.JoinController;
 
 public class EventEndAlertD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private EventSettingP eventSetting;
 	private AdminEventController aec;
-//	private UserDao userDao;
-	// userdao가 아니라 userdao를 담을 수 있는 arraylist를 갖고 와야함.
 	/**
 	 * Launch the application.
 	 */
@@ -46,6 +43,16 @@ public class EventEndAlertD extends JDialog {
 	public EventEndAlertD(EventSettingP eventSetting, AdminEventController aec) {
 		this.eventSetting = eventSetting;
 		this.aec = aec;
+		
+		int sum = aec.getUserDao().userCount();
+		int cnt = 0;
+		for(int i = 0 ; i<sum; i++) {
+			if(aec.getUserDao().getUserList().get(i).isHasBedge())
+				cnt++;
+		}
+//		
+//		System.out.println(aec.getUserDao().getUserList().get(0));
+		
 		setBounds(100, 100, 452, 188);
 		contentPanel.setLayout(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -59,7 +66,7 @@ public class EventEndAlertD extends JDialog {
 			contentPanel.add(lblNewLabel);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("총 "/*++*/+"x명중 "/*++*/+"y명이 목표를 달성하였습니다."); //총인원과 목표달성 인원 구현되면 받아오기
+			JLabel lblNewLabel_1 = new JLabel("총 "+sum+"명 중 "+cnt+"명이 목표를 달성하였습니다."); //총인원과 목표달성 인원 구현되면 받아오기
 			lblNewLabel_1.setBounds(26, 65, 236, 23);
 			contentPanel.add(lblNewLabel_1);
 		}

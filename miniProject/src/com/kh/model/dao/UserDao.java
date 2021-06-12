@@ -88,6 +88,11 @@ public class UserDao {
 	public ArrayList<User> getUserList() {
 		return userList;
 	}
+	
+	public int userCount() { //총 유저수 카운트
+		return userList.size();
+	}
+	
 
 	public static void main(String[] args) {
 		// UserDao 만들어 저장
