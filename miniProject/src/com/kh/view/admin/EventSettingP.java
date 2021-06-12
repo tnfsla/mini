@@ -29,6 +29,7 @@ public class EventSettingP extends JPanel {
 	private long sTimeI = 0;
 	private long dTimeI = 0;
 	private AdminEventController aec;
+
 	/**
 	 * Create the panel.
 	 */
@@ -36,7 +37,7 @@ public class EventSettingP extends JPanel {
 		initailize();
 
 	}
-	
+
 	public EventSettingP(AdminViewManager avm, AdminEventController aec) {
 		this();
 		this.avm = avm;
@@ -104,12 +105,12 @@ public class EventSettingP extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (rdbtnNewRadioButton.isSelected()) {
 					eventFlag = "KM";
-					
+
 				} else {
 					eventFlag = "H";
 				}
 				eventDate = date.getText();
-				sTimeI=Long.parseLong(eventDate);
+				sTimeI = Long.parseLong(eventDate);
 
 //				long systemTime = System.currentTimeMillis();
 //				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
@@ -121,19 +122,22 @@ public class EventSettingP extends JPanel {
 				dTimeI = Long.parseLong(dTime);
 //				sTimeI = cal.get(Calendar.YEAR) * 100000000 + (cal.get(Calendar.MONTH) + 1) * 10000
 //						+ cal.get(Calendar.DATE)*100;
-				
+
 				if (dTimeI < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());
 					System.out.println(eventGoal + eventFlag + "로 설정되었다.");
+					
+					for (int i = 0; i < aec.getUserDao().getUserList().size(); i++) {
+						aec.getUserDao().getUserList().get(i).setHasBedge(false);
+					} // 설정을 누르면 모든 user들 새로운 이벤트를 시작하므로 모든 bedge false
+					
+					aec.getEventDao().setEvent(new Event(eventFlag, sTimeI, eventGoal));
+					aec.getEventDao().saveEvent();
+					aec.getUserDao().saveUserList();
 
 				} else {
-					System.out.println("오늘 날짜인 이후만 입력하시오(" +dTimeI + " 보다 큰 값)");
+					System.out.println("오늘 날짜인 이후만 입력하시오(" + dTimeI + " 보다 큰 값)");
 				}
-				
-				aec.getEventDao().setEvent(new Event(eventFlag, sTimeI, eventGoal));
-				aec.getEventDao().saveEvent();
-				
-
 				// eventGoal은 if문으로 넣어서, cal의 데이터와 현재시각을 비교해서 넘어가면 eventstart하고
 				// 메인화면에 출력하는거 보여주고 goal값이 0이면 이벤트 종료상태로 보면 될듯
 
@@ -141,7 +145,7 @@ public class EventSettingP extends JPanel {
 		});
 		btnNewButton_1.setBounds(196, 478, 113, 39);
 		add(btnNewButton_1);
-		
+
 	}
 
 	public int getEventGoal() {
@@ -160,8 +164,6 @@ public class EventSettingP extends JPanel {
 		this.eventFlag = eventFlag;
 	}
 
-
-
 	public long getsTimeI() {
 		return sTimeI;
 	}
@@ -177,7 +179,5 @@ public class EventSettingP extends JPanel {
 	public void setdTimeI(long dTimeI) {
 		this.dTimeI = dTimeI;
 	}
-	
-	
 
 }
