@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.kh.controller.admin.AdminEventController;
+import com.kh.model.vo.Event;
 import com.kh.model.vo.User;
 
 public class MainPanel extends JPanel {
@@ -28,12 +30,14 @@ public class MainPanel extends JPanel {
 	private int eventGoal;
 	private String eventFlag;
 	private User user;
+	private AdminEventController aec;
 
 	public void ThreadTime() {
 		t1 = new Thread() {
 			public void run() {
 				try {
 					while (true) {
+						
 						long systemTime = System.currentTimeMillis();
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 						String dTime = formatter.format(systemTime);
@@ -41,9 +45,9 @@ public class MainPanel extends JPanel {
 								Locale.KOREA);
 						String dTime1 = formatter1.format(systemTime);
 						dTimeI = Long.parseLong(dTime);
-						sTime = main.getsTimeI();
-						eventGoal = main.getEventGoal();
-						eventFlag = main.getEventFlag();
+						sTime = aec.getEventDao().getEvent().getEventDate();
+						eventGoal = aec.getEventDao().getEvent().getEventGoal();
+						eventFlag = aec.getEventDao().getEvent().getEventFlag();
 
 						lblTime.setText(dTime1);
 						lblTime.setBounds(42, 500, 280, 20);
@@ -78,8 +82,9 @@ public class MainPanel extends JPanel {
 		initPanel();
 	}
 
-	public MainPanel(Main main) {
+	public MainPanel(Main main, AdminEventController aec) {
 		this.main = main;
+		this.aec = aec;
 		initPanel();
 	}
 

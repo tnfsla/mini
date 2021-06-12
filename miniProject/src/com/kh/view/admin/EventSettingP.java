@@ -16,6 +16,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Event;
 
 public class EventSettingP extends JPanel {
@@ -27,12 +28,19 @@ public class EventSettingP extends JPanel {
 	private String eventFlag;
 	private long sTimeI = 0;
 	private long dTimeI = 0;
-	private Event event;
+	private AdminEventController aec;
 	/**
 	 * Create the panel.
 	 */
 	public EventSettingP() {
 		initailize();
+
+	}
+	
+	public EventSettingP(AdminViewManager avm, AdminEventController aec) {
+		this();
+		this.avm = avm;
+		this.aec = aec;
 
 	}
 
@@ -96,6 +104,7 @@ public class EventSettingP extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				if (rdbtnNewRadioButton.isSelected()) {
 					eventFlag = "KM";
+					
 				} else {
 					eventFlag = "H";
 				}
@@ -121,6 +130,8 @@ public class EventSettingP extends JPanel {
 					System.out.println("오늘 날짜인 이후만 입력하시오(" +dTimeI + " 보다 큰 값)");
 				}
 				
+				aec.getEventDao().setEvent(new Event(eventFlag, sTimeI, eventGoal));
+				aec.getEventDao().saveEvent();
 				
 
 				// eventGoal은 if문으로 넣어서, cal의 데이터와 현재시각을 비교해서 넘어가면 eventstart하고
@@ -149,11 +160,7 @@ public class EventSettingP extends JPanel {
 		this.eventFlag = eventFlag;
 	}
 
-	public EventSettingP(AdminViewManager avm) {
-		this();
-		this.avm = avm;
 
-	}
 
 	public long getsTimeI() {
 		return sTimeI;

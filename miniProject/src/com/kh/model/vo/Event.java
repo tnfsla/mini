@@ -9,14 +9,14 @@ public class Event implements Serializable{
 	 */
 	private static final long serialVersionUID = 7854138967310674038L;
 	private String eventFlag;
-	private String eventDate;
+	private long eventDate;
 	private int eventGoal;
 	
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(String eventFlag, String eventDate, int eventGoal) {
+	public Event(String eventFlag, long eventDate, int eventGoal) {
 		super();
 		this.eventFlag = eventFlag;
 		this.eventDate = eventDate;
@@ -31,11 +31,11 @@ public class Event implements Serializable{
 		this.eventFlag = eventFlag;
 	}
 
-	public String getEventDate() {
+	public long getEventDate() {
 		return eventDate;
 	}
 
-	public void setEventDate(String eventDate) {
+	public void setEventDate(long eventDate) {
 		this.eventDate = eventDate;
 	}
 

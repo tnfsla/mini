@@ -7,13 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
 
 import com.kh.model.vo.Event;
-import com.kh.model.vo.Exercise;
-import com.kh.model.vo.User;
 
 public class EventDao {
 	
@@ -28,9 +23,6 @@ public class EventDao {
 
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/event.dat"))) {
 
-//			for (int i = 0; i < eventList.size(); i++) {
-//				oos.writeObject(eventList.get(i));
-//			}
 			oos.writeObject(event);
 
 		} catch (FileNotFoundException e) {
@@ -49,9 +41,9 @@ public class EventDao {
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("./resources/event.dat"))) {
 
 			event = (Event)ois.readObject();
-
-		} catch (EOFException e) {
 			System.out.println("이벤트 리스트 읽기 완료");
+		} catch (EOFException e) {
+			
 			return;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -66,18 +58,12 @@ public class EventDao {
 	}
 	
 	public void EventEnd() {
-		event.setEventDate(null);
+		event.setEventDate(0);
 		event.setEventFlag(null);
-		event.setEventGoal(5);
+		event.setEventGoal(0);
 		saveEvent();
 	}
 	
-	public void EventSet(Event e) {
-		event.setEventDate(e.getEventDate());
-		event.setEventFlag(e.getEventFlag());
-		event.setEventGoal(e.getEventGoal());
-		saveEvent();
-	}
 
 	public Event getEvent() {
 		return event;
@@ -91,7 +77,7 @@ public class EventDao {
 		// event파일 초기화
 
 		EventDao eventDao = new EventDao();
-		eventDao.getEvent().setEventDate(null);
+		eventDao.getEvent().setEventDate(0);
 		eventDao.getEvent().setEventFlag("KM");
 		eventDao.getEvent().setEventGoal(5);
 	

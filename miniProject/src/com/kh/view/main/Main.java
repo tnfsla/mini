@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
 import com.kh.view.admin.AdminViewManager;
@@ -32,6 +33,7 @@ public class Main {
 	private ResultMainView resultView; // Result Part 시작 Panel
 	private CrewViewManager crewManager; // Crew Part 시작 Panel
 	private EditViewManager editView; // Update Part 시작 Panel
+	private AdminEventController aec;
 	private long sTimeI;
 	private int eventGoal;
 	private String eventFlag;
@@ -69,10 +71,10 @@ public class Main {
 
 	// 각 파트별 Panel 객체 생성 후 panelMap의 추가
 	public void initPanel() {
-
+		aec = new AdminEventController();
 		loginView = new LoginMainView(this);
-		adminManager = new AdminViewManager(this); // loginView에서
-		mainPanel = new MainPanel(this);
+		adminManager = new AdminViewManager(this,aec); // loginView에서
+		mainPanel = new MainPanel(this,aec);
 
 		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this);

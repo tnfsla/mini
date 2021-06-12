@@ -232,6 +232,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
@@ -246,16 +247,19 @@ public class AdminViewManager {
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 	private long sTime1 =0;
+	private AdminEventController aec;
 
-	public AdminViewManager(Main main) {
+	public AdminViewManager(Main main, AdminEventController aec) {
 		this.main = main;
+		this.aec = aec;
+		aec.getEventDao().loadEvent();
 		run();
 	}
 
 	// 패널 객체 생성 및 컨트롤러 이어주기
 	private void initPanel() {
 		crewList = new CrewListP(this, crew);
-		eventSetting = new EventSettingP(this);
+		eventSetting = new EventSettingP(this, aec);
 		pendingApproval = new PendingApprovalP(this, crew, crewList);
 
 		if (main != null)
@@ -316,9 +320,16 @@ public class AdminViewManager {
 
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setsTime1(getEventSetting().getsTimeI()); 
-				long sTime2 = getEventSetting().getsTimeI() / 1000000;
-				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
+//				setsTime1(getEventSetting().getsTimeI()); 
+//				long sTime2 = getEventSetting().getsTimeI() / 1000000;
+//				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
+				
+				sTime1 = aec.getEventDao().getEvent().getEventDate();
+				long sTime2 = sTime1 / 1000000;
+				long sTime3 = sTime1 - (sTime2)* 1000000;
+				System.out.println(sTime1);
+				System.out.println(sTime2);
+				System.out.println(sTime3);
 				
 				long dTimeI = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
@@ -330,7 +341,7 @@ public class AdminViewManager {
 				System.out.println(dTime2);
 				if (sTime2 != 0 && sTime2 >= dTime2) {
 					if (sTime3 <= dTime3) {
-						EventEndAlertD dialog = new EventEndAlertD(eventSetting);
+						EventEndAlertD dialog = new EventEndAlertD(eventSetting,aec);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 					}else {
