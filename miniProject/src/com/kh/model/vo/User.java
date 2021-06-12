@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.kh.view.main.Main;
+
 public class User extends SystemUser implements Serializable {
 
 	private static final long serialVersionUID = -4624560970749904817L;
@@ -20,6 +22,7 @@ public class User extends SystemUser implements Serializable {
 	private String crewName; // 크루 가입 여부 가입시 가입한 크루이름, 미가입시 null
 	private double prevHeight;
 	private double prevWeight;
+	private Main main;
 
 	private ArrayList<Exercise> exercises = new ArrayList<Exercise>();
 
@@ -107,18 +110,6 @@ public class User extends SystemUser implements Serializable {
 	public void addExercise(Exercise exercise) {
 		exercises.add(exercise);
 		
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("./resources/userList.dat"))) {
-			for(int i = 0; i < exercises.size(); i++) {
-				oos.writeObject(exercises);
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("운동기록 저장 완료");
 	}
 
 	@Override

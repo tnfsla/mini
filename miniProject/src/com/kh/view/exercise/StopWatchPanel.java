@@ -310,6 +310,7 @@ public class StopWatchPanel extends JPanel implements ActionListener, Runnable {
 
 				user.addExercise(new Exercise(dates, runHour, runMin, runSec, runTime, distance, calorie, pace, star));
 
+				main.getLoginView().getLoginController().getUserDao().saveUserList();
 				System.out.println("운동기록이 저장되었습니다.");
 				System.out.println(user.getExercises());
 
