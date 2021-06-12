@@ -31,6 +31,7 @@ import javax.swing.event.ListSelectionListener;
 
 import com.kh.controller.result.ResultController;
 import com.kh.model.vo.Exercise;
+import com.kh.model.vo.Feed;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 
@@ -276,11 +277,25 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 		JList listExercise = new JList();
 
+		// 같은 위치에서 클릭시 해당 Exercise 선택이 안되서 더블 클릭 구현
+		listExercise.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				JList list = (JList) e.getSource();
+				if (e.getClickCount() == 2) {
+					int index = list.locationToIndex(e.getPoint());
+					
+					Exercise ex = rc.getExercises().get(index);
+
+					updateSelectDate(ex);
+				}
+			}
+		});
+		
 		listExercise.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if (listExercise.getSelectedIndex() != -1) {
+				if (!e.getValueIsAdjusting()) {
 
 					Exercise ex = rc.getExercises().get(listExercise.getSelectedIndex());
 
