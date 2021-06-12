@@ -10,7 +10,7 @@ import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 
 public class EditViewManager {
-	private Main main;
+	
 	EditUserPanel editMain;
 	UserChange userChange;
 	UserMain userMain;
@@ -20,6 +20,7 @@ public class EditViewManager {
 	private Map<String, JPanel> panelMap;
 
 	private User user;
+	private Main main;
 
 	public EditViewManager() {
 		// TODO Auto-generated constructor stub
@@ -95,7 +96,7 @@ public class EditViewManager {
 	}
 
 	// user 정보가 들어오고 난 다음에 setting
-	private void updateUser() {
+	public void updateUser() {
 		editMain.updateUser();
 		userChange.updateUser();
 		userMain.updateUser();

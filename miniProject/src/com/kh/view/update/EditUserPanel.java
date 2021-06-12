@@ -64,6 +64,7 @@ public class EditUserPanel extends JPanel {
 		lblNewLabel.setBounds(52, 211, 80, 30);
 		add(lblNewLabel);
 
+		
 	}
 
 	public static void main(String[] args) {
