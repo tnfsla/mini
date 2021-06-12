@@ -9,7 +9,9 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -20,8 +22,8 @@ import com.kh.view.main.Main;
 public class PasswordChangeView extends JPanel {
 	private Main main;
 
-	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField textField;//비밀번호 입력내용 가림
+	private JPasswordField textField_1;
 	private User user;
 	private PasswordChangeController passwordchangeController;
 	private EditViewManager viewManager;
@@ -46,7 +48,9 @@ public class PasswordChangeView extends JPanel {
 		lblNewLabel.setBounds(53, 155, 115, 39);
 		add(lblNewLabel);
 
-		textField = new JTextField();
+		
+		textField = new JPasswordField();
+		textField.setEchoChar('*');// 비밀번호 '*'로 출력
 		textField.setBounds(52, 191, 219, 24);
 		add(textField);
 		textField.setColumns(10);
@@ -57,7 +61,8 @@ public class PasswordChangeView extends JPanel {
 		lblNewLabel_1.setBounds(53, 268, 196, 18);
 		add(lblNewLabel_1);
 
-		textField_1 = new JTextField();
+		textField_1 = new JPasswordField();
+		textField_1.setEchoChar('*');
 		textField_1.setBounds(52, 298, 219, 24);
 		add(textField_1);
 		textField_1.setColumns(10);
@@ -74,12 +79,12 @@ public class PasswordChangeView extends JPanel {
 		JButton btnNewButton_1 = new JButton("확인");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				passwordchangeController.newPassword(user, textField.getText());
-				System.out.println(viewManager.getUser().getPw());
+				//비밀번호 변경
 				if(textField.getText().equals(viewManager.getUser().getPw())){
 					viewManager.getUser().setPw(textField_1.getText());
+					JOptionPane.showMessageDialog(null, "비밀번호 변경이 완료되었습니다.");
 				}else {
-					//틀리면 어떻게 할건지, 다이얼로그를 써서 알림을 뜨게하던지 해야함
+					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
 				}
 			}
 		});
@@ -118,7 +123,7 @@ public class PasswordChangeView extends JPanel {
 	}
 
 	public void updateUser() {
-		
+		//textField.setText(user.getPw());
 	}
 
 }

@@ -2,14 +2,21 @@ package com.kh.view.update;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.kh.view.main.Main;
 
 public class UserMain extends JPanel {
+	private Main main;
+	
 	private JTextField textField;
 	private JTextField textField_1;
 	private EditViewManager viewManager;
@@ -24,6 +31,9 @@ public class UserMain extends JPanel {
 		add(textField);
 		textField.setColumns(10);
 
+		if (viewManager != null)
+			this.main = viewManager.getMain();
+		
 		if (viewManager.getUser() != null) {
 			String userName = this.viewManager.getUser().getName();
 			textField.setText(userName);
@@ -56,7 +66,19 @@ public class UserMain extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("name");
 		lblNewLabel_1.setBounds(67, 222, 62, 18);
 		add(lblNewLabel_1);
-
+		
+		
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		add(lblHome);
 	}
 
 	public void updateUser() {
