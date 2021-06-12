@@ -31,8 +31,8 @@ public class InputRecordPanel extends JPanel {
 	public InputRecordPanel() {
 
 		setBackground(Color.WHITE);
-		ImageIcon ss1 = new ImageIcon("./image/star1.png");
-		ImageIcon ss2 = new ImageIcon("./image/star2.png");
+		ImageIcon ss1 = new ImageIcon("./images/star1.png");
+		ImageIcon ss2 = new ImageIcon("./images/star2.png");
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
