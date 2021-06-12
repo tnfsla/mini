@@ -1,9 +1,12 @@
 package com.kh.view.crew;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -20,7 +23,6 @@ import javax.swing.event.ListSelectionListener;
 import com.kh.controller.crew.CrewFeedController;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.Feed;
-import java.awt.Color;
 
 public class CrewFeedPanel extends JPanel {
 
@@ -102,7 +104,7 @@ public class CrewFeedPanel extends JPanel {
 		});
 
 		JPanel panel = new JPanel();
-		panel.setBackground(CrewViewManager.COLOR_MINT);
+		panel.setBackground(CrewViewManager.COLOR_GREEN);
 		panel.setBounds(12, 54, 336, 541);
 		add(panel);
 		panel.setLayout(null);
@@ -115,10 +117,27 @@ public class CrewFeedPanel extends JPanel {
 
 		listFeed = new JList();
 		listFeed.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		listFeed.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				JList list = (JList) e.getSource();
+				if (e.getClickCount() == 2) {
+					int index = list.locationToIndex(e.getPoint());
+					
+					Feed feed = curCrew.getFeedList().get(index);
+					crewManager.getFeedSelectPanel().setFeed(feed);
+
+					System.out.println("특정 피드 같은 위치에서 선택 (더블 클릭)");
+					crewManager.convertPanel("crew_feed_select");
+				}
+			}
+		});
+		
 		listFeed.addListSelectionListener(new ListSelectionListener() {
+			
 			public void valueChanged(ListSelectionEvent e) {
 
-				if (listFeed.getSelectedIndex() != -1) {
+				if (!e.getValueIsAdjusting()) {
 
 					Feed feed = curCrew.getFeedList().get(listFeed.getSelectedIndex());
 					crewManager.getFeedSelectPanel().setFeed(feed);
