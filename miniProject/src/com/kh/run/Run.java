@@ -1,14 +1,6 @@
 package com.kh.run;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
-
-import com.kh.model.dao.CrewDao;
-import com.kh.model.vo.Exercise;
-import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import com.kh.view.result.ResultMainView;
 
 public class Run {
 
