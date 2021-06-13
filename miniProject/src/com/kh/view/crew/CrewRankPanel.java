@@ -118,6 +118,7 @@ public class CrewRankPanel extends JPanel {
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		tableTotalCrewUser = new JTable();
+		tableTotalCrewUser.setEnabled(false);
 		tableTotalCrewUser.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		tableTotalCrewUser.setShowVerticalLines(false);
 		tableTotalCrewUser
@@ -157,6 +158,7 @@ public class CrewRankPanel extends JPanel {
 		panelScrollPane.add(scrollPaneTopCrewUser);
 
 		tableTopCrewUser = new JTable();
+		tableTopCrewUser.setEnabled(false);
 		tableTopCrewUser.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 14));
 		tableTopCrewUser.setShowVerticalLines(false);
 		tableTopCrewUser.setModel(new DefaultTableModel(
@@ -180,6 +182,7 @@ public class CrewRankPanel extends JPanel {
 		panelScrollPane.add(scrollPaneCurCrewUser);
 
 		tableCurCrewUser = new JTable();
+		tableCurCrewUser.setEnabled(false);
 		tableCurCrewUser.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 14));
 		tableCurCrewUser.setShowVerticalLines(false);
 		tableCurCrewUser
@@ -196,30 +199,6 @@ public class CrewRankPanel extends JPanel {
 		tableCurCrewUser.setRowHeight(32);
 
 		scrollPaneCurCrewUser.setViewportView(tableCurCrewUser);
-
-		JPanel footerPanel = new JPanel();
-		footerPanel.setBackground(Color.WHITE);
-		footerPanel.setBounds(0, 560, 360, 20);
-
-		JButton btnHome = new JButton("");
-		btnHome.setBounds(170, 0, 20, 20);
-		btnHome.setContentAreaFilled(false); // 내용영역 채우기 안함
-		btnHome.setBorderPainted(false); // 외곽선 제거
-		btnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("메인 페이지로 이동");
-				if (crewManager.getMain() != null)
-					crewManager.getMain().convertPanel("main");
-				else
-					crewManager.convertPanel("crew_main");
-				crewManager.updateCrewJoinState(true);
-			}
-		});
-		btnHome.setPreferredSize(new Dimension(40, 30));
-		footerPanel.add(btnHome);
-		footerPanel.add(new CrewImagePanel("./images/home2.png", footerPanel.getSize())); // 이미지 추가
-		add(footerPanel);
-		footerPanel.setLayout(null);
 	}
 	
 	// table column 가운데 정렬 시켜주는 메소드
