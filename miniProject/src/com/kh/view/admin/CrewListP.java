@@ -1,5 +1,6 @@
 package com.kh.view.admin;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -17,11 +19,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
 import com.kh.controller.crew.CrewController;
 import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
-import java.awt.Color;
 
 public class CrewListP extends JPanel {
 	private AdminViewManager avm;
@@ -44,6 +46,8 @@ public class CrewListP extends JPanel {
 	}
 
 	public void initialize() {
+		setForeground(Color.WHITE);
+		setBackground(Color.WHITE);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 		JButton btnNewButton = new JButton("조회");
@@ -116,7 +120,6 @@ public class CrewListP extends JPanel {
 	}
 
 	public CrewListP() {
-		setBackground(Color.WHITE);
 		initialize();
 	}
 
@@ -125,18 +128,18 @@ public class CrewListP extends JPanel {
 		this.avm = avm;
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CrewListP panel = new CrewListP();
-					panel.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					CrewListP panel = new CrewListP();
+//					panel.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	public CrewDao getCrewDao() {
 		return crewDao;

@@ -303,34 +303,27 @@ public class AdminViewManager {
 		mainPanel.setBounds(0, 0, 360, 600);
 		mainPanel.setLayout(null);
 
-		JButton btnNewButton = new JButton("EVENT 설정");
-		btnNewButton.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		btnNewButton.setBackground(new Color(215,255,241));
-		btnNewButton.setBounds(27, 83, 286, 96);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton eventSettingB = new JButton("EVENT 설정");
+		eventSettingB.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		eventSettingB.setBackground(new Color(215,255,241));
+		eventSettingB.setBounds(27, 83, 286, 96);
+		eventSettingB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				convertPanel("admin_eventSetting");
 			}
 		});
-		mainPanel.add(btnNewButton);
+		mainPanel.add(eventSettingB);
 
-		JButton btnNewButton_1 = new JButton("EVENT 마감");
-		btnNewButton_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		btnNewButton_1.setBackground(new Color(215,255,241));
-		btnNewButton_1.setBounds(27, 189, 286, 96);
+		JButton eventEndB = new JButton("EVENT 마감");
+		eventEndB.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		eventEndB.setBackground(new Color(215,255,241));
+		eventEndB.setBounds(27, 189, 286, 96);
 
-		btnNewButton_1.addActionListener(new ActionListener() {
+		eventEndB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				setsTime1(getEventSetting().getsTimeI()); 
-//				long sTime2 = getEventSetting().getsTimeI() / 1000000;
-//				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
-
 				sTime1 = aec.getEventDao().getEvent().getEventDate();
 				long sTime2 = sTime1 / 1000000;
 				long sTime3 = sTime1 - (sTime2) * 1000000;
-				System.out.println(sTime1);
-				System.out.println(sTime2);
-				System.out.println(sTime3);
 
 				long dTimeI = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
@@ -365,63 +358,57 @@ public class AdminViewManager {
 						ErrorD dialog1 = new ErrorD(eventSetting, aec);
 						dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog1.setVisible(true);
+						// 해당 조건문을 넣은 이유는 프로그램을 종료하였다가 다시 켰을때,
+						// 마감버튼을 누르면 마치 이전 날짜를 입력한것 처럼 표시되어서
+						// eventStart를 flag로서 작동하게 하여, settingDate가 현재 날짜보다 적더라도,
+						// flag가 true면 마감 alert으로 갈 수 있게함
 					}
 				}
 			}
-		}); // 알럿은 알림이기때문에 아직 구현 안됨. 수정요망
+		});
 
-		mainPanel.add(btnNewButton_1);
+		mainPanel.add(eventEndB);
 
-		JButton btnNewButton_1_1 = new JButton("크루 승인 관리");
-		btnNewButton_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		btnNewButton_1_1.setBackground(new Color(215,255,241));
-		btnNewButton_1_1.setBounds(27, 295, 286, 96);
-		btnNewButton_1_1.addActionListener(new ActionListener() {
+		JButton ApprovalB = new JButton("크루 승인 관리");
+		ApprovalB.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		ApprovalB.setBackground(new Color(215,255,241));
+		ApprovalB.setBounds(27, 295, 286, 96);
+		ApprovalB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadCrewList();
-				convertPanel("admin_pendingApproval"); // 크루 만들기 page로
+				convertPanel("admin_pendingApproval"); // 크루 승인 page로
 			}
 		});
-		mainPanel.add(btnNewButton_1_1);//
+		mainPanel.add(ApprovalB);
 
-		JButton btnNewButton_1_1_1 = new JButton("전체 크루 명단");
-		btnNewButton_1_1_1.addActionListener(new ActionListener() {
+		JButton crewListB = new JButton("전체 크루 명단");
+		crewListB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				loadCrewList();
 				convertPanel("admin_list");
 			}
 		});
-		btnNewButton_1_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		btnNewButton_1_1_1.setBackground(new Color(215,255,241));
-		btnNewButton_1_1_1.setBounds(27, 401, 286, 96);
-		mainPanel.add(btnNewButton_1_1_1);
+		crewListB.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		crewListB.setBackground(new Color(215,255,241));
+		crewListB.setBounds(27, 401, 286, 96);
+		mainPanel.add(crewListB);
 
-		JButton btnNewButton_2 = new JButton("종료");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton exitB = new JButton("종료");
+		exitB.setBackground(new Color(215,255,241));
+		exitB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});// 이전 로그인화면 아니면 종료로 구현
-		btnNewButton_2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-		btnNewButton_2.setBounds(216, 512, 97, 23);
-		mainPanel.add(btnNewButton_2);
+		exitB.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		exitB.setBounds(216, 512, 97, 23);
+		mainPanel.add(exitB);
 
-		JLabel lblNewLabel = new JLabel("관리자 메뉴");
-		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		lblNewLabel.setBounds(104, 16, 128, 57);
-		mainPanel.add(lblNewLabel);
+		JLabel adminMenu = new JLabel("관리자 메뉴");
+		adminMenu.setFont(new Font("맑은 고딕", Font.BOLD, 24));
+		adminMenu.setBounds(104, 16, 128, 57);
+		mainPanel.add(adminMenu);
 
-//		JLabel lblHome = new JLabel("Home");
-//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblHome.setBounds(150, 561, 60, 29);
-//		lblHome.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				System.out.println("메인 페이지로 이동");
-//				main.convertPanel("main");
-//			}
-//		});
-//		mainPanel.add(lblHome);
 	}
 
 	public void loadCrewList() {

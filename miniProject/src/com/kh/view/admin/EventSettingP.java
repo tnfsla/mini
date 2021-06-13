@@ -117,16 +117,10 @@ public class EventSettingP extends JPanel {
 				eventDate = date.getText();
 				sTimeI = Long.parseLong(eventDate);
 
-//				long systemTime = System.currentTimeMillis();
-//				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
-//				String dTime = formatter.format(systemTime);
-//				int dTimeI = Integer.parseInt(dTime);
 				long systemTime = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 				String dTime = formatter.format(systemTime);
-				dTimeI = Long.parseLong(dTime);
-//				sTimeI = cal.get(Calendar.YEAR) * 100000000 + (cal.get(Calendar.MONTH) + 1) * 10000
-//						+ cal.get(Calendar.DATE)*100;
+				dTimeI = Long.parseLong(dTime); //현재시각 받아와서 정해진 format의 long형으로 바꿔줌
 
 				if (dTimeI < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());

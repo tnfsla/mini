@@ -34,12 +34,11 @@ public class PendingApprovalP extends JPanel {
 	 * Create the panel.
 	 */
 	public PendingApprovalP() {
-		setBackground(Color.WHITE);
 		initialize();
 	}
 
 	private void initialize() {
-		
+		setBackground(Color.WHITE);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
@@ -77,23 +76,6 @@ public class PendingApprovalP extends JPanel {
 			}
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//		table.setModel(new DefaultTableModel(
-//			new Object[][] {
-//				{"\uD558\uB098", "\uBB38\uB300\uD6C8"},
-//
-//
-//			},
-//			new String[] {
-//				"크루 명", "신청자"
-//			}
-//		) {
-//			Class[] columnTypes = new Class[] {
-//				String.class, Object.class
-//			};
-//			public Class getColumnClass(int columnIndex) {
-//				return columnTypes[columnIndex];
-//			}
-//		});
 		scrollPane.setViewportView(table);
 
 		JLabel lblEvent = new JLabel("크루 승인 관리");
@@ -149,7 +131,6 @@ public class PendingApprovalP extends JPanel {
 		this.avm = avm;
 		this.crew = crew;
 		this.crewp = crewList;
-		setBackground(Color.WHITE);
 		initialize();
 	}
 	
