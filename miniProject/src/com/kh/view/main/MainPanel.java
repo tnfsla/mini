@@ -95,14 +95,20 @@ public class MainPanel extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 360, 600);
 		setBackground(Color.white);
-		JButton btnNewButton = new JButton("개인정보 변경");
+		ImageIcon menu = new ImageIcon("images/menu.PNG");
+		Image menuImg = menu.getImage();
+		Image menuImg1 = menuImg.getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		ImageIcon menuIcon2 = new ImageIcon(menuImg1);
+		JButton btnNewButton = new JButton(menuIcon2);
+		btnNewButton.setBorderPainted(false);//테두리 제거
+		btnNewButton.setContentAreaFilled(false);//뒷배경제거
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.convertPanel("update");
 				System.out.println("Update Part 이동");
 			}
 		});
-		btnNewButton.setBounds(12, 10, 124, 51);
+		btnNewButton.setBounds(14, 12, 51, 27);
 		add(btnNewButton);
 		ImageIcon Run = new ImageIcon("images/Run.PNG");
 		Image runImg = Run.getImage();

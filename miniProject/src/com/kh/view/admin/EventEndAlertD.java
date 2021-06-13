@@ -18,21 +18,10 @@ import com.kh.controller.login.JoinController;
 public class EventEndAlertD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private EventSettingP eventSetting;
 	private AdminEventController aec;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			EventEndAlertD dialog = new EventEndAlertD();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Create the dialog.
 	 */
@@ -40,18 +29,8 @@ public class EventEndAlertD extends JDialog {
 		
 	}
 
-	public EventEndAlertD(EventSettingP eventSetting, AdminEventController aec) {
-		this.eventSetting = eventSetting;
+	public EventEndAlertD(AdminEventController aec) {
 		this.aec = aec;
-		
-		int sum = aec.getUserDao().userCount();
-		int cnt = 0;
-		for(int i = 0 ; i<sum; i++) {
-			if(aec.getUserDao().getUserList().get(i).isHasBedge())
-				cnt++;
-		}
-//		
-//		System.out.println(aec.getUserDao().getUserList().get(0));
 		
 		setBounds(100, 100, 452, 188);
 		contentPanel.setLayout(null);
@@ -60,15 +39,15 @@ public class EventEndAlertD extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		{
-			JLabel lblNewLabel = new JLabel("진행중인 "+aec.getEventDao().getEvent().getEventGoal()+aec.getEventDao().getEvent().getEventFlag()+" 달리기를 마감 하시겠습니까?");
-			lblNewLabel.setBounds(26, 26, 375, 29);
-			lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-			contentPanel.add(lblNewLabel);
+			JLabel eventAlertL = new JLabel("진행중인 "+aec.getEventDao().getEvent().getEventGoal()+aec.getEventDao().getEvent().getEventFlag()+" 달리기를 마감 하시겠습니까?");
+			eventAlertL.setBounds(26, 26, 375, 29);
+			eventAlertL.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+			contentPanel.add(eventAlertL);
 		}
 		{
-			JLabel lblNewLabel_1 = new JLabel("총 "+sum+"명 중 "+cnt+"명이 목표를 달성하였습니다."); //총인원과 목표달성 인원 구현되면 받아오기
-			lblNewLabel_1.setBounds(26, 65, 236, 23);
-			contentPanel.add(lblNewLabel_1);
+			JLabel eventFinishL = new JLabel("총 "+aec.getUserDao().userCount()+"명 중 "+aec.hasBedgeCount()+"명이 목표를 달성하였습니다."); //총인원과 목표달성 인원 받아오기
+			eventFinishL.setBounds(26, 65, 236, 23);
+			contentPanel.add(eventFinishL);
 		}
 		{
 			JPanel buttonPane = new JPanel();//

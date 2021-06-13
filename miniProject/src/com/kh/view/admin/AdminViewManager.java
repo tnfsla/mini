@@ -209,6 +209,7 @@
 
 package com.kh.view.admin;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -217,14 +218,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -232,7 +230,6 @@ import javax.swing.JPanel;
 import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Crew;
 import com.kh.view.main.Main;
-import java.awt.Color;
 
 public class AdminViewManager {
 
@@ -243,7 +240,6 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-	private long sTime1 = 0;
 	private AdminEventController aec;
 
 	public AdminViewManager(Main main, AdminEventController aec) {
@@ -321,49 +317,8 @@ public class AdminViewManager {
 
 		eventEndB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sTime1 = aec.getEventDao().getEvent().getEventDate();
-				long sTime2 = sTime1 / 1000000;
-				long sTime3 = sTime1 - (sTime2) * 1000000;
-
-				long dTimeI = System.currentTimeMillis();
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
-				String dTime = formatter.format(dTimeI);
-				long dTime1 = Long.parseLong(dTime);
-				long dTime2 = dTime1 / 1000000;
-				long dTime3 = dTime1 - (dTime1 / 1000000) * 1000000;
-				System.out.println(aec.getEventDao().getEvent().isEventStart());
-				if (sTime2 != 0 && sTime2 <= dTime2) {
-					if (sTime3 <= dTime3) {
-						EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} else {
-						if (aec.getEventDao().getEvent().isEventStart()) {
-							EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
-							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							dialog.setVisible(true);
-						} else {
-							ErrorD dialog1 = new ErrorD(eventSetting, aec);
-							dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-							dialog1.setVisible(true);
-						}
-					}
-
-				} else {
-					if (aec.getEventDao().getEvent().isEventStart()) {
-						EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
-						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog.setVisible(true);
-					} else {
-						ErrorD dialog1 = new ErrorD(eventSetting, aec);
-						dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-						dialog1.setVisible(true);
-						// 해당 조건문을 넣은 이유는 프로그램을 종료하였다가 다시 켰을때,
-						// 마감버튼을 누르면 마치 이전 날짜를 입력한것 처럼 표시되어서
-						// eventStart를 flag로서 작동하게 하여, settingDate가 현재 날짜보다 적더라도,
-						// flag가 true면 마감 alert으로 갈 수 있게함
-					}
-				}
+				aec.eventDeadline();
+				
 			}
 		});
 
@@ -451,12 +406,12 @@ public class AdminViewManager {
 		this.eventSetting = eventSetting;
 	}
 
-	public long getsTime1() {
-		return sTime1;
-	}
-
-	public void setsTime1(long sTime1) {
-		this.sTime1 = sTime1;
-	}
+//	public long getsTime1() {
+//		return sTime1;
+//	}
+//
+//	public void setsTime1(long sTime1) {
+//		this.sTime1 = sTime1;
+//	}
 
 }
