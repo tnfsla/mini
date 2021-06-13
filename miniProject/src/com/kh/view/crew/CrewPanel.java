@@ -52,6 +52,10 @@ public class CrewPanel extends JPanel {
 
 	private JButton btnJoinCrew;
 
+	private JPanel panelJoinCrew;
+
+	private JPanel panelNotJoinCrewInfo;
+
 	public CrewPanel(CrewViewManager crewManager, CrewController crewController) {
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		this.crewManager = crewManager;
@@ -99,7 +103,7 @@ public class CrewPanel extends JPanel {
 		lblCrewName.setBounds(35, 10, 140, 45);
 		panelCrewName.add(lblCrewName);
 
-		JPanel panelJoinCrew = new JPanel();
+		panelJoinCrew = new JPanel();
 		panelJoinCrew.setBounds(230, 15, 80, 30);
 		panelJoinCrew.setBackground(CrewViewManager.COLOR_MINT);
 		panelCrewName.add(panelJoinCrew);
@@ -245,21 +249,21 @@ public class CrewPanel extends JPanel {
 		panelShortInfo.setBackground(CrewViewManager.COLOR_MINT);
 		tabbedPane.addTab("", new ImageIcon("./images/crew_crew_summary.png"), panelShortInfo, null);
 		panelShortInfo.setLayout(null);
-		
-				JPanel panel = new JPanel();
-				panel.setBackground(CrewViewManager.COLOR_MINT);
-				panel.setBounds(0, 0, 310, 107);
-				panelShortInfo.add(panel);
-				panel.setLayout(null);
-				
-						textAreaNotJoinCrewInfo = new JTextArea();
-						textAreaNotJoinCrewInfo.setBounds(10, 10, 281, 87);
-						panel.add(textAreaNotJoinCrewInfo);
-						textAreaNotJoinCrewInfo.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
-						textAreaNotJoinCrewInfo.setLineWrap(true);
-						textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
-						textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
-						textAreaNotJoinCrewInfo.setEditable(false);
+
+		panelNotJoinCrewInfo = new JPanel();
+		panelNotJoinCrewInfo.setBackground(CrewViewManager.COLOR_MINT);
+		panelNotJoinCrewInfo.setBounds(0, 0, 310, 107);
+		panelShortInfo.add(panelNotJoinCrewInfo);
+		panelNotJoinCrewInfo.setLayout(null);
+
+		textAreaNotJoinCrewInfo = new JTextArea();
+		textAreaNotJoinCrewInfo.setBounds(10, 10, 281, 87);
+		panelNotJoinCrewInfo.add(textAreaNotJoinCrewInfo);
+		textAreaNotJoinCrewInfo.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
+		textAreaNotJoinCrewInfo.setLineWrap(true);
+		textAreaNotJoinCrewInfo.setText("크루원들의 활동 정보는 크루원에게만 공개됩니다.");
+		textAreaNotJoinCrewInfo.setBackground(Color.WHITE);
+		textAreaNotJoinCrewInfo.setEditable(false);
 
 		JPanel panelCrewInfoDistance = new JPanel();
 		panelCrewInfoDistance.setBackground(Color.WHITE);
@@ -272,7 +276,8 @@ public class CrewPanel extends JPanel {
 		lblCrewDistance.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewDistance.setBounds(10, 60, 65, 15);
 		panelCrewInfoDistance.add(lblCrewDistance);
-		CrewImagePanel crewImagePanelCrewDistance = new CrewImagePanel("./images/crew_crew_distance.png", panelCrewInfoDistance.getSize());
+		CrewImagePanel crewImagePanelCrewDistance = new CrewImagePanel("./images/crew_crew_distance.png",
+				panelCrewInfoDistance.getSize());
 		panelCrewInfoDistance.add(crewImagePanelCrewDistance);
 
 		JPanel panelCrewInfoTime = new JPanel();
@@ -286,7 +291,8 @@ public class CrewPanel extends JPanel {
 		lblCrewTime.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewTime.setBounds(10, 60, 65, 15);
 		panelCrewInfoTime.add(lblCrewTime);
-		CrewImagePanel crewImagePanelCrewTime = new CrewImagePanel("./images/crew_crew_time.png", panelCrewInfoTime.getSize());
+		CrewImagePanel crewImagePanelCrewTime = new CrewImagePanel("./images/crew_crew_time.png",
+				panelCrewInfoTime.getSize());
 		panelCrewInfoTime.add(crewImagePanelCrewTime);
 
 		JPanel panelCrewInfoCrewNum = new JPanel();
@@ -300,7 +306,8 @@ public class CrewPanel extends JPanel {
 		lblCrewNum.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCrewNum.setBounds(10, 60, 65, 15);
 		panelCrewInfoCrewNum.add(lblCrewNum);
-		CrewImagePanel crewImagePanelCrewNum = new CrewImagePanel("./images/crew_crew_userCount.png", panelCrewInfoCrewNum.getSize());
+		CrewImagePanel crewImagePanelCrewNum = new CrewImagePanel("./images/crew_crew_userCount.png",
+				panelCrewInfoCrewNum.getSize());
 		panelCrewInfoCrewNum.add(crewImagePanelCrewNum);
 
 		JPanel footerPanel = new JPanel();
@@ -316,9 +323,9 @@ public class CrewPanel extends JPanel {
 				System.out.println("메인 페이지로 이동");
 				if (crewManager.getMain() != null)
 					crewManager.getMain().convertPanel("main");
-				else
-					crewManager.convertPanel("crew_main");
-				crewManager.updateCrewJoinState(true);
+				else {
+					crewManager.updateCrewJoinState(true);
+				}
 			}
 		});
 		btnHome.setPreferredSize(new Dimension(40, 30));
@@ -333,8 +340,8 @@ public class CrewPanel extends JPanel {
 		isJoinCrew = crewManager.getUser().getCrewName() == null ? false : true; // user의 크루네임이 null이면 미가입이라 false 아니면
 																					// true
 
-		btnJoinCrew.setVisible(!isJoinCrew); // 가입 상태에 따라 버튼 보이기 상태 바꾸기
+		panelJoinCrew.setVisible(!isJoinCrew); // 가입 상태에 따라 버튼 보이기 상태 바꾸기
 
-		textAreaNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
+		panelNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
 	}
 }
