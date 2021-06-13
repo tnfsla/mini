@@ -1,6 +1,7 @@
 package com.kh.view.result;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -16,7 +17,7 @@ public class ResultExerciseListPanel extends JPanel {
 	
 	
 	private JLabel lblDate;
-	private JLabel lblDistance;
+	private JLabel lblDistance;																		
 	private JLabel lblRunTime;
 	private JLabel lblPace;
 	private JPanel panel;
@@ -34,19 +35,19 @@ public class ResultExerciseListPanel extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
-		lblDate = new JLabel("date");
+		lblDate = new JLabel();
 		lblDate.setBounds(12, 10, 150, 15);
 		panel.add(lblDate);
 		
-		lblDistance = new JLabel("distance");
+		lblDistance = new JLabel();
 		lblDistance.setBounds(55, 26, 150, 15);
 		panel.add(lblDistance);
 		
-		lblRunTime = new JLabel("runtime");
+		lblRunTime = new JLabel();
 		lblRunTime.setBounds(55, 50, 150, 15);
 		panel.add(lblRunTime);
 		
-		lblPace = new JLabel("pace");
+		lblPace = new JLabel();
 		lblPace.setBounds(55, 75, 150, 15);
 		panel.add(lblPace);
 
@@ -55,9 +56,13 @@ public class ResultExerciseListPanel extends JPanel {
 	// 해당 라벨 등의 exercise로부터의 값 설정
 	public void setExercise(Exercise exercise) {
 		lblDate.setText(convertCalToDate(exercise.getDates()));
-		lblDistance.setText(String.valueOf(exercise.getDistance()));
-		lblRunTime.setText(secToHHMMSS(exercise.getRunTime()));
-		lblPace.setText(String.valueOf(exercise.getPace()));
+		lblDate.setFont(new Font("맑은 고딕", Font.BOLD, 10));
+		lblDistance.setText("달린 거리 :"+String.valueOf(Math.round(exercise.getDistance()*100)/100.0)+"km");
+		lblDistance.setFont(new Font("맑은 고딕", Font.BOLD, 14));	
+		lblRunTime.setText("달린 시간 :"+secToHHMMSS(exercise.getRunTime()));
+		lblRunTime.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblPace.setText("평균 페이스 :"+String.valueOf(Math.round(exercise.getPace()*100)/100.0));
+		lblPace.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 	}
 	
 	// Cal to Date Calendar 객체 날짜로 변환하는거 참고

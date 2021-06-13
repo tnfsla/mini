@@ -186,6 +186,7 @@ public class CrewViewManager {
 			panelCrewCreateCancel.setVisible(false);
 
 			btnCreatePage.setText("크루 만들기");
+			btnCreatePage.setFont(new Font(MAIN_FONT, Font.BOLD, 32));
 			btnCreatePage.setEnabled(true);
 
 			btnCrewPage1.setEnabled(true);
@@ -202,6 +203,7 @@ public class CrewViewManager {
 			panelCrewCreateCancel.setVisible(true);
 
 			btnCreatePage.setText("크루 승인을 요청하고 있습니다.");
+			btnCreatePage.setFont(new Font(MAIN_FONT, Font.BOLD, 18));
 			btnCreatePage.setEnabled(false);
 
 			btnCrewPage1.setEnabled(false);
