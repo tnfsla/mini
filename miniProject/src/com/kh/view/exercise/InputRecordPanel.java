@@ -1,6 +1,8 @@
+
 package com.kh.view.exercise;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -21,11 +23,8 @@ import com.kh.view.main.Main;
 
 public class InputRecordPanel extends JPanel {
 
-	private InputRecordController inputRecordController;
 	private RecordMainPanel recordMainPanel;
-
 	private User user;
-
 	private Main main;
 
 	public InputRecordPanel() {
@@ -36,35 +35,58 @@ public class InputRecordPanel extends JPanel {
 
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
+		
+		JButton bar = new JButton(new ImageIcon("./images/inputbar.png"));
+		bar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				main.convertPanel("record");
+			}
+		});
+		bar.setBounds(0, 0, 360, 40);
+		bar.setBorderPainted(false);
+		bar.setContentAreaFilled(false);
+		bar.setFocusPainted(false);
+		add(bar);
+
+		JLabel explain = new JLabel();
+		explain.setBounds(47, 45, 260, 90);
+		explain.setIcon(new ImageIcon("./images/inputrecordexplain.png"));
+		add(explain);
 
 		// 시간 입력
-
 		JLabel time = new JLabel("시간");
 		time.setHorizontalAlignment(SwingConstants.CENTER);
-		time.setLocation(30, 140);
+		time.setLocation(30, 150);
 		time.setSize(50, 40);
+		time.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(time);
 
 		JLabel slash1 = new JLabel(":");
-		slash1.setLocation(145, 140);
+		slash1.setLocation(145, 150);
 		slash1.setSize(10, 40);
+		slash1.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(slash1);
 
 		JLabel slash2 = new JLabel(":");
-		slash2.setLocation(225, 140);
+		slash2.setLocation(225, 150);
 		slash2.setSize(10, 40);
+		slash2.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(slash2);
 
-		JTextField h = new JTextField("시간");
+		JTextField h = new JTextField("00");
 		h.setHorizontalAlignment(SwingConstants.CENTER);
-		JTextField m = new JTextField("분");
+		JTextField m = new JTextField("00");
 		m.setHorizontalAlignment(SwingConstants.CENTER);
-		JTextField s = new JTextField("초");
+		JTextField s = new JTextField("00");
 		s.setHorizontalAlignment(SwingConstants.CENTER);
 
-		h.setLocation(80, 140);
-		m.setLocation(155, 140);
-		s.setLocation(240, 140);
+		h.setLocation(80, 150);
+		m.setLocation(155, 150);
+		s.setLocation(240, 150);
+		
+		h.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		m.setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		s.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 
 		h.setSize(50, 40);
 		m.setSize(50, 40);
@@ -99,18 +121,21 @@ public class InputRecordPanel extends JPanel {
 		km1.setHorizontalAlignment(SwingConstants.CENTER);
 		km1.setLocation(37, 210);
 		km1.setSize(50, 40);
+		km1.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(km1);
 
 		JTextField km2 = new JTextField("0.0");
-		km2.setHorizontalAlignment(SwingConstants.RIGHT);
+		km2.setHorizontalAlignment(SwingConstants.CENTER);
 		km2.setLocation(105, 210);
 		km2.setSize(150, 40);
+		km2.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(km2);
 
 		JLabel km3 = new JLabel("km");
 		km3.setHorizontalAlignment(SwingConstants.CENTER);
 		km3.setLocation(273, 210);
 		km3.setSize(50, 40);
+		km3.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		add(km3);
 
 		km2.addMouseListener(new MouseAdapter() {
@@ -121,35 +146,43 @@ public class InputRecordPanel extends JPanel {
 		});
 
 		// 페이스 출력
-		JLabel pace1 = new JLabel("달리기 페이스");
-		pace1.setHorizontalAlignment(SwingConstants.CENTER);
-		pace1.setLocation(50, 350);
-		pace1.setSize(100, 30);
-		add(pace1);
+		JLabel paceT = new JLabel("페이스");
+		paceT.setHorizontalAlignment(SwingConstants.CENTER);
+		paceT.setLocation(40, 331);
+		paceT.setSize(140, 30);
+		paceT.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		add(paceT);
 
 		JLabel pacef = new JLabel("00.00");
 		pacef.setHorizontalAlignment(SwingConstants.CENTER);
-		pacef.setLocation(50, 390);
+		pacef.setLocation(60, 366);
 		pacef.setSize(100, 30);
+		pacef.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		add(pacef);
 
 		// 칼로리
-		JLabel kcal1 = new JLabel("칼로리 소모량");
-		kcal1.setHorizontalAlignment(SwingConstants.CENTER);
-		kcal1.setLocation(200, 350);
-		kcal1.setSize(100, 30);
-		add(kcal1);
+		JLabel kcalT = new JLabel("칼로리");
+		kcalT.setHorizontalAlignment(SwingConstants.CENTER);
+		kcalT.setLocation(200, 331);
+		kcalT.setSize(100, 30);
+		kcalT.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		add(kcalT);
 
 		JLabel kcalf = new JLabel("0");
 		kcalf.setHorizontalAlignment(SwingConstants.CENTER);
-		kcalf.setLocation(200, 390);
+		kcalf.setLocation(200, 366);
 		kcalf.setSize(100, 30);
+		kcalf.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		add(kcalf);
 
 		// 확인
-		JButton cf = new JButton("확인");
-		cf.setLocation(150, 290);
-		cf.setSize(60, 40);
+		JButton cf = new JButton();
+		cf.setIcon(new ImageIcon("./Images/confirm.png"));
+		cf.setLocation(145, 270);
+		cf.setSize(60, 30);
+		cf.setBorderPainted(false);
+		cf.setContentAreaFilled(false);
+		cf.setFocusPainted(false);
 		add(cf);
 
 		cf.addActionListener(new ActionListener() {
@@ -173,10 +206,11 @@ public class InputRecordPanel extends JPanel {
 			}
 		});
 
-		JLabel star1 = new JLabel("운동 평가");
-		star1.setLocation(45, 430);
-		star1.setSize(80, 30);
-		add(star1);
+		JLabel starT = new JLabel("운동 평가");
+		starT.setLocation(45, 420);
+		starT.setSize(115, 30);
+		starT.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		add(starT);
 
 		// star 값 반환을 위한 장치
 		JLabel starf = new JLabel();
@@ -279,9 +313,12 @@ public class InputRecordPanel extends JPanel {
 		});
 
 		// 저장
-		JButton save = new JButton("저장");
-		save.setLocation(145, 530);
+		JButton save = new JButton(new ImageIcon("./Images/save.png"));
+		save.setLocation(145, 540);
 		save.setSize(70, 40);
+		save.setBorderPainted(false);
+		save.setContentAreaFilled(false);
+		save.setFocusPainted(false);
 		add(save);
 
 		save.addActionListener(new ActionListener() {
@@ -302,7 +339,6 @@ public class InputRecordPanel extends JPanel {
 				
 				System.out.println("운동기록이 저장되었습니다.");
 				System.out.println(user.getExercises());
-				main.updateUser(user); //저장할때 유저의 기록과 이벤트를 비교하여 뱃지 노출을 할 수 있도록 함
 
 				main.convertPanel("main");
 			}

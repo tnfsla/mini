@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,10 +16,11 @@ import com.kh.model.vo.User;
 import com.kh.view.main.Main;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class RecordMainPanel extends JPanel {
 	
-	//private AutoRecordPanel autoRecordPanel;
 	private InputRecordPanel inputRecordPanel;
 	private StopWatchPanel stopWatchPanel;
 	
@@ -31,39 +33,55 @@ public class RecordMainPanel extends JPanel {
 	private User user;
 	
 	public RecordMainPanel() {
-
+		
+		setBackground(Color.WHITE);
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		JTextArea t1 = new JTextArea("나에게 맞는 목표를 세우고" + "\n" + "자유롭게 훈련하세요." + "\n" + "처음에는 부담 없는 목표를 설정하고" + "\n"
-				+ "조금씩 목표를 높이는 것이 바람직합니다." + "\n" + "지금부터 목표를 향해 달리세요!");
-		t1.setLocation(30, 80);
-		t1.setSize(270, 120);
-		add(t1);
+		JLabel title = new JLabel(new ImageIcon("./Images/recordmaintitle.png"));
+		title.setBounds(50, 40, 200, 50);
+		add(title);
+		
+		JLabel explain = new JLabel(new ImageIcon("./Images/recordmain.png"));
+		explain.setBackground(Color.WHITE);
+		explain.setLocation(50, 90);
+		explain.setSize(260, 130);
+		add(explain);
 
-		JButton b1 = new JButton("시간 측정 기록");
-		b1.addActionListener(new ActionListener() {
+		JButton stopwatch = new JButton();
+		stopwatch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.convertPanel("record_stopWatch");
 			}
 		});
-		b1.setLocation(80, 250);
-		b1.setSize(180, 80);
-		add(b1);
+		stopwatch.setLocation(55, 250);
+		stopwatch.setSize(250, 80);
+		stopwatch.setIcon(new ImageIcon("./Images/stopwatchrecord.png"));
+		stopwatch.setBorderPainted(false);
+		stopwatch.setContentAreaFilled(false);
+		stopwatch.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		add(stopwatch);
 
-		JButton b2 = new JButton("자율 운동 기록");
-		b2.addActionListener(new ActionListener() {
+		JButton input = new JButton();
+		input.setIcon(new ImageIcon("./Images/inputrecord.png"));
+		input.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				main.convertPanel("record_input");
 			}
 		});
-		b2.setLocation(80, 401);
-		b2.setSize(180, 80);
-		add(b2);
+		input.setLocation(55, 350);
+		input.setSize(250, 80);
+		input.setBorderPainted(false);
+		input.setContentAreaFilled(false);
+		input.setFocusPainted(false);
+		input.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
+		add(input);
 
-		JLabel lblHome = new JLabel("Home");
+		JLabel lblHome = new JLabel();
+		lblHome.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHome.setBounds(150, 561, 60, 29);
+		lblHome.setIcon(new ImageIcon("./Images/home2.png"));
+		lblHome.setBounds(0, 570, 360, 30);
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -82,13 +100,13 @@ public class RecordMainPanel extends JPanel {
 	}
 	
 	public void initPanel() {
-		//autoRecordPanel = new AutoRecordPanel(main);
+		
 		inputRecordPanel = new InputRecordPanel(main);
 		stopWatchPanel = new StopWatchPanel(main);
 		
 		panelMap = main.getPanelMap();
 		
-		//panelMap.put("record_auto", autoRecordPanel);
+		
 		panelMap.put("record_input", inputRecordPanel);
 		panelMap.put("record_stopWatch", stopWatchPanel);
 	}
@@ -100,7 +118,7 @@ public class RecordMainPanel extends JPanel {
 	}
 	
 	   public void updateUser() {
-		      //autoRecordPanel.setUser(user);
+		      
 		      inputRecordPanel.setUser(user);
 		      stopWatchPanel.setUser(user);
 		   }
