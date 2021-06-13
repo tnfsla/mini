@@ -302,6 +302,7 @@ public class InputRecordPanel extends JPanel {
 				
 				System.out.println("운동기록이 저장되었습니다.");
 				System.out.println(user.getExercises());
+				main.updateUser(user); //저장할때 유저의 기록과 이벤트를 비교하여 뱃지 노출을 할 수 있도록 함
 
 				main.convertPanel("main");
 			}

@@ -242,7 +242,7 @@ public class AdminViewManager {
 	private EventSettingP eventSetting; // 이벤트 설정 page
 	private PendingApprovalP pendingApproval; // 크루 승인대기 page
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-	private long sTime1 =0;
+	private long sTime1 = 0;
 	private AdminEventController aec;
 
 	public AdminViewManager(Main main, AdminEventController aec) {
@@ -319,37 +319,48 @@ public class AdminViewManager {
 //				setsTime1(getEventSetting().getsTimeI()); 
 //				long sTime2 = getEventSetting().getsTimeI() / 1000000;
 //				long sTime3 = getEventSetting().getsTimeI() - (getEventSetting().getsTimeI() / 1000000) * 1000000;
-				
+
 				sTime1 = aec.getEventDao().getEvent().getEventDate();
 				long sTime2 = sTime1 / 1000000;
-				long sTime3 = sTime1 - (sTime2)* 1000000;
+				long sTime3 = sTime1 - (sTime2) * 1000000;
 				System.out.println(sTime1);
 				System.out.println(sTime2);
 				System.out.println(sTime3);
-				
+
 				long dTimeI = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 				String dTime = formatter.format(dTimeI);
 				long dTime1 = Long.parseLong(dTime);
 				long dTime2 = dTime1 / 1000000;
 				long dTime3 = dTime1 - (dTime1 / 1000000) * 1000000;
-				System.out.println(sTime2);
-				System.out.println(dTime2);
+				System.out.println(aec.getEventDao().getEvent().isEventStart());
 				if (sTime2 != 0 && sTime2 <= dTime2) {
 					if (sTime3 <= dTime3) {
-						EventEndAlertD dialog = new EventEndAlertD(eventSetting,aec);
+						EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
-					}else {
+					} else {
+						if (aec.getEventDao().getEvent().isEventStart()) {
+							EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
+							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog.setVisible(true);
+						} else {
+							ErrorD dialog1 = new ErrorD(eventSetting, aec);
+							dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+							dialog1.setVisible(true);
+						}
+					}
+
+				} else {
+					if (aec.getEventDao().getEvent().isEventStart()) {
+						EventEndAlertD dialog = new EventEndAlertD(eventSetting, aec);
+						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialog.setVisible(true);
+					} else {
 						ErrorD dialog1 = new ErrorD(eventSetting, aec);
 						dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog1.setVisible(true);
 					}
-
-				} else {
-					ErrorD dialog1 = new ErrorD(eventSetting ,aec);
-					dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog1.setVisible(true);
 				}
 			}
 		}); // 알럿은 알림이기때문에 아직 구현 안됨. 수정요망
@@ -381,6 +392,7 @@ public class AdminViewManager {
 		JButton btnNewButton_2 = new JButton("종료");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});// 이전 로그인화면 아니면 종료로 구현
 		btnNewButton_2.setFont(new Font("맑은 고딕", Font.PLAIN, 12));

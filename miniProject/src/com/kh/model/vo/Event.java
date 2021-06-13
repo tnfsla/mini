@@ -11,7 +11,8 @@ public class Event implements Serializable{
 	private String eventFlag;
 	private long eventDate;
 	private int eventGoal;
-	
+	private boolean eventStart;
+
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,6 +46,14 @@ public class Event implements Serializable{
 
 	public void setEventGoal(int eventGoal) {
 		this.eventGoal = eventGoal;
+	}
+	
+	public boolean isEventStart() {
+		return eventStart;
+	}
+
+	public void setEventStart(boolean eventStart) {
+		this.eventStart = eventStart;
 	}
 
 	@Override

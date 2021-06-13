@@ -61,6 +61,7 @@ public class MainPanel extends JPanel {
 						} else {
 							lblEvent.setText("미션 " + eventGoal + eventFlag + " 달리기가 진행중입니다.");
 							lblEvent.setBounds(42, 71, 200, 40);
+							aec.getEventDao().getEvent().setEventStart(true);
 						}
 						Thread.sleep(1000);
 
