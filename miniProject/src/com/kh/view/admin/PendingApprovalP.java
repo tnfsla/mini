@@ -34,10 +34,12 @@ public class PendingApprovalP extends JPanel {
 	 * Create the panel.
 	 */
 	public PendingApprovalP() {
-
+		setBackground(Color.WHITE);
+		initialize();
 	}
 
 	private void initialize() {
+		
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
@@ -144,7 +146,6 @@ public class PendingApprovalP extends JPanel {
 	}
 
 	public PendingApprovalP(AdminViewManager avm, ArrayList<Crew> crew, CrewListP crewList) {
-		this();
 		this.avm = avm;
 		this.crew = crew;
 		this.crewp = crewList;

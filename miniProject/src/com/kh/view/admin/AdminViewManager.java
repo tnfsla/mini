@@ -305,6 +305,7 @@ public class AdminViewManager {
 
 		JButton btnNewButton = new JButton("EVENT 설정");
 		btnNewButton.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		btnNewButton.setBackground(new Color(215,255,241));
 		btnNewButton.setBounds(27, 83, 286, 96);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -315,6 +316,7 @@ public class AdminViewManager {
 
 		JButton btnNewButton_1 = new JButton("EVENT 마감");
 		btnNewButton_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		btnNewButton_1.setBackground(new Color(215,255,241));
 		btnNewButton_1.setBounds(27, 189, 286, 96);
 
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -372,6 +374,7 @@ public class AdminViewManager {
 
 		JButton btnNewButton_1_1 = new JButton("크루 승인 관리");
 		btnNewButton_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		btnNewButton_1_1.setBackground(new Color(215,255,241));
 		btnNewButton_1_1.setBounds(27, 295, 286, 96);
 		btnNewButton_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -389,6 +392,7 @@ public class AdminViewManager {
 			}
 		});
 		btnNewButton_1_1_1.setFont(new Font("맑은 고딕", Font.BOLD, 30));
+		btnNewButton_1_1_1.setBackground(new Color(215,255,241));
 		btnNewButton_1_1_1.setBounds(27, 401, 286, 96);
 		mainPanel.add(btnNewButton_1_1_1);
 
