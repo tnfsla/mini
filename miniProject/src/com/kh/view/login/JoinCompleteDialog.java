@@ -1,9 +1,14 @@
 package com.kh.view.login;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,7 +21,6 @@ import java.awt.event.ActionEvent;
 public class JoinCompleteDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -44,17 +48,33 @@ public class JoinCompleteDialog extends JDialog {
 				dispose();
 			}
 		});
-		btnConfirm.setFont(new Font("굴림", Font.PLAIN, 16));
-		btnConfirm.setBounds(87, 60, 108, 40);
-		getContentPane().add(btnConfirm);
+		ImagePanel panel = new ImagePanel(new ImageIcon("./images/JCDialogImage.jpg").getImage());
+		panel.setLocation(0, 0);
+		panel.setForeground(Color.WHITE);
+		panel.setSize(new Dimension(283, 95));
+		getContentPane().add(panel);
+		panel.setLayout(null); 
 		
-		textField = new JTextField();
-		textField.setFont(new Font("굴림", Font.PLAIN, 16));
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setText("회원가입이 완료되었습니다.");
-		textField.setBounds(28, 10, 225, 40);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		btnConfirm.setFont(new Font("굴림", Font.PLAIN, 16));
+		btnConfirm.setBounds(89, 50, 100, 40);
+		getContentPane().add(btnConfirm);
+	}
+
+}
+class ImagePanel extends JPanel {
+	private Image img;
+
+	public ImagePanel(Image img) {
+		this.img = img;
+
+		setSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+
+		setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
+		setLayout(null);
+	}
+
+	public void paintComponent(Graphics g) {
+		g.drawImage(img, 0, 0, null);
 	}
 
 }
