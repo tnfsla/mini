@@ -75,6 +75,7 @@ public class ResultMainView extends JPanel implements ActionListener {
 	private JLabel lblHome;
 	private JLabel exercise;
 	private DefaultListModel exerciseModel;
+	private ImageIcon home;
 
 	public ResultMainView(Main main) {
 		this();
@@ -117,27 +118,26 @@ public class ResultMainView extends JPanel implements ActionListener {
 	public ResultMainView() {
 
 		setLayout(new BorderLayout());
-
 		ImageIcon north = new ImageIcon("images/north.PNG");
 		Image northImg = north.getImage();
 		Image updatenorthImg = northImg.getScaledInstance(520, 30, Image.SCALE_SMOOTH);
 		ImageIcon updatenorth = new ImageIcon(updatenorthImg);
-		JLabel lblNewLabel = new JLabel(updatenorth);
-		lblNewLabel.setBounds(30, 0, 420, 30);
-
+		JLabel northLabel = new JLabel(updatenorth);
+		northLabel.setBounds(30, 0, 420, 30);
+	
 		frame = new JFrame();
 
 		frame.setBounds(100, 100, 450, 300);
 		frame.getContentPane().setLayout(null);
-		frame.add(lblNewLabel);
+		frame.add(northLabel);
 
 	}
 
 	// 화면디자인
 	public void CalendarMain() {
 
-		ImageIcon Home = new ImageIcon("images/home2.PNG");
-		Image HomeImg = Home.getImage();
+		home = new ImageIcon("images/home2.PNG");
+		Image HomeImg = home.getImage();
 		Image updateHomeImg = HomeImg.getScaledInstance(360, 20, Image.SCALE_SMOOTH);
 		ImageIcon updateHome = new ImageIcon(updateHomeImg);
 
@@ -407,44 +407,44 @@ public class ResultMainView extends JPanel implements ActionListener {
 	// 날짜출력
 	public void day(int year, int month) {
 		Calendar date = Calendar.getInstance();// 오늘날짜 + 시간
-		date.set(year, month - 1, 1);
-		int week = date.get(Calendar.DAY_OF_WEEK);
+		date.set(year, month - 1, 1); // 
+		int week = date.get(Calendar.DAY_OF_WEEK);//일 월 화 수 목 금 토 일 순으로 0~7 
 
-		int lastDay = date.getActualMaximum(Calendar.DAY_OF_MONTH);
+		int lastDay = date.getActualMaximum(Calendar.DAY_OF_MONTH); //해당 월의 마지막날짜
 
 		// 공백출력
 
-		for (int space = 1; space < week; space++) {
+		for (int space = 1; space < week; space++) { 
 			datePane.add(new JLabel("\t"));
 
 		}
 
 		// 날짜 출력
-		for (int i = 1; i <= lastDay; i++) {
+		for (int i = 1; i <= lastDay; i++) { //1부터 마지막 날 까지
 			int day = i;
 
 			JButton jbt = new JButton();
 			JLabel jlb1 = new JLabel();
 
-			if (rc.getDate(year, month, day) == true) {
+			if (rc.getDate(year, month, day) == true) { //운동기록이 저장된 날은 Button으로 표현
 
 				jbt = new JButton(String.valueOf(day));
 				datePane.add(jbt);
 
-			} else {
+			} else {								//운동기록이 저장되지 않은 날은 Label로 표현
 				jlb1 = new JLabel(String.valueOf(day));
 				datePane.add(jlb1);
 				jlb1.setHorizontalAlignment(SwingConstants.CENTER);
 
 			}
 
-			jbt.setFocusPainted(false);
-			jbt.setContentAreaFilled(false);
+			jbt.setFocusPainted(false); 
+			jbt.setContentAreaFilled(false); //버튼 테두리 없애기
 			datePane.setBackground(Color.white);
 			jbt.addMouseListener(new MouseAdapter() {
 
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mousePressed(MouseEvent e) {//운동기록이 저장된 날(Button)을 누르면 그 날의 운동기록이 나온다
 					// TODO Auto-generated method stub
 					super.mousePressed(e);
 
@@ -457,10 +457,12 @@ public class ResultMainView extends JPanel implements ActionListener {
 			cal.set(year, month - 1, day);
 			int Week = cal.get(Calendar.DAY_OF_WEEK);
 
-			if (Week == 1) {
+			if (Week == 1) { // 일요일은 빨강, 토요일은 파랑으로 표시
 				jbt.setForeground(Color.red);
+				jlb1.setForeground(Color.red);
 			} else if (Week == 7) {
 				jbt.setForeground(Color.BLUE);
+				jlb1.setForeground(Color.BLUE);
 			}
 
 		}
@@ -468,15 +470,15 @@ public class ResultMainView extends JPanel implements ActionListener {
 
 	protected void updateSelectDate(Exercise ex) {
 
-		Calendar cal = ex.getDates();
+		Calendar cal = ex.getDates();			
 		int year = cal.get(Calendar.YEAR);
 		int month = cal.get(Calendar.MONTH) + 1;
 		int day = cal.get(Calendar.DATE);
 		
 		selDate.setFont(new Font("맑은 고딕", Font.BOLD, 17));
 		selDate.setText(String.format("%02d년 %02d월 %02d일", year, month, day));
-		dateexercise.setText("<html> 달린 거리 : " + ex.getDistance() + "km <br> 달린 시간 : " + rc.secToHHMMSS(ex.getRunTime())
-				+ "<br> 소모한 칼로리 : " + ex.getCalorie() + "kcal<br> 평균 페이스 : " + ex.getPace() + "<br> 별점 : "
+		dateexercise.setText("<html> 달린 거리 : " + (Math.round(ex.getDistance()*100)/100.0) + "km <br> 달린 시간 : " + rc.secToHHMMSS(ex.getRunTime())
+				+ "<br> 소모한 칼로리 : " + ex.getCalorie() + "kcal<br> 평균 페이스 : " + (Math.round(ex.getPace()*100)/100.0) + "<br> 별점 : "
 				+ ex.getStar() + "개</html>");
 		frame.setForeground(Color.white);
 		frame.setVisible(true);

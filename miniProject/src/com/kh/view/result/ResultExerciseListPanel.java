@@ -17,7 +17,7 @@ public class ResultExerciseListPanel extends JPanel {
 	
 	
 	private JLabel lblDate;
-	private JLabel lblDistance;
+	private JLabel lblDistance;																		
 	private JLabel lblRunTime;
 	private JLabel lblPace;
 	private JPanel panel;
@@ -57,11 +57,11 @@ public class ResultExerciseListPanel extends JPanel {
 	public void setExercise(Exercise exercise) {
 		lblDate.setText(convertCalToDate(exercise.getDates()));
 		lblDate.setFont(new Font("맑은 고딕", Font.BOLD, 10));
-		lblDistance.setText("달린 거리 :"+String.valueOf(exercise.getDistance())+"km");
+		lblDistance.setText("달린 거리 :"+String.valueOf(Math.round(exercise.getDistance()*100)/100.0)+"km");
 		lblDistance.setFont(new Font("맑은 고딕", Font.BOLD, 14));	
 		lblRunTime.setText("달린 시간 :"+secToHHMMSS(exercise.getRunTime()));
 		lblRunTime.setFont(new Font("맑은 고딕", Font.BOLD, 14));
-		lblPace.setText("평균 페이스 :"+String.valueOf(exercise.getPace()));
+		lblPace.setText("평균 페이스 :"+String.valueOf(Math.round(exercise.getPace()*100)/100.0));
 		lblPace.setFont(new Font("맑은 고딕", Font.BOLD, 14));
 	}
 	
