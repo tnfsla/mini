@@ -12,6 +12,8 @@ public class CrewFeedCreateController {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date()); // 현재 시간 입력
 		
+		System.out.println(userId + " " + title + " " + contents);
+		
 		crew.getFeedList().add(new Feed(userId, cal, title, contents));
 	}
 

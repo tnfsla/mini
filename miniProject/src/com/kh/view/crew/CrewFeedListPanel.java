@@ -1,15 +1,17 @@
 package com.kh.view.crew;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.kh.model.vo.Feed;
-import java.awt.Color;
 
 public class CrewFeedListPanel extends JPanel {
 
@@ -20,50 +22,77 @@ public class CrewFeedListPanel extends JPanel {
 	private JLabel lblLikeCount;
 	private JLabel lblCommentCount;
 	private JPanel panel;
+	private JPanel panel_1;
 
 	public CrewFeedListPanel() {
-		this.setPreferredSize(new Dimension(360, 240));
+		this.setPreferredSize(new Dimension(312, 240));
 		setLayout(null);
 		
+		panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 312, 240);
+		panel_1.setBackground(CrewViewManager.COLOR_GREEN);
+		add(panel_1);
+		panel_1.setLayout(null);
+		
 		panel = new JPanel();
+		panel.setBounds(0, 0, 312, 230);
+		panel_1.add(panel);
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 360, 230);
-		add(panel);
 		panel.setLayout(null);
 
 		lblUserId = new JLabel("UserId");
-		lblUserId.setBounds(12, 10, 57, 15);
+		lblUserId.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 12));
+		lblUserId.setBounds(95, 20, 100, 20);
 		panel.add(lblUserId);
 
 		lblFeedDate = new JLabel("FeedDate");
-		lblFeedDate.setBounds(12, 35, 181, 23);
+		lblFeedDate.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblFeedDate.setBounds(95, 45, 188, 20);
 		panel.add(lblFeedDate);
 
 		lblFeedTitle = new JLabel("FeedTitle");
-		lblFeedTitle.setBounds(12, 68, 163, 15);
+		lblFeedTitle.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblFeedTitle.setBounds(95, 70, 150, 20);
 		panel.add(lblFeedTitle);
+		
+		JPanel panelFeedContents = new JPanel();
+		panelFeedContents.setBounds(95, 100, 192, 85);
+		panel.add(panelFeedContents);
+		panelFeedContents.setLayout(null);
 
 		textAreaFeedContents = new JTextArea();
-		textAreaFeedContents.setBackground(Color.LIGHT_GRAY);
-		textAreaFeedContents.setBounds(12, 93, 310, 85);
-		panel.add(textAreaFeedContents);
+		textAreaFeedContents.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
+		textAreaFeedContents.setBounds(5, 5, 182, 75);
+		panelFeedContents.add(textAreaFeedContents);
+		textAreaFeedContents.setBackground(Color.WHITE);
 		textAreaFeedContents.setEditable(false);
 
-		JLabel lblLikeImg = new JLabel("LikeImg");
-		lblLikeImg.setBounds(12, 193, 44, 23);
+		JLabel lblLikeImg = new JLabel("");
+		lblLikeImg.setBounds(95, 195, 30, 25);
+		lblLikeImg.setIcon(new ImageIcon("./images/feed_like.png"));
 		panel.add(lblLikeImg);
 
-		lblLikeCount = new JLabel("LikeCount");
-		lblLikeCount.setBounds(59, 197, 57, 15);
+		lblLikeCount = new JLabel("LikeCnt");
+		lblLikeCount.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblLikeCount.setBounds(135, 195, 50, 25);
 		panel.add(lblLikeCount);
 
-		JLabel lblCommentImg = new JLabel("ComImg");
-		lblCommentImg.setBounds(159, 197, 57, 15);
+		JLabel lblCommentImg = new JLabel("");
+		lblCommentImg.setBounds(195, 195, 30, 25);
+		lblCommentImg.setIcon(new ImageIcon("./images/feed_comment.png"));
 		panel.add(lblCommentImg);
 
-		lblCommentCount = new JLabel("CommentCount");
-		lblCommentCount.setBounds(217, 197, 119, 15);
+		lblCommentCount = new JLabel("ComCnt");
+		lblCommentCount.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
+		lblCommentCount.setBounds(235, 195, 50, 25);
 		panel.add(lblCommentCount);
+		
+		JPanel panelUserIcon = new JPanel();
+		panelUserIcon.setBounds(7, 20, 76, 70);
+		panelUserIcon.setLayout(null);
+		CrewImagePanel crewImagePanel = new CrewImagePanel("./images/crew_feed_userIcon.png", panelUserIcon.getSize());
+		panelUserIcon.add(crewImagePanel);
+		panel.add(panelUserIcon);
 	}
 
 	public void setFeed(Feed feed) {

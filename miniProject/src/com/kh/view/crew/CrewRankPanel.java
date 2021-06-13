@@ -1,11 +1,10 @@
 package com.kh.view.crew;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,12 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import com.kh.controller.crew.CrewRankController;
 import com.kh.model.vo.Crew;
-import com.kh.model.vo.User;
 
 public class CrewRankPanel extends JPanel {
 
@@ -42,6 +42,7 @@ public class CrewRankPanel extends JPanel {
 	private JTable tableCurCrewUser;
 
 	public CrewRankPanel() {
+		setBackground(Color.WHITE);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 		initialize();
 	}
@@ -70,6 +71,10 @@ public class CrewRankPanel extends JPanel {
 		tableTopCrewUser.setModel(new CrewRankTableModel(topRanks, columnNames));
 		tableTotalCrewUser.setModel(new CrewRankTableModel(ranks, columnNames));
 		tableCurCrewUser.setModel(new DefaultTableModel(myRank, new String[] { "내 순위" }));
+		
+		setTableColumnAlignCenter(tableTopCrewUser);
+		setTableColumnAlignCenter(tableTotalCrewUser);
+		setTableColumnAlignCenter(tableCurCrewUser);
 	}
 
 	// panel 초기 설정 crewManager, crewController 설정 후에 호출해야해서 initialize 메소드로 따로 뺌
@@ -77,27 +82,43 @@ public class CrewRankPanel extends JPanel {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		JButton btnCrewPageBack = new JButton("뒤로가기");
+		JPanel panelCrewPageBack = new JPanel();
+		panelCrewPageBack.setBounds(15, 10, 30, 30);
+		panelCrewPageBack.add(new CrewImagePanel("./images/back.png", panelCrewPageBack.getSize()));
+		add(panelCrewPageBack);
+		panelCrewPageBack.setLayout(null);
+
+		JButton btnCrewPageBack = new JButton("");
+		btnCrewPageBack.setContentAreaFilled(false);
+		btnCrewPageBack.setBorderPainted(false);
+		btnCrewPageBack.setBounds(0, 0, 30, 30);
+		panelCrewPageBack.add(btnCrewPageBack);
 		btnCrewPageBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// 특정 crew 페이지로 다시 이동
 				crewManager.convertPanel("crew_crew");
 			}
 		});
-		btnCrewPageBack.setBounds(12, 10, 97, 23);
-		add(btnCrewPageBack);
 
 		JLabel lblHallOfFame = new JLabel("명예의 전당");
-		lblHallOfFame.setBounds(117, 14, 75, 15);
+		lblHallOfFame.setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 18));
+		lblHallOfFame.setBounds(65, 10, 100, 30);
 		add(lblHallOfFame);
 
+		JPanel panelScrollPane2 = new JPanel();
+		panelScrollPane2.setBackground(CrewViewManager.COLOR_GREEN);
+		panelScrollPane2.setBounds(20, 290, 320, 250);
+		add(panelScrollPane2);
+		panelScrollPane2.setLayout(null);
+
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 10, 300, 230);
+		panelScrollPane2.add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(22, 299, 313, 219);
-		add(scrollPane);
 
 		tableTotalCrewUser = new JTable();
+		tableTotalCrewUser.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
 		tableTotalCrewUser.setShowVerticalLines(false);
 		tableTotalCrewUser
 				.setModel(new DefaultTableModel(
@@ -116,20 +137,27 @@ public class CrewRankPanel extends JPanel {
 						return columnEditables[column];
 					}
 				});
+
+		tableTotalCrewUser.getTableHeader().setPreferredSize(new Dimension(100, 32));
+		tableTotalCrewUser.getTableHeader().setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
+		tableTotalCrewUser.setRowHeight(40);
+
 		scrollPane.setViewportView(tableTotalCrewUser);
 
-		JPanel panel = new JPanel();
-		panel.setBounds(22, 55, 313, 230);
+		JPanel panelScrollPane = new JPanel();
+		panelScrollPane.setBackground(CrewViewManager.COLOR_GREEN);
+		panelScrollPane.setBounds(20, 50, 320, 230);
 
-		add(panel);
-		panel.setLayout(null);
+		add(panelScrollPane);
+		panelScrollPane.setLayout(null);
 
 		JScrollPane scrollPaneTopCrewUser = new JScrollPane();
-		scrollPaneTopCrewUser.setBounds(12, 10, 289, 103);
-		panel.add(scrollPaneTopCrewUser);
+		scrollPaneTopCrewUser.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPaneTopCrewUser.setBounds(10, 10, 300, 122);
+		panelScrollPane.add(scrollPaneTopCrewUser);
 
 		tableTopCrewUser = new JTable();
-		tableTopCrewUser.setFont(new Font("굴림", Font.PLAIN, 12));
+		tableTopCrewUser.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 14));
 		tableTopCrewUser.setShowVerticalLines(false);
 		tableTopCrewUser.setModel(new DefaultTableModel(
 				new Object[][] { { null, null, null }, { null, null, null }, { null, null, null }, },
@@ -141,13 +169,18 @@ public class CrewRankPanel extends JPanel {
 			}
 		});
 
+		tableTopCrewUser.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		tableTopCrewUser.getTableHeader().setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
+		tableTopCrewUser.setRowHeight(30);
+
 		scrollPaneTopCrewUser.setViewportView(tableTopCrewUser);
 
 		JScrollPane scrollPaneCurCrewUser = new JScrollPane();
-		scrollPaneCurCrewUser.setBounds(12, 161, 289, 59);
-		panel.add(scrollPaneCurCrewUser);
+		scrollPaneCurCrewUser.setBounds(10, 155, 300, 65);
+		panelScrollPane.add(scrollPaneCurCrewUser);
 
 		tableCurCrewUser = new JTable();
+		tableCurCrewUser.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 14));
 		tableCurCrewUser.setShowVerticalLines(false);
 		tableCurCrewUser
 				.setModel(new DefaultTableModel(new Object[][] { { null }, }, new String[] { "\uB0B4 \uC21C\uC704" }) {
@@ -157,23 +190,45 @@ public class CrewRankPanel extends JPanel {
 						return columnTypes[columnIndex];
 					}
 				});
+
+		tableCurCrewUser.getTableHeader().setPreferredSize(new Dimension(100, 30));
+		tableCurCrewUser.getTableHeader().setFont(new Font(CrewViewManager.MAIN_FONT, Font.BOLD, 14));
+		tableCurCrewUser.setRowHeight(32);
+
 		scrollPaneCurCrewUser.setViewportView(tableCurCrewUser);
 
 		JPanel footerPanel = new JPanel();
-		footerPanel.setBackground(Color.LIGHT_GRAY);
-		footerPanel.setBounds(0, 561, 360, 29);
+		footerPanel.setBackground(Color.WHITE);
+		footerPanel.setBounds(0, 560, 360, 20);
 
-		add(footerPanel);
-
-		JLabel lblHome = new JLabel("Home");
-		lblHome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		JButton btnHome = new JButton("");
+		btnHome.setBounds(170, 0, 20, 20);
+		btnHome.setContentAreaFilled(false); // 내용영역 채우기 안함
+		btnHome.setBorderPainted(false); // 외곽선 제거
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				System.out.println("메인 페이지로 이동");
-				crewManager.convertPanel("crew_main");
+				if (crewManager.getMain() != null)
+					crewManager.getMain().convertPanel("main");
+				else
+					crewManager.convertPanel("crew_main");
 				crewManager.updateCrewJoinState(true);
 			}
 		});
-		footerPanel.add(lblHome);
+		btnHome.setPreferredSize(new Dimension(40, 30));
+		footerPanel.add(btnHome);
+		footerPanel.add(new CrewImagePanel("./images/home2.png", footerPanel.getSize())); // 이미지 추가
+		add(footerPanel);
+		footerPanel.setLayout(null);
+	}
+	
+	// table column 가운데 정렬 시켜주는 메소드
+	private void setTableColumnAlignCenter(JTable table) {
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+			table.getColumnModel().getColumn(i).setCellRenderer(tcr);
+		}
 	}
 }

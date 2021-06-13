@@ -3,10 +3,10 @@ package com.kh.view.crew;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,7 +24,6 @@ import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.vo.Crew;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
-import java.awt.Font;
 
 public class CrewViewManager {
 
@@ -39,6 +38,10 @@ public class CrewViewManager {
 	private CrewFeedPanel feedPanel; // 특정 크루 피드 page
 	private CrewFeedCreatePanel feedCreatePanel; // 특정 크루 피드 작성 page
 	private CrewFeedSelectPanel feedSelectPanel; // 특정 크루 특정 피드 선택 page
+
+	public static final Color COLOR_MINT = new Color(215, 255, 241); // 민트색
+	public static final Color COLOR_GREEN = new Color(140, 215, 144, (int) (0.43 * 256)); // 초록색
+	public static final String MAIN_FONT = "맑은 고딕";
 
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
 
@@ -231,13 +234,13 @@ public class CrewViewManager {
 		JPanel panelCreatePage = new JPanel();
 		panelCreatePage.setBounds(25, 60, 310, 100);
 		mainPanel.add(panelCreatePage);
-		panelCreatePage.setBackground(new Color(215, 255, 241));
+		panelCreatePage.setBackground(COLOR_MINT);
 		panelCreatePage.setLayout(null);
 
 		btnCreatePage = new JButton("크루 만들기");
 		btnCreatePage.setBounds(0, 0, 310, 100);
 		panelCreatePage.add(btnCreatePage);
-		btnCreatePage.setFont(new Font("맑은 고딕", Font.BOLD, 32));
+		btnCreatePage.setFont(new Font(MAIN_FONT, Font.BOLD, 32));
 		btnCreatePage.setContentAreaFilled(false);
 		btnCreatePage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -247,19 +250,19 @@ public class CrewViewManager {
 		});
 
 		JLabel lblCrewLabel = new JLabel("-心BOX 크루 추천");
-		lblCrewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		lblCrewLabel.setFont(new Font(MAIN_FONT, Font.BOLD, 16));
 		lblCrewLabel.setBounds(30, 200, 150, 50);
 		mainPanel.add(lblCrewLabel);
 
 		JPanel crewListPanel = new JPanel();
-		crewListPanel.setBackground(new Color(215, 255, 241));
+		crewListPanel.setBackground(COLOR_MINT);
 		crewListPanel.setBorder(new EmptyBorder(30, 15, 30, 15));
 		crewListPanel.setBounds(25, 270, 310, 270);
 		mainPanel.add(crewListPanel);
 		crewListPanel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel crewItemPanel1 = new JPanel();
-		crewItemPanel1.setBackground(new Color(215, 255, 241));
+		crewItemPanel1.setBackground(COLOR_MINT);
 		crewListPanel.add(crewItemPanel1);
 		crewItemPanel1.setLayout(null);
 
@@ -270,15 +273,15 @@ public class CrewViewManager {
 		panelCrew1.setLayout(null);
 
 		lblCrewName1 = new JLabel("크루명");
-		lblCrewName1.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblCrewName1.setFont(new Font(MAIN_FONT, Font.BOLD, 14));
 		lblCrewName1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName1.setBounds(60, 10, 80, 30);
+		lblCrewName1.setBounds(75, 10, 80, 30);
 		panelCrew1.add(lblCrewName1);
 
 		lblCrewCount1 = new JLabel("0 명");
-		lblCrewCount1.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		lblCrewCount1.setFont(new Font(MAIN_FONT, Font.PLAIN, 14));
 		lblCrewCount1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount1.setBounds(180, 10, 70, 30);
+		lblCrewCount1.setBounds(175, 10, 70, 30);
 		panelCrew1.add(lblCrewCount1);
 
 		btnCrewPage1 = new JButton("");
@@ -303,7 +306,7 @@ public class CrewViewManager {
 		panelCrew1.add(crewImagePanel); // 이미지 추가
 
 		JPanel crewItemPanel2 = new JPanel();
-		crewItemPanel2.setBackground(new Color(215, 255, 241));
+		crewItemPanel2.setBackground(COLOR_MINT);
 		crewItemPanel2.setLayout(null);
 		crewListPanel.add(crewItemPanel2);
 
@@ -314,15 +317,15 @@ public class CrewViewManager {
 		crewItemPanel2.add(panelCrew2);
 
 		lblCrewName2 = new JLabel("크루명");
-		lblCrewName2.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblCrewName2.setFont(new Font(MAIN_FONT, Font.BOLD, 14));
 		lblCrewName2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName2.setBounds(60, 10, 80, 30);
+		lblCrewName2.setBounds(75, 10, 80, 30);
 		panelCrew2.add(lblCrewName2);
 
 		lblCrewCount2 = new JLabel("0 명");
-		lblCrewCount2.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		lblCrewCount2.setFont(new Font(MAIN_FONT, Font.PLAIN, 14));
 		lblCrewCount2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount2.setBounds(180, 10, 70, 30);
+		lblCrewCount2.setBounds(175, 10, 70, 30);
 		panelCrew2.add(lblCrewCount2);
 
 		btnCrewPage2 = new JButton("");
@@ -347,7 +350,7 @@ public class CrewViewManager {
 		panelCrew2.add(crewImagePanel2); // 이미지 추가
 
 		JPanel crewItemPanel3 = new JPanel();
-		crewItemPanel3.setBackground(new Color(215, 255, 241));
+		crewItemPanel3.setBackground(COLOR_MINT);
 		crewItemPanel3.setLayout(null);
 		crewListPanel.add(crewItemPanel3);
 
@@ -358,15 +361,15 @@ public class CrewViewManager {
 		crewItemPanel3.add(panelCrew3);
 
 		lblCrewName3 = new JLabel("크루명");
-		lblCrewName3.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		lblCrewName3.setFont(new Font(MAIN_FONT, Font.BOLD, 14));
 		lblCrewName3.setHorizontalAlignment(SwingConstants.LEFT);
-		lblCrewName3.setBounds(60, 10, 80, 30);
+		lblCrewName3.setBounds(75, 10, 80, 30);
 		panelCrew3.add(lblCrewName3);
 
 		lblCrewCount3 = new JLabel("0 명");
-		lblCrewCount3.setFont(new Font("맑은 고딕", Font.PLAIN, 14));
+		lblCrewCount3.setFont(new Font(MAIN_FONT, Font.PLAIN, 14));
 		lblCrewCount3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCrewCount3.setBounds(180, 10, 70, 30);
+		lblCrewCount3.setBounds(175, 10, 70, 30);
 		panelCrew3.add(lblCrewCount3);
 
 		btnCrewPage3 = new JButton("");
@@ -446,14 +449,14 @@ public class CrewViewManager {
 		panelCrewCreateCancel = new JPanel();
 		panelCrewCreateCancel.setBounds(215, 37, 120, 23);
 		panelCrewCreateCancel.setVisible(false);
-		panelCrewCreateCancel.setBackground(new Color(215, 255, 241));
+		panelCrewCreateCancel.setBackground(COLOR_MINT);
 		mainPanel.add(panelCrewCreateCancel);
 		panelCrewCreateCancel.setLayout(null);
 
 		btnCrewCreateCancel = new JButton("만들기 취소");
 		btnCrewCreateCancel.setBounds(0, 0, 120, 23);
 		panelCrewCreateCancel.add(btnCrewCreateCancel);
-		btnCrewCreateCancel.setFont(new Font("굴림", Font.BOLD, 12));
+		btnCrewCreateCancel.setFont(new Font(MAIN_FONT, Font.BOLD, 12));
 		btnCrewCreateCancel.setContentAreaFilled(false);
 		btnCrewCreateCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
