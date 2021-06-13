@@ -23,20 +23,11 @@ public class crewListD extends JDialog {
 	private JTable table;
 	private ArrayList<Crew> crew;
 	private String crewName;
+	private DefaultTableModel model;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			crewListD dialog = new crewListD();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public crewListD() {
 		// TODO Auto-generated constructor stub
 	}
@@ -46,6 +37,7 @@ public class crewListD extends JDialog {
 	 */
 	public crewListD(ArrayList<Crew> crew, String crewName) {
 		this.crew = crew;
+		this.crewName = crewName;
 
 		setBounds(100, 100, 253, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,24 +50,11 @@ public class crewListD extends JDialog {
 		contentPanel.add(scrollPane);
 
 		String[] colNames = new String[] { "ID", "이름" };
-		String[] rows = new String[2];
-		DefaultTableModel model = new DefaultTableModel(colNames, 0);
-		for (int i = 0; i < crew.size(); i++) {
-			if (crew.get(i).getCrewName().equals(crewName)) {
-				for (int j = 0; j < crew.get(i).getCrewUserCount(); j++) {
-					for (int k = 0; k < 2; k++) {
-						if (k == 0) {
-							rows[k] = crew.get(i).getUserList().get(j).getId();
-						} else if (k == 1) {
-							rows[k] = crew.get(i).getUserList().get(j).getName();
-						}
-						
-					}
-					model.addRow(rows);
-				}
-				
-			}
-		}
+
+		model = new DefaultTableModel(colNames, 0);
+		
+		modelSetting();
+		
 
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
@@ -107,5 +86,27 @@ public class crewListD extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	private void modelSetting() {
+		
+		String[] rows = new String[2];
+		for (int i = 0; i < crew.size(); i++) {
+			if (crew.get(i).getCrewName().equals(crewName)) {
+				for (int j = 0; j < crew.get(i).getCrewUserCount(); j++) {
+					for (int k = 0; k < 2; k++) {
+						if (k == 0) {
+							rows[k] = crew.get(i).getUserList().get(j).getId();
+						} else if (k == 1) {
+							rows[k] = crew.get(i).getUserList().get(j).getName();
+						}
+						
+					}
+					model.addRow(rows);
+				}
+				
+			}
+		}
+		
 	}
 }

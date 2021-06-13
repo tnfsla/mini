@@ -31,8 +31,6 @@ public class CrewListP extends JPanel {
 	private String crewName;
 	private CrewDao crewDao;
 	private ArrayList<Crew> crew;
-	private CrewController controller;
-	private CrewControllerManager controllerManager;
 	private JScrollPane scrollPane;
 
 	/**
@@ -122,24 +120,6 @@ public class CrewListP extends JPanel {
 	public CrewListP() {
 		initialize();
 	}
-
-	public CrewListP(AdminViewManager avm) {
-		this();
-		this.avm = avm;
-	}
-
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					CrewListP panel = new CrewListP();
-//					panel.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	public CrewDao getCrewDao() {
 		return crewDao;

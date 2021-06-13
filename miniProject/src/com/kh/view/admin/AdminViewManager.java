@@ -209,6 +209,7 @@
 
 package com.kh.view.admin;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -217,14 +218,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -232,7 +230,6 @@ import javax.swing.JPanel;
 import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Crew;
 import com.kh.view.main.Main;
-import java.awt.Color;
 
 public class AdminViewManager {
 
