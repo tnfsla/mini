@@ -23,6 +23,9 @@ import com.kh.controller.login.LoginController;
 import com.kh.model.vo.SystemUser;
 import com.kh.model.vo.User;
 import com.kh.view.main.Main;
+import java.awt.Color;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class LoginMainView extends JPanel {
 
@@ -81,60 +84,38 @@ public class LoginMainView extends JPanel {
 		setBounds(0, 0, 360, 600);
 		setLayout(null);
 
-		// 테스트 용
-//		JLabel lblHome = new JLabel("Home");
-//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblHome.setBounds(150, 561, 60, 29);
-//		lblHome.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				System.out.println("메인 페이지로 이동");
-//				main.convertPanel("main");
-//			}
-//		});
-//		add(lblHome);
 
-		ImagePanel panel = new ImagePanel(new ImageIcon("./image/LoginImage.jpg").getImage());
+		ImagePanel panel = new ImagePanel(new ImageIcon("./images/LoginImage.jpg").getImage());
+		panel.setForeground(Color.WHITE);
 		panel.setSize(getSize());
 		add(panel);
 
-		JLabel lblLogin = new JLabel("LOGIN");
-		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLogin.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 46));
-		lblLogin.setBounds(47, 180, 268, 72);
-		panel.add(lblLogin);
-
 		lblJoin = new JLabel("심BOX 회원이 아니신가요?");
 		lblJoin.setHorizontalAlignment(SwingConstants.CENTER);
-		lblJoin.setBounds(100, 473, 172, 25);
+		lblJoin.setBounds(85, 494, 182, 25);
 		panel.add(lblJoin);
 
-		btnJoin = new JButton("회원가입");
-		btnJoin.setBounds(142, 519, 80, 25);
+		btnJoin = new JButton("");
+		btnJoin.setIcon(new ImageIcon("./images/JoinAdd.png"));
+		btnJoin.setBounds(128, 520, 89, 25);
 		panel.add(btnJoin);
 
 		passwordFieldPwd = new JPasswordField();
-		passwordFieldPwd.setBounds(124, 309, 172, 42);
+		passwordFieldPwd.setBounds(124, 267, 114, 44);
 		panel.add(passwordFieldPwd);
 
 		textFieldId = new JTextField();
-		textFieldId.setBounds(124, 262, 172, 42);
+		textFieldId.setForeground(new Color(0, 0, 0));
+		textFieldId.setBounds(124, 219, 161, 45);
 		panel.add(textFieldId);
 		textFieldId.setColumns(10);
 
-		JButton btnLogin = new JButton("NEXT");
-		btnLogin.setBounds(142, 362, 80, 25);
+		JButton btnLogin = new JButton("");
+		btnLogin.setForeground(Color.WHITE);
+		btnLogin.setIcon(new ImageIcon("./images/LoginNext.jpg"));
+		btnLogin.setBounds(241, 267, 43, 43);
 		panel.add(btnLogin);
 		btnLogin.setFont(new Font("Arial Unicode MS", Font.PLAIN, 15));
-
-		JButton btnAdmin = new JButton("RBt");
-		btnAdmin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updateAdminState();
-			}
-		});
-		btnAdmin.setBounds(320, 7, 28, 28);
-		panel.add(btnAdmin);
 
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -167,16 +148,6 @@ public class LoginMainView extends JPanel {
 			}
 		});
 
-	}
-
-	// 관리자 상태로 전환해주는 메소드
-	private void updateAdminState() {
-		// 회원가입부분 보이지 않게 수정
-		lblJoin.setVisible(false);
-		btnJoin.setVisible(false);
-		
-		// id admin id로 자동 세팅
-		textFieldId.setText(loginController.getAdmin().getId());
 	}
 
 	public LoginController getLoginController() {
@@ -216,7 +187,5 @@ class ImagePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, null);
 	}
-	
-	
-	
+
 }
