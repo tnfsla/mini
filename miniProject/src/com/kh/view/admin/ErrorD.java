@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 public class ErrorD extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private EventSettingP eventSetting;
+
 	private AdminEventController aec;
 	/**
 	 * Launch the application.
@@ -42,8 +42,8 @@ public class ErrorD extends JDialog {
 	}
 
 
-	public ErrorD(EventSettingP eventSetting, AdminEventController aec) {
-		this.eventSetting = eventSetting;
+	public ErrorD(AdminEventController aec) {
+
 		this.aec = aec;
 		
 		setBounds(100, 100, 450, 300);
