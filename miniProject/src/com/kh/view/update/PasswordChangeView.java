@@ -1,5 +1,6 @@
 package com.kh.view.update;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,66 +43,89 @@ public class PasswordChangeView extends JPanel {
 
 		setLayout(null);
 		setBounds(0, 0, 360, 600);
+		setBackground(Color.white);
 
-		JLabel lblNewLabel = new JLabel("비밀번호");
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 20));
-		lblNewLabel.setBounds(53, 155, 115, 39);
-		add(lblNewLabel);
-
+//		JLabel lblHome = new JLabel("Home");
+//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblHome.setBounds(150, 561, 60, 29);
+//		lblHome.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				System.out.println("메인 페이지로 이동");
+//				main.convertPanel("main");
+//			}
+//		});
+//		add(lblHome);
 		
-		textField = new JPasswordField();
-		textField.setEchoChar('*');// 비밀번호 '*'로 출력
-		textField.setBounds(52, 191, 219, 24);
-		add(textField);
-		textField.setColumns(10);
-
-		JLabel lblNewLabel_1 = new JLabel("새 비밀번호");
-		textField.getText();
-		lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(53, 268, 196, 18);
-		add(lblNewLabel_1);
-
-		textField_1 = new JPasswordField();
-		textField_1.setEchoChar('*');
-		textField_1.setBounds(52, 298, 219, 24);
-		add(textField_1);
-		textField_1.setColumns(10);
-
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(215, 255, 241));
+		panel.setBounds(0, 61, 360, 455);
+		add(panel);
+		
+		//****연필 이미지 추가****
+		JPanel personIcon = new JPanel();
+		personIcon.setBounds(120, 120, 50, 49);
+		personIcon.setLayout(null);
+		add(personIcon);
+		panel.setLayout(null);
+		
+		JButton btnNewButton_1 = new JButton("확인");
+		btnNewButton_1.setBounds(172, 292, 79, 27);
+		btnNewButton_1.setForeground(Color.RED);
+		btnNewButton_1.setBorderPainted(false);
+		btnNewButton_1.setContentAreaFilled(false);
+		panel.add(btnNewButton_1);
+		btnNewButton_1.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+				
 		JButton btnNewButton = new JButton("취소");
+		btnNewButton.setBounds(77, 292, 79, 27);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setContentAreaFilled(false);
+		panel.add(btnNewButton);
+		btnNewButton.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+						
+		textField_1 = new JPasswordField();
+		textField_1.setBounds(55, 242, 219, 24);
+		panel.add(textField_1);
+		textField_1.setEchoChar('*');
+		textField_1.setColumns(10);
+								
+		JLabel lblNewLabel_1 = new JLabel("새 비밀번호");
+		lblNewLabel_1.setBounds(55, 215, 196, 29);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+										
+												
+		textField = new JPasswordField();
+		textField.setBounds(55, 145, 219, 24);
+		panel.add(textField);
+		textField.setEchoChar('*');
+		textField.setColumns(10);
+												
+		JLabel lblNewLabel = new JLabel("비밀번호");
+		lblNewLabel.setBounds(55, 113, 115, 39);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		EditImagePanel editImagePanel = new EditImagePanel("images/pencil.png",personIcon.getSize());
+		editImagePanel.setBounds(144, 31, 50, 50);
+		panel.add(editImagePanel);
+		textField.getText();
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				main.convertPanel("userMain");
-			}
-		});
-		btnNewButton.setBounds(73, 358, 79, 27);
-		add(btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("확인");
+					main.convertPanel("userMain");
+							}
+						});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//비밀번호 변경
-				if(textField.getText().equals(viewManager.getUser().getPw())){
-					viewManager.getUser().setPw(textField_1.getText());
-					JOptionPane.showMessageDialog(null, "비밀번호 변경이 완료되었습니다.");
-				}else {
-					JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
-				}
-			}
-		});
-		btnNewButton_1.setBounds(180, 358, 79, 27);
-		add(btnNewButton_1);
-
-		JLabel lblHome = new JLabel("Home");
-		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHome.setBounds(150, 561, 60, 29);
-		lblHome.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.out.println("메인 페이지로 이동");
-				main.convertPanel("main");
-			}
-		});
-		add(lblHome);
+						//비밀번호 변경
+						if(textField.getText().equals(viewManager.getUser().getPw())){
+							viewManager.getUser().setPw(textField_1.getText());
+							JOptionPane.showMessageDialog(null, "비밀번호 변경이 완료되었습니다.");
+						}else {
+							JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
+						}
+					}
+				});
 	}
 
 	public void setUser(User user) {
