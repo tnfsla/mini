@@ -31,6 +31,7 @@ public class MainPanel extends JPanel {
 	private String eventFlag;
 	private User user;
 	private AdminEventController aec;
+	private ImageIcon bedge;
 
 	public void ThreadTime() {
 		t1 = new Thread() {
@@ -53,14 +54,14 @@ public class MainPanel extends JPanel {
 						lblTime.setBounds(42, 500, 280, 20);
 
 						lblEvent.setText("Event가 진행중이지 않습니다.");
-						lblEvent.setBounds(42, 71, 200, 40);
+						lblEvent.setBounds(42, 71, 280, 40);
 
 						if (sTime == 0 || dTimeI <= sTime) {
 							lblEvent.setText("Event가 진행중이지 않습니다.");
-							lblEvent.setBounds(42, 71, 200, 40);
+							lblEvent.setBounds(42, 71, 280, 40);
 						} else {
 							lblEvent.setText("미션 " + eventGoal + eventFlag + " 달리기가 진행중입니다.");
-							lblEvent.setBounds(42, 71, 200, 40);
+							lblEvent.setBounds(42, 71, 280, 40);
 							aec.getEventDao().getEvent().setEventStart(true);
 						}
 						Thread.sleep(1000);
@@ -154,8 +155,10 @@ public class MainPanel extends JPanel {
 		ThreadTime();
 
 		lblEvent = new JLabel("event");
+		lblEvent.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 
 		lblTime = new JLabel("time");
+		lblTime.setFont(new Font("맑은 고딕", Font.PLAIN, 13));
 
 		add(lblTime);
 		add(lblEvent);
@@ -199,7 +202,7 @@ public class MainPanel extends JPanel {
 		System.out.println(eventFlag);
 		System.out.println(eventGoal);
 		System.out.println(sTime);
-		ImageIcon bedge = new ImageIcon("images/bedge.PNG");
+		bedge = new ImageIcon("images/bedge.PNG");
 		for (int i = 0; i < user.getExercises().size(); i++) {
 			if (user.getExercises().get(i).getDatesCompare() >= sTime) {
 				if (eventFlag.equals("KM")) {

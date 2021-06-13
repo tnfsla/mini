@@ -61,6 +61,7 @@ public class EventDao {
 		event.setEventDate(0);
 		event.setEventFlag("");
 		event.setEventGoal(0);
+		event.setEventStart(false);
 		saveEvent();
 	}
 	

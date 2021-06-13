@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 
 import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Event;
+import java.awt.Color;
 
 public class EventSettingP extends JPanel {
 	private JTextField date;
@@ -34,6 +35,8 @@ public class EventSettingP extends JPanel {
 	 * Create the panel.
 	 */
 	public EventSettingP() {
+		setForeground(Color.WHITE);
+		setBackground(Color.WHITE);
 		initailize();
 
 	}
@@ -71,11 +74,13 @@ public class EventSettingP extends JPanel {
 		add(lblNewLabel_1);
 
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("거리 (KM)");
+		rdbtnNewRadioButton.setBackground(Color.WHITE);
 		rdbtnNewRadioButton.setSelected(true);
 		rdbtnNewRadioButton.setBounds(29, 271, 90, 23);
 		add(rdbtnNewRadioButton);
 
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("시간 (H)");
+		rdbtnNewRadioButton_1.setBackground(Color.WHITE);
 		rdbtnNewRadioButton_1.setBounds(119, 271, 121, 23);
 		add(rdbtnNewRadioButton_1);
 

@@ -80,7 +80,6 @@ public class EventEndAlertD extends JDialog {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						aec.getEventDao().EventEnd();
-						aec.getEventDao().getEvent().setEventStart(false);
 						dispose();
 					}
 				});

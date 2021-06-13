@@ -21,6 +21,7 @@ import com.kh.controller.crew.CrewController;
 import com.kh.controller.crew.CrewControllerManager;
 import com.kh.model.dao.CrewDao;
 import com.kh.model.vo.Crew;
+import java.awt.Color;
 
 public class CrewListP extends JPanel {
 	private AdminViewManager avm;
@@ -115,6 +116,7 @@ public class CrewListP extends JPanel {
 	}
 
 	public CrewListP() {
+		setBackground(Color.WHITE);
 		initialize();
 	}
 

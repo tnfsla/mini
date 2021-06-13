@@ -1,5 +1,6 @@
 package com.kh.view.admin;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -147,6 +148,7 @@ public class PendingApprovalP extends JPanel {
 		this.avm = avm;
 		this.crew = crew;
 		this.crewp = crewList;
+		setBackground(Color.WHITE);
 		initialize();
 	}
 	

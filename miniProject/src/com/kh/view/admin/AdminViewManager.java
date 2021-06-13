@@ -232,6 +232,7 @@ import javax.swing.JPanel;
 import com.kh.controller.admin.AdminEventController;
 import com.kh.model.vo.Crew;
 import com.kh.view.main.Main;
+import java.awt.Color;
 
 public class AdminViewManager {
 
@@ -297,6 +298,8 @@ public class AdminViewManager {
 	private void initialize() {
 
 		mainPanel = new JPanel();
+		mainPanel.setBackground(Color.WHITE);
+		mainPanel.setForeground(Color.WHITE);
 		mainPanel.setBounds(0, 0, 360, 600);
 		mainPanel.setLayout(null);
 
