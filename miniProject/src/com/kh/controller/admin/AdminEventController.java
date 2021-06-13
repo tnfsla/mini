@@ -84,7 +84,7 @@ public class AdminEventController {
 				dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog1.setVisible(true);
 				// 해당 조건문을 넣은 이유는 프로그램을 종료하였다가 다시 켰을때,
-				// 마감버튼을 누르면 마치 이전 날짜를 입력한것 처럼 표시되어서
+				// 이벤트 마감버튼을 누르면 마치 이전 날짜를 입력한것 처럼 표시 되어서
 				// eventStart를 flag로서 작동하게 하여, settingDate가 현재 날짜보다 적더라도,
 				// flag가 true면 마감 alert으로 갈 수 있게함
 			}
