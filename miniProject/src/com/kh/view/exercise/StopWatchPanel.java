@@ -64,11 +64,6 @@ public class StopWatchPanel extends JPanel implements ActionListener, Runnable {
 		setBounds(0, 0, 360, 600);
 		
 		JButton bar = new JButton(new ImageIcon("./images/stopwatchbar.png"));
-		bar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				main.convertPanel("record");
-			}
-		});
 		bar.setBounds(0, 0, 360, 40);
 		bar.setBorderPainted(false);
 		bar.setContentAreaFilled(false);
@@ -339,6 +334,25 @@ public class StopWatchPanel extends JPanel implements ActionListener, Runnable {
 				starf.setText("5");
 			}
 		});
+
+bar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//값 초기화
+				hour.setText("00");
+				min.setText("00");
+				sec.setText("00");
+				km2.setText("0.0");
+				pacef.setText("00.00");
+				kcalf.setText("0");
+				starf.setText("0");
+				s1.setIcon(ss1);
+				s2.setIcon(ss1);
+				s3.setIcon(ss1);
+				s4.setIcon(ss1);
+				s5.setIcon(ss1);
+				main.convertPanel("record");
+			}
+		});
 		// 저장
 		JButton save = new JButton(new ImageIcon("./Images/save.png"));
 		save.setLocation(145, 535);
@@ -368,9 +382,24 @@ public class StopWatchPanel extends JPanel implements ActionListener, Runnable {
 				System.out.println(user.getExercises());
 				main.updateUser(user);
 				
+				//값 초기화
+				hour.setText("00");
+				min.setText("00");
+				sec.setText("00");
+				km2.setText("0.0");
+				pacef.setText("00.00");
+				kcalf.setText("0");
+				starf.setText("0");
+				s1.setIcon(ss1);
+				s2.setIcon(ss1);
+				s3.setIcon(ss1);
+				s4.setIcon(ss1);
+				s5.setIcon(ss1);
+				
 				main.convertPanel("main");
 			}
 		});
+
 
 		setVisible(true);
 
