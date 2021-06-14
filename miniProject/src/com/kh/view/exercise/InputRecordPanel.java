@@ -37,11 +37,6 @@ public class InputRecordPanel extends JPanel {
 		setLayout(null);
 		
 		JButton bar = new JButton(new ImageIcon("./images/inputbar.png"));
-		bar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				main.convertPanel("record");
-			}
-		});
 		bar.setBounds(0, 0, 360, 40);
 		bar.setBorderPainted(false);
 		bar.setContentAreaFilled(false);
@@ -312,9 +307,28 @@ public class InputRecordPanel extends JPanel {
 			}
 		});
 
+
+bar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//값 초기화
+				h.setText("00");
+				m.setText("00");
+				s.setText("00");
+				km2.setText("0.0");
+				pacef.setText("00.00");
+				kcalf.setText("0");
+				starf.setText("0");
+				s1.setIcon(ss1);
+				s2.setIcon(ss1);
+				s3.setIcon(ss1);
+				s4.setIcon(ss1);
+				s5.setIcon(ss1);
+				main.convertPanel("record");
+			}
+		});
 		// 저장
 		JButton save = new JButton(new ImageIcon("./Images/save.png"));
-		save.setLocation(145, 540);
+		save.setLocation(145, 535);
 		save.setSize(70, 40);
 		save.setBorderPainted(false);
 		save.setContentAreaFilled(false);
@@ -336,11 +350,25 @@ public class InputRecordPanel extends JPanel {
 
 				user.addExercise(new Exercise(dates, runHour, runMin, runSec, runTime, distance, calorie, pace, star));
 				main.getLoginView().getLoginController().getUserDao().saveUserList();
-				
+
 				System.out.println("운동기록이 저장되었습니다.");
 				System.out.println(user.getExercises());
 				main.updateUser(user);
-
+				
+				//값 초기화
+				h.setText("00");
+				m.setText("00");
+				s.setText("00");
+				km2.setText("0.0");
+				pacef.setText("00.00");
+				kcalf.setText("0");
+				starf.setText("0");
+				s1.setIcon(ss1);
+				s2.setIcon(ss1);
+				s3.setIcon(ss1);
+				s4.setIcon(ss1);
+				s5.setIcon(ss1);
+				
 				main.convertPanel("main");
 			}
 		});
