@@ -120,16 +120,16 @@ public class EventSettingP extends JPanel {
 				long systemTime = System.currentTimeMillis();
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 				String dTime = formatter.format(systemTime);
-				dTimeI = Long.parseLong(dTime); //현재시각 받아와서 정해진 format의 long형으로 바꿔줌
+				dTimeI = Long.parseLong(dTime); // 현재시각 받아와서 정해진 format의 long형으로 바꿔줌
 
 				if (dTimeI < sTimeI) {
 					eventGoal = Integer.parseInt(goal.getText());
 					System.out.println(eventGoal + eventFlag + "로 설정되었다.");
-					
+
 					for (int i = 0; i < aec.getUserDao().getUserList().size(); i++) {
 						aec.getUserDao().getUserList().get(i).setHasBedge(false);
 					} // 설정을 누르면 모든 user들 새로운 이벤트를 시작하므로 모든 bedge false
-					
+
 					aec.getEventDao().setEvent(new Event(eventFlag, sTimeI, eventGoal));
 					aec.getEventDao().saveEvent();
 					aec.getUserDao().saveUserList();
@@ -137,8 +137,6 @@ public class EventSettingP extends JPanel {
 				} else {
 					System.out.println("오늘 날짜인 이후만 입력하시오(" + dTimeI + " 보다 큰 값)");
 				}
-				// eventGoal은 if문으로 넣어서, cal의 데이터와 현재시각을 비교해서 넘어가면 eventstart하고
-				// 메인화면에 출력하는거 보여주고 goal값이 0이면 이벤트 종료상태로 보면 될듯
 
 			}
 		});
