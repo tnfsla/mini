@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,17 +46,21 @@ public class PasswordChangeView extends JPanel {
 		setBounds(0, 0, 360, 600);
 		setBackground(Color.white);
 
-//		JLabel lblHome = new JLabel("Home");
-//		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblHome.setBounds(150, 561, 60, 29);
-//		lblHome.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				System.out.println("메인 페이지로 이동");
-//				main.convertPanel("main");
-//			}
-//		});
-//		add(lblHome);
+		//홈으로
+		JLabel lblHome = new JLabel();
+		lblHome.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setIcon(new ImageIcon("./Images/home2.png"));
+		lblHome.setBounds(0, 570, 360, 30);
+		lblHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("메인 페이지로 이동");
+				main.convertPanel("main");
+			}
+		});
+		add(lblHome);
+
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(215, 255, 241));
@@ -120,6 +125,8 @@ public class PasswordChangeView extends JPanel {
 						//비밀번호 변경
 						if(textField.getText().equals(viewManager.getUser().getPw())){
 							viewManager.getUser().setPw(textField_1.getText());
+							//처음으로 돌아가 앱실행시 저장된 정보들을 읽어옴
+							viewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList();
 							JOptionPane.showMessageDialog(null, "비밀번호 변경이 완료되었습니다.");
 						}else {
 							JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
