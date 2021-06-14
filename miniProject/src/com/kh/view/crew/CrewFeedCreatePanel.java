@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CrewFeedCreatePanel extends JPanel {
 
@@ -73,7 +75,8 @@ public class CrewFeedCreatePanel extends JPanel {
 		btnCreateFeed.setForeground(Color.WHITE);
 		btnCreateFeed.setContentAreaFilled(false);
 		btnCreateFeed.setBorderPainted(false);
-		CrewImagePanel crewImagePanelCreateFeed = new CrewImagePanel("./images/crew_feed_button.png", panelCreateFeed.getSize());
+		CrewImagePanel crewImagePanelCreateFeed = new CrewImagePanel("./images/crew_feed_button.png",
+				panelCreateFeed.getSize());
 		panelCreateFeed.add(crewImagePanelCreateFeed);
 
 		btnCreateFeed.addActionListener(new ActionListener() {
@@ -85,6 +88,12 @@ public class CrewFeedCreatePanel extends JPanel {
 				// 생성 후 피드 페이지로 이동
 				crewManager.getFeedPanel().updateFeed();
 				crewManager.convertPanel("crew_feed");
+
+				// 크루 특정 페이지 업데이트 (피드 수 증가)
+				crewManager.getCrewPanel().setCrew(crewManager.getCrewPanel().getCrew());
+
+				// 피드 정보 저장 (크루 정보 저장)
+				crewManager.getControllerManager().getCrewDao().saveCrewList();
 			}
 		});
 
@@ -94,12 +103,20 @@ public class CrewFeedCreatePanel extends JPanel {
 		panelFeedTitle.setLayout(null);
 
 		textFieldFeedTitle = new JTextField();
+		textFieldFeedTitle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textFieldFeedTitle.setText("");
+			}
+		});
+
 		textFieldFeedTitle.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 12));
 		textFieldFeedTitle.setBounds(50, 5, 274, 35);
 		panelFeedTitle.add(textFieldFeedTitle);
 		textFieldFeedTitle.setText("제목을 입력해주세요");
 		textFieldFeedTitle.setColumns(10);
-		CrewImagePanel crewImagePanelFeedTitle = new CrewImagePanel("./images/crew_create_crewname_edit.png", panelFeedTitle.getSize());
+		CrewImagePanel crewImagePanelFeedTitle = new CrewImagePanel("./images/crew_create_crewname_edit.png",
+				panelFeedTitle.getSize());
 		panelFeedTitle.add(crewImagePanelFeedTitle);
 
 		JPanel panelFeedContents = new JPanel();
@@ -109,6 +126,12 @@ public class CrewFeedCreatePanel extends JPanel {
 		panelFeedContents.setLayout(null);
 
 		textAreaFeedContents = new JTextArea();
+		textAreaFeedContents.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				textAreaFeedContents.setText("");
+			}
+		});
 		textAreaFeedContents.setFont(new Font(CrewViewManager.MAIN_FONT, Font.PLAIN, 13));
 		textAreaFeedContents.setBounds(12, 10, 312, 460);
 		panelFeedContents.add(textAreaFeedContents);
