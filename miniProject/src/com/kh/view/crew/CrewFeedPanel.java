@@ -137,7 +137,7 @@ public class CrewFeedPanel extends JPanel {
 			
 			public void valueChanged(ListSelectionEvent e) {
 
-				if (!e.getValueIsAdjusting()) {
+				if (listFeed.getSelectedIndex() != -1 && !e.getValueIsAdjusting()) {
 
 					Feed feed = curCrew.getFeedList().get(listFeed.getSelectedIndex());
 					crewManager.getFeedSelectPanel().setFeed(feed);

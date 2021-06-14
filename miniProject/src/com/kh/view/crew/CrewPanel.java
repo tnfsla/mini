@@ -344,4 +344,8 @@ public class CrewPanel extends JPanel {
 
 		panelNotJoinCrewInfo.setVisible(!isJoinCrew); // 가입 상태에 따라 해당 텍스트 보일지 말지 정하기
 	}
+	
+	public Crew getCrew() {
+		return crew;
+	}
 }

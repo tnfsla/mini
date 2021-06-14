@@ -140,8 +140,15 @@ public class CrewFeedSelectPanel extends JPanel {
 		panelEditFeed.add(crewImagePanelEditFeed);
 		btnEditFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("피드 수정");
-				feedSelectController.updateFeed(curFeed, textFieldTitle.getText(), textAreaContents.getText());
+				if (curFeed.getUserId().equals(crewManager.getUser().getId())) {
+					System.out.println("피드 수정");
+					feedSelectController.updateFeed(curFeed, textFieldTitle.getText(), textAreaContents.getText());
+					
+					// 피드 정보 저장
+					crewManager.getMain().getLoginView().getLoginController().getUserDao().saveUserList();
+				} else {
+					System.out.println("작성하신 피드가 아니라 수정이 불가능합니다.");
+				}
 			}
 		});
 
@@ -165,13 +172,24 @@ public class CrewFeedSelectPanel extends JPanel {
 		panelRemoveFeed.add(crewImagePanelRemoveFeed);
 		btnRemoveFeed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("피드 삭제");
-				feedSelectController.removeFeed(
-						crewManager.getControllerManager().selectCrew(crewManager.getUser().getCrewName()), curFeed);
+				if (curFeed.getUserId().equals(crewManager.getUser().getId())) {
+					System.out.println("피드 삭제");
+					feedSelectController.removeFeed(
+							crewManager.getControllerManager().selectCrew(crewManager.getUser().getCrewName()),
+							curFeed);
 
-				// 삭제 후 피드 페이지로 이동
-				crewManager.getFeedPanel().updateFeed();
-				crewManager.convertPanel("crew_feed");
+					// 삭제 후 피드 페이지로 이동
+					crewManager.getFeedPanel().updateFeed();
+					crewManager.convertPanel("crew_feed");
+					
+					// 크루 특정 페이지 업데이트 (피드 수 감소)
+					crewManager.getCrewPanel().setCrew(crewManager.getCrewPanel().getCrew());
+
+					// 피드 정보 저장 (크루 정보 저장)
+					crewManager.getControllerManager().getCrewDao().saveCrewList();
+				} else {
+					System.out.println("작성하신 피드가 아니라 삭제가 불가능합니다.");
+				}
 			}
 		});
 
@@ -225,7 +243,7 @@ public class CrewFeedSelectPanel extends JPanel {
 		panelUserIcon.setLayout(null);
 		CrewImagePanel crewImagePanel = new CrewImagePanel("./images/crew_feed_userIcon.png", panelUserIcon.getSize());
 		panelUserIcon.add(crewImagePanel);
-		
+
 		JPanel panelLikeWrap = new JPanel();
 		panelLikeWrap.setBounds(12, 245, 336, 50);
 		add(panelLikeWrap);
@@ -246,11 +264,13 @@ public class CrewFeedSelectPanel extends JPanel {
 		paneltoggleLike.setBounds(10, 5, 30, 20);
 		panelLike.add(paneltoggleLike);
 		paneltoggleLike.setLayout(null);
-		
-		CrewImagePanel crewImagePanelToggleLike = new CrewImagePanel("./images/crew_feed_like.png", paneltoggleLike.getSize());
+
+		CrewImagePanel crewImagePanelToggleLike = new CrewImagePanel("./images/crew_feed_like.png",
+				paneltoggleLike.getSize());
 		paneltoggleLike.add(crewImagePanelToggleLike);
-		
-		CrewImagePanel crewImagePanelToggleLikeClicked = new CrewImagePanel("./images/crew_feed_like_clicked.png", paneltoggleLike.getSize());
+
+		CrewImagePanel crewImagePanelToggleLikeClicked = new CrewImagePanel("./images/crew_feed_like_clicked.png",
+				paneltoggleLike.getSize());
 		paneltoggleLike.add(crewImagePanelToggleLikeClicked);
 		crewImagePanelToggleLikeClicked.setVisible(false);
 
