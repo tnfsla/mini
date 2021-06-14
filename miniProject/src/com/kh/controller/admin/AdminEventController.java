@@ -11,10 +11,10 @@ import com.kh.view.admin.ErrorD;
 import com.kh.view.admin.EventEndAlertD;
 
 public class AdminEventController {
-	
+
 	private EventDao eventDao;
 	private UserDao userDao;
-	
+
 	public AdminEventController() {
 		eventDao = new EventDao();
 		eventDao.loadEvent();
@@ -27,11 +27,11 @@ public class AdminEventController {
 	public void setEventDao(EventDao eventDao) {
 		this.eventDao = eventDao;
 	}
-	
+
 	public void loadEvent() {
 		eventDao.loadEvent();
 	}
-	
+
 	public void saveEvent() {
 		eventDao.saveEvent();
 	}
@@ -43,7 +43,7 @@ public class AdminEventController {
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	public void eventDeadline() {
 		// TODO Auto-generated method stub
 		long sTime1 = getEventDao().getEvent().getEventDate();
@@ -59,30 +59,21 @@ public class AdminEventController {
 
 		if (sTime2 != 0 && sTime2 <= dTime2) {
 			if (sTime3 <= dTime3) {
-				EventEndAlertD dialog = new EventEndAlertD(this);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
+				eventEndAlert();
+
 			} else {
 				if (getEventDao().getEvent().isEventStart()) {
-					EventEndAlertD dialog = new EventEndAlertD(this);
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
+					eventEndAlert();
 				} else {
-					ErrorD dialog1 = new ErrorD(this);
-					dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog1.setVisible(true);
+					errorAlert();
 				}
 			}
 
 		} else {
 			if (getEventDao().getEvent().isEventStart()) {
-				EventEndAlertD dialog = new EventEndAlertD(this);
-				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog.setVisible(true);
+				eventEndAlert();
 			} else {
-				ErrorD dialog1 = new ErrorD(this);
-				dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-				dialog1.setVisible(true);
+				errorAlert();
 				// 해당 조건문을 넣은 이유는 프로그램을 종료하였다가 다시 켰을때,
 				// 이벤트 마감버튼을 누르면 마치 이전 날짜를 입력한것 처럼 표시 되어서
 				// eventStart를 flag로서 작동하게 하여, settingDate가 현재 날짜보다 적더라도,
@@ -91,17 +82,28 @@ public class AdminEventController {
 		}
 	}
 
+	private void eventEndAlert() {
+		EventEndAlertD dialog = new EventEndAlertD(this);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+	}
+
+	private void errorAlert() {
+		ErrorD dialog1 = new ErrorD(this);
+		dialog1.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog1.setVisible(true);
+	}
+
 	public int hasBedgeCount() {
 		int sum = getUserDao().userCount();
 		int cnt = 0;
-		for(int i = 0 ; i<sum; i++) {
-			if(getUserDao().getUserList().get(i).isHasBedge())
+		for (int i = 0; i < sum; i++) {
+			if (getUserDao().getUserList().get(i).isHasBedge())
 				cnt++;
 		}
-		
+
 		return cnt;
-		
+
 	}
-	
 
 }

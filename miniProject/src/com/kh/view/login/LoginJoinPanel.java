@@ -108,11 +108,12 @@ public class LoginJoinPanel extends JPanel {
 		textFieldHeight.setColumns(10);
 
 		JLabel lblHeight = new JLabel("cm");
-		lblHeight.setBounds(256, 421, 23, 15);
+		lblHeight.setBounds(235, 418, 23, 15);
 		panel.add(lblHeight);
 
-		btnJoin = new JButton("확인");
-		btnJoin.setBounds(119, 510, 93, 27);
+		btnJoin = new JButton("");
+		btnJoin.setIcon(new ImageIcon("./Images/Joincheck.png"));
+		btnJoin.setBounds(122, 505, 93, 27);
 		panel.add(btnJoin);
 
 		JPanel panelName = new JPanel();
@@ -131,23 +132,24 @@ public class LoginJoinPanel extends JPanel {
 		textFieldWeight.setColumns(10);
 
 		JLabel lblWeight = new JLabel("kg");
-		lblWeight.setBounds(256, 474, 23, 15);
+		lblWeight.setBounds(235, 474, 23, 15);
 		panel.add(lblWeight);
 
 		JPanel panelId = new JPanel();
-		panelId.setBounds(101, 196, 228, 26);
+		panelId.setBackground(Color.WHITE);
+		panelId.setBounds(101, 179, 189, 41);
 		panel.add(panelId);
 		panelId.setLayout(null);
 
 		textFieldId = new JTextField();
-		textFieldId.setBounds(0, 0, 131, 25);
+		textFieldId.setBounds(0, 16, 131, 25);
 		panelId.add(textFieldId);
 		textFieldId.setColumns(10);
 
-		JButton btnCheckId = new JButton("중복확인");
+		JButton btnCheckId = new JButton("");
+		btnCheckId.setIcon(new ImageIcon("./images/btnChek.jpg"));
 		btnCheckId.setFont(new Font("굴림", Font.PLAIN, 15));
-		btnCheckId.setHorizontalAlignment(SwingConstants.LEADING);
-		btnCheckId.setBounds(135, 0, 90, 25);
+		btnCheckId.setBounds(139, 0, 43, 43);
 		panelId.add(btnCheckId);
 
 		JPanel panelPwd = new JPanel();

@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.kh.controller.admin.AdminEventController;
-import com.kh.model.vo.Exercise;
 import com.kh.model.vo.User;
 import com.kh.view.admin.AdminViewManager;
 import com.kh.view.crew.CrewViewManager;
@@ -16,17 +15,12 @@ import com.kh.view.exercise.RecordMainPanel;
 import com.kh.view.login.LoginMainView;
 import com.kh.view.result.ResultMainView;
 import com.kh.view.update.EditViewManager;
-import com.kh.view.update.PasswordChangeView;
 
 public class Main {
-
 	private JFrame frame;
-
 	/////////////////////////////////////
 	// 각 파트별 panel 정리
-
 	private MainPanel mainPanel; // Main Panel
-
 	private LoginMainView loginView; // Login Part 시작 Panel
 	private AdminViewManager adminManager; // Admin Part 시작 Panel
 	private RecordMainPanel recordMain; // Record Part 시작 Panel
@@ -35,12 +29,8 @@ public class Main {
 	private EditViewManager editView; // Update Part 시작 Panel
 	private AdminEventController aec;
 	private long sTimeI;
-	private int eventGoal;
-	private String eventFlag;
-
 	// Panel 전환을 위한 Map
 	private Map<String, JPanel> panelMap; // 프레임 전환을 위하여 map 사용
-
 	/////////////////////////////////////
 
 	public static void main(String[] args) {
@@ -64,7 +54,6 @@ public class Main {
 
 	public Main() {
 		panelMap = new LinkedHashMap<String, JPanel>();
-
 		initialize();
 		initPanel();
 	}
@@ -72,31 +61,25 @@ public class Main {
 	// 각 파트별 Panel 객체 생성 후 panelMap의 추가
 	public void initPanel() {
 		aec = new AdminEventController();
-		loginView = new LoginMainView(this,aec);
-		adminManager = new AdminViewManager(this,aec); // loginView에서
-		mainPanel = new MainPanel(this,aec);
-
+		loginView = new LoginMainView(this, aec);
+		adminManager = new AdminViewManager(this, aec); // loginView에서
+		mainPanel = new MainPanel(this, aec);
 		recordMain = new RecordMainPanel(this); // 추후 user가 들어가야함
 		resultView = new ResultMainView(this);
 		crewManager = new CrewViewManager(this);
 		editView = new EditViewManager(this);
-
 		panelMap.put("main", mainPanel);
 		panelMap.put("admin", adminManager.getMainPanel());
 		panelMap.put("record", recordMain);
 		panelMap.put("result", resultView);
 		panelMap.put("crew", crewManager.getMainPanel());
 		panelMap.put("update", editView.getEditMain());
-
 		sTimeI = adminManager.getEventSetting().getsTimeI();
 //		System.out.println("sTimeI : " + sTimeI);
-
 		addPanels(frame);
-
 		// test
 //		loginView.loginUser();
 //		convertPanel("main");
-
 		convertPanel("login");
 	}
 
@@ -115,10 +98,8 @@ public class Main {
 		// 모든 frame setVisible false로 하기
 		for (String key : panelMap.keySet()) {
 			JPanel panel = panelMap.get(key);
-
 			panel.setVisible(false);
 		}
-
 		panelMap.get(panelName).setVisible(true);
 	}
 
@@ -127,7 +108,6 @@ public class Main {
 		for (String key : panelMap.keySet()) {
 			JPanel panel = panelMap.get(key);
 			panel.setVisible(false);
-
 			frame.getContentPane().add(panel);
 		}
 	}
@@ -137,7 +117,6 @@ public class Main {
 		frame.setBounds(100, 100, 360, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
 	}
 
 	public Map<String, JPanel> getPanelMap() {
@@ -156,22 +135,14 @@ public class Main {
 		return adminManager.getEventSetting().getEventGoal();
 	}
 
-	public void setEventGoal(int eventGoal) {
-		this.eventGoal = eventGoal;
-	}
-
 	public String getEventFlag() {
 		return adminManager.getEventSetting().getEventFlag();
-	}
-
-	public void setEventFlag(String eventFlag) {
-		this.eventFlag = eventFlag;
 	}
 
 	public LoginMainView getLoginView() {
 		return loginView;
 	}
-	
+
 	public CrewViewManager getCrewManager() {
 		return crewManager;
 	}
