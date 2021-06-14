@@ -102,25 +102,21 @@ public class UserMain extends JPanel {
 		panel.setBounds(0, 23, 360, 530);
 		add(panel);
 		
-		//홈으로 가기
-		ImageIcon backhome = new ImageIcon("images/home2.PNG");
-		Image backHomeImg = backhome.getImage();
-		Image updateBackHomeImg = backHomeImg.getScaledInstance(360, 20, Image.SCALE_SMOOTH);
-		ImageIcon Home = new ImageIcon(updateBackHomeImg);
-
-		lblHome = new JLabel(Home);
+		JLabel lblHome = new JLabel();
+		lblHome.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHome.setIcon(new ImageIcon("./Images/home2.png"));
+		lblHome.setBounds(0, 570, 360, 30);
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("메인 페이지로 이동");
 				main.convertPanel("main");
-
 			}
 		});
-		
+		add(lblHome);
 	}
-	
+		
 
 
 	public void updateUser() {

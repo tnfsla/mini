@@ -123,10 +123,12 @@ public class UserCompare extends JPanel {
 			}
 		});
 		
-		//메인페이지로 가기
-		JLabel lblHome = new JLabel("Home");
+		//홈으로
+		JLabel lblHome = new JLabel();
+		lblHome.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		lblHome.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHome.setBounds(93, 565, 178, 35);
+		lblHome.setIcon(new ImageIcon("./Images/home2.png"));
+		lblHome.setBounds(0, 570, 360, 30);
 		lblHome.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -135,6 +137,7 @@ public class UserCompare extends JPanel {
 			}
 		});
 		add(lblHome);
+	
 		
 		JLabel lblNewLabel_4 = new JLabel("이전 기록보다");
 		lblNewLabel_4.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -156,21 +159,7 @@ public class UserCompare extends JPanel {
 		lblNewLabel_7.setBounds(253, 413, 62, 18);
 		add(lblNewLabel_7);
 	}
-//	public static void main(String[] args) {
-//		JFrame frame = new JFrame();
-//
-//		frame.setBounds(100, 100, 360, 600);
-//
-//		frame.setVisible(true);
-//		
-//		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		UserCompare ucompare = new UserCompare();
-//		frame.getContentPane().setLayout(null);
-//		frame.getContentPane().add(ucompare);
-//		frame.setResizable(false);
-//		
-//		
-//	}
+
 
 	public void updateUser() {
 		String userName = viewManager.getUser().getName();
